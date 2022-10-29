@@ -1,0 +1,164 @@
+{% extends 'student_view/layout.html' %}
+{% load static %}
+
+    {% block title %}
+    <title>Academics - PetERP</title>
+    {% endblock %}
+
+        {% block body %}
+        <main style="background-color: rgba(0, 0, 0, 0.03)">
+          <div class="container-fluid px-4">
+            <h1 class="mt-4">Academics</h1>
+            <ol class="breadcrumb mb-4">
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+
+            <div class="row">
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <i class="fas fa-chart-area me-1"></i>
+                    Concise Schedule
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Course</th>
+                          <th scope="col">Time</th>
+                          <th scope="col">Location</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for course in concise_schedule %}
+                        <tr>
+                          <th scope="row">{{course.course_code}}</th>
+                          <td>{{course.time}}</td>
+                          <td>{{course.location}}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <i class="fas fa-chart-area me-1"></i>
+                    Student Information
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-0">
+                      <div
+                        class="col-md-4 gradient-custom text-center text-white"
+                        style="
+                          border-top-left-radius: 0.5rem;
+                          border-bottom-left-radius: 0.5rem;
+                          padding-top: 8rem;
+                        "
+                      >
+                  
+                        <h5>{{ student_data.name }}</h5>
+                        <p>{{ student_data.major }}</p>
+                        
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body p-4">
+                          <h6>Academic Overview</h6>
+                          <hr class="mt-0 mb-4" />
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                              <h6>Attempted Hours</h6>
+                              <p class="text-muted">{{ student_data.attempted_hours }}</p>
+                            </div>
+                            <div class="col-6 mb-3">
+                              <h6>Earned Hours</h6>
+                              <p class="text-muted">{{ student_data.earned_hours }}</p>
+                            </div>
+                          </div>
+                          
+                          <div class="row pt-1">
+                            <div class="col-6 mb-3">
+                              <h6>Quality Points</h6>
+                              <p class="text-muted">{{ student_data.major }}</p>
+                            </div>
+                            <div class="col-6 mb-3">
+                              <h6>CGPA</h6>
+                              <p class="text-muted">{{ student_data.cgpa |floatformat:"2" }}</p>
+                            </div>
+                          </div>
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+               
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <i class="fas fa-chart-bar me-1"></i>
+                    Academic Links
+                  </div>
+                  <div class="card-body">
+                    <div class="card-body">
+                    
+                    <ul class="list-group list-group-flush">
+                       <li class="list-group-item"><a href ="{% url 'registration' %}">Registration</a></li>
+                       <li class="list-group-item"><a href ="{% url 'academic_records' %}">Academic Records</a></li>
+                       <li class="list-group-item"><a href ="{% url 'courses' %}">Courses</a></li>
+                       <li class="list-group-item"><a href ="{% url 'sections' %}">Sections</a></li>
+                       <li class="list-group-item"><a href ="{% url 'concise_schedule' %}">Concise Schedule</a></li>
+                       <li class="list-group-item"><a href ="{% url 'cgpa_calculator' %}">CGPA Calculator</a></li>
+                       <li class="list-group-item"><a href ="{% url 'override' %}">Override</a></li>
+                       <li class="list-group-item"><a href ="{% url 'overload' %}">Overload</a></li>
+
+                      
+                  </div>
+                </div>
+              </div>
+              </div>
+            
+              <div class="col-xl-6">
+                <div class="card mb-4">
+                  <div class="card-header">
+                    <i class="fas fa-chart-bar me-1"></i>
+                    Academic Events
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Event</th>
+                          <th scope="col">Date</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry the Bird</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        {% endblock %}
+
+
+  </body>
+</html>
