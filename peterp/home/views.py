@@ -64,3 +64,43 @@ def convert(post_data):
 
 def redirect_by_code(code):
     pass
+
+
+def settings(request):
+    return render(request,'student_view/settings.html')
+
+def logout_user(request):
+    request.session.flush()
+    return redirect(reverse('login'))
+
+
+def academics(request):
+    pass
+
+
+def registration(request):
+    pass
+
+
+def academic_records(request):
+    pass
+
+
+def cgpa_calculator(request):
+    pass
+
+
+def concise_schedule(request):
+    pass
+
+
+def override(request):
+    pass
+
+
+def overload(request):
+    pass
+
+
+def account(request):
+    pass
