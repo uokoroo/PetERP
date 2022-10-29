@@ -34,6 +34,9 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'home',
+    'student',
+    'faculty',
+    'registrar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

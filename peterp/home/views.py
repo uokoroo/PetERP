@@ -11,25 +11,19 @@ def index(request):
     # if there is a token in memory it means that the user is logged in
     if request.session.get('token'):
         token = request.session.get('token')
-        # make api requests and get important data that will be cached
-        student_data = requests.get(URL+"/student_data",headers={'Authorization':'Bearer ' + token})
-        concise_schedule = requests.get(URL+"/concise_schedule",headers={'Authorization':'Bearer ' + token})
-        # if the status_code is 401 it means the token is expired. Redirect the user to logout and create an error message
-        if student_data.status_code == 401 or concise_schedule.status_code == 401:
-            messages.add_message(request,messages.WARNING,"Session expired, please login again")
-            return redirect(reverse('logout'))
-        # for the current use case if there is no 401 error then the data is valid
-        # this probably will not hold in production but suffices for now
+        # get the student_role and return it
+        r = requests.post(URL+"/rpc/get_role", headers={'Authorization':'Bearer ' + token})
+        if r.status_code - 400 >= 0 and r.status_code - 400 <=99:
+            # if the status code is 400 it means it's a bad request so just login again.
+            return redirect(reverse('login'))
         else:
-            # cache the important data about the current use to avoid making repeated api calls
-            request.session['student_data'] = student_data.json()[0]
-            request.session['concise_schedule'] = concise_schedule.json()
-        return render(request,"student_view/index.html",{
-            'student_data':student_data.json()[0],
-            'concise_schedule' : concise_schedule.json()
-            })
+            # redirect to the correct app based on the details of the user
+            return redirect(f'{r.json()}:index')
     else:
-        return render(request,"login.html")
+        return redirect(reverse('login'))
+
+ 
+        
 
 def login(request):
     if request.method == 'POST':
@@ -38,22 +32,12 @@ def login(request):
         # 403 forbidden means the user is not allowed to access this page
         if r.status_code == 403:
             messages.add_message(request, messages.WARNING, r.text['message'])
+            return redirect(reverse('index'))
+
         else:
             request.session['token'] = r.json()['token']
             return redirect(reverse('index'))
     return render(request,"login.html")
-
-def profile(request):
-    # if there's no student_data or profile then the user is not logged in, redirect to login
-    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
-        return redirect(reverse('login'))
-    student_data = request.session.get('student_data')
-    concise_schedule = request.session.get('concise_schedule')
-    return render(request,'student_view/profile.html',{
-        'student_data':student_data,
-        'concise_schedule':concise_schedule,
-
-    })
 
 
 
@@ -68,61 +52,3 @@ def convert(post_data):
     for key in json:
         new[key] = json[key][0]
     return new
-
-    
-
-def redirect_by_code(code):
-    """
-    This function is meant to handle error codes.
-    Any 4** code will be received by this function and the appropriate page will be rendered
-    """
-    pass
-
-
-def settings(request):
-    return render(request,'student_view/settings.html')
-
-def logout_user(request):
-    # delete the session data and redirect to login. This makes the system forget there's ever been a person logged in
-    request.session.flush()
-    return redirect(reverse('login'))
-
-
-def academics(request):
-    pass
-
-
-def registration(request):
-    pass
-
-
-def academic_records(request):
-    pass
-
-
-def cgpa_calculator(request):
-    pass
-
-
-def concise_schedule(request):
-    pass
-
-
-def override(request):
-    pass
-
-
-def overload(request):
-    pass
-
-
-def account(request):
-    pass
-
-
-def courses(request):
-    pass
-
-
-def sections(request):
-    pass
