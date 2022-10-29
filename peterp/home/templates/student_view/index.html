@@ -1,27 +1,10 @@
 {% extends 'layout.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+
+    {% block title %}
     <title>Home - PetERP</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
-      rel="stylesheet"
-    />
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
-    <script
-      src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+    {% endblock %}
+
 {% block body %}
 <main style="background-color: rgba(0, 0, 0, 0.03)">
   <div class="container-fluid px-4">
@@ -52,9 +35,9 @@
                   class="img-fluid my-5"
                   style="width: 80px"
                 />
-                <h5>Marie Horwitz</h5>
+                <h5>{{  student_data.name }}</h5>
              
-                <p>A00022012</p>
+                <p>{{student_data.student_id}}</p>
 
                 <a href="{% url 'profile' %}"><i class="fa-solid fa-expand"></i></a>
                 
@@ -67,11 +50,11 @@
                   <div class="row pt-1">
                     <div class="col-6 mb-3">
                       <h6>Major</h6>
-                      <p class="text-muted">Computer Science</p>
+                      <p class="text-muted">{{ student_data.major }}</p>
                     </div>
                     <div class="col-6 mb-3">
                       <h6>Status</h6>
-                      <p class="text-muted">4th Year Student</p>
+                      <p class="text-muted">Year {{ student_data.year }} </p>
                     </div>
                   </div>
                   <h6>Personal Information</h6>
@@ -79,11 +62,11 @@
                   <div class="row pt-1">
                     <div class="col-6 mb-3">
                       <h6>Email</h6>
-                      <p class="text-muted">info@example.com</p>
+                      <p class="text-muted">{{ student_data.email }}</p>
                     </div>
                     <div class="col-6 mb-3">
                       <h6>Phone</h6>
-                      <p class="text-muted">123 456 789</p>
+                      <p class="text-muted">{{ student_data.phone_number }}</p>
                     </div>
                   </div>
                   
@@ -101,14 +84,8 @@
           </div>
           <div class="card-body">
             <div class="card mb-4">
-              <iframe
-                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Africa%2FLagos&showTitle=0&showNav=1&showTz=1&showTabs=1&showPrint=0&src=emFoaWxsZWVAZ21haWwuY29t&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZmFtaWx5MDcyNzM1MzU1ODUzOTQ1NjE4NDhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZW4ubmcjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039BE5&color=%2333B679&color=%237CB342&color=%230B8043"
-                style="border: solid 1px #777"
-                width="100%"
-                height="400"
-                frameborder="0"
-                scrolling="no"
-              ></iframe>
+              <iframe src="https://embed.styledcalendar.com/#2UtLzHcRLBQJ6LO5HEBD" title="Styled Calendar" class="styled-calendar-container" style="width: 100%; border: none;" data-cy="calendar-embed-iframe"></iframe>
+              <script async type="module" src="https://embed.styledcalendar.com/assets/parent-window.js"></script>
             </div>
           </div>
         </div>
@@ -129,36 +106,13 @@
                 </tr>
               </thead>
               <tbody>
+                {% for course in concise_schedule %}
                 <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
+                  <th scope="row">{{course.course_code}}</th>
+                  <td>{{course.time}}</td>
+                  <td>{{course.location}}</td>
                 </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -201,4 +155,4 @@
   </div>
 </main>
 {% endblock %}
-</html>
+

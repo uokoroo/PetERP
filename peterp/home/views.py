@@ -1,3 +1,4 @@
+from wsgiref import headers
 from django.shortcuts import redirect, render
 import requests
 import json
@@ -7,9 +8,20 @@ from django.urls import reverse
 URL = 'http://aun-erp-api.herokuapp.com'
 
 def index(request):
-    print(request.session.get('token'))
     if request.session.get('token'):
-        return render(request,"student_view/index.html")
+        token = request.session.get('token')
+        student_data = requests.get(URL+"/student_data",headers={'Authorization':'Bearer ' + token})
+        concise_schedule = requests.get(URL+"/concise_schedule",headers={'Authorization':'Bearer ' + token})
+        if student_data.status_code == 401 or concise_schedule.status_code == 401:
+            messages.add_message(request,messages.WARNING,"Session expired, please login again")
+            return redirect(reverse('login'))
+        else:
+            request.session['student_data'] = student_data.json()[0]
+            request.session['concise_schedule'] = concise_schedule.json()
+        return render(request,"student_view/index.html",{
+            'student_data':student_data.json()[0],
+            'concise_schedule' : concise_schedule.json()
+            })
     else:
         return render(request,"login.html")
 
@@ -18,7 +30,7 @@ def login(request):
         payload = convert(request.POST)
         r = requests.post(URL+"/rpc/login", json=payload)
         if r.status_code == 403:
-            messages.add_message(request, messages.DANGER, r.text['message'])
+            messages.add_message(request, messages.WARNING, r.text['message'])
         else:
             request.session['token'] = r.json()['token']
             return redirect(reverse('index'))
@@ -28,7 +40,15 @@ def login(request):
     return render(request,"login.html")
 
 def profile(request):
-    return render(request,'student_view/profile.html')
+    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+        return redirect(reverse('login'))
+    student_data = request.session.get('student_data')
+    concise_schedule = request.session.get('concise_schedule')
+    return render(request,'student_view/profile.html',{
+        'student_data':student_data,
+        'concise_schedule':concise_schedule,
+
+    })
 
 
 
@@ -39,6 +59,8 @@ def convert(post_data):
     for key in json:
         new[key] = json[key][0]
     return new
-    
 
     
+
+def redirect_by_code(code):
+    pass
