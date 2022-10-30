@@ -9,14 +9,16 @@
     </ol>
 
     
+      
+      
         <div class="card mb-4">
           <div class="card-header">
             <i class="fas fa-chart-area me-1"></i>
             Registration
           </div>
           <div class="card-body overflow-auto">
-            <script>
-              function SomeDeleteRowFunction() {
+            <script> 
+              function SomeDeleteRowFunction(td) {
                // event.target will be the input element.
               var td = event.target.parentNode; 
               var tr = td.parentNode; // the row to be removed
@@ -62,38 +64,78 @@
         </div>
         <div class="text-center mb-4">
           <div class="modal-container container text-center m-3">
-          <button type="button" class="btn btn-primary me-5" 
-          data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
-          <button type="button" class="btn btn-success me-5"><i class="fa-solid fa-floppy-disk"></i></button>
-          <button type="button" class="btn btn-danger "><i class="fa fa-times" aria-hidden="true"></i></button>
-          <div class="modal fade" id="exampleModalLong" tabindex="-1" 
-          role="dialog" aria-hidden="true" aria-labelledby="exampleModalLongTitle">
-            <div class="modal-dialog" role="document">
-                <!--Content-->
+            <button type="button" class="btn btn-primary me-5" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="fa-solid fa-add"></i>
+            </button>
+        
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl">
+                
                 <div class="modal-content">
-                    <!--Header-->
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <!--Body-->
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <!--Footer-->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Sections</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+            
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    <div class="card-body">
+            
+            
+                      <table id="datatablesSimple">
+                          <thead>
+                              <tr>
+                                  <th>Course</th>
+                                  <th>Course Title</th>
+                                  <th>Term</th>
+                                  <th>CRN</th>
+                                  <th>Credit</th>
+                                  <th>No.</th>
+                                  <th>Faculty</th>
+                                  <th>Time</th>
+                                  <th>Location</th>
+                                  <th>Enrolled</th>
+                                  <th>Capacity</th>
+                                  <th>Class Status</th>
+                              </tr>
+                          </thead>
+                          <tfoot>
+                            <tr>
+                                <th>Course</th>
+                                  <th>Course Title</th>
+                                  <th>Term</th>
+                                  <th>CRN</th>
+                                  <th>Credit</th>
+                                  <th>No.</th>
+                                  <th>Faculty</th>
+                                  <th>Time</th>
+                                  <th>Location</th>
+                                  <th>Enrolled</th>
+                                  <th>Capacity</th>
+                                  <th>Class Status</th>
+                          </tr>
+                          </tfoot>
+                          <tbody>
+                             
+                          </tbody>
+                      </table>
+                  </div>
+                  </div>
+            
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                  </div>
+                  </form>
                 </div>
-                <!--/.Content-->
+              </div>
             </div>
-            </div>
-        </div>
-      </div>
+      <button type="button" class="btn btn-success me-5"><i class="fa-solid fa-floppy-disk"></i></button>
+      <button type="button" class="btn btn-danger "><i class="fa fa-times" aria-hidden="true"></i></button>
 
                     <!-- Modal -->
                    
