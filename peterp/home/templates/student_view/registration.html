@@ -1,212 +1,108 @@
 {% extends 'student_view/layout.html' %} {% load static %} {% block title %}
 <title>Registration - PetERP</title>
 {% endblock %} {% block body %}
-<main>
+<main style="background-color: rgba(0, 0, 0, 0.03)">
   <div class="container-fluid px-4">
-    <h1 class="mt-4">Academic Records</h1>
+    <h1 class="mt-4">Registration</h1>
     <ol class="breadcrumb mb-4">
-      <li class="breadcrumb-item"><a href="index.html">Academics</a></li>
-      <li class="breadcrumb-item active">Fall 2022</li>
+      <li class="breadcrumb-item active">Academics</li>
     </ol>
 
-    <div class="card mb-4">
-      <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        Fall 2022
-      </div>
-      <div class="card-body">
-        <div class="card-body p-4">
-          <h6>Information</h6>
-          <hr class="mt-0 mb-4" />
-          <div class="row pt-1">
-            <div class="col-6 mb-3">
-              <h6>Term</h6>
-              <p class="text-muted">Fall 2022</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>ID</h6>
-              <p class="text-muted">A0022012</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Academic Standing</h6>
-              <p class="text-muted">Good Standing</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Honors</h6>
-              <p class="text-muted">Dean's List</p>
-            </div>
+    <div class="row">
+      
+      <div class="col-xl-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-chart-area me-1"></i>
+            Registration
           </div>
-          <h6>Degree Information</h6>
-          <hr class="mt-0 mb-4" />
-          <div class="row pt-1">
-            <div class="col-6 mb-3">
-              <h6>Major</h6>
-              <p class="text-muted">Computer Science</p>
+          <div class="card-body overflow-auto">
+            <script>
+              function SomeDeleteRowFunction() {
+               // event.target will be the input element.
+              var td = event.target.parentNode; 
+              var tr = td.parentNode; // the row to be removed
+              tr.parentNode.removeChild(tr);
+              }
+            </script>
+            <table class="table table-hover table-striped table-bordered" >
+              <thead>
+                <tr>
+                          <th><i class="fa fa-trash" aria-hidden="true"></i></th>
+                          <th>Course</th>
+                          <th>Course Title</th>
+                          <th>Term</th>
+                          <th>CRN</th>
+                          <th>Credit</th>
+                          <th>No.</th>
+                          <th>Faculty</th>
+                          <th>Time</th>
+          
+                          <th>Enrolled</th>
+                          <th>Capacity</th>
+                         
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                          <td><input type="button" class="fa fa-trash" onclick="SomeDeleteRowFunction()"></td>
+                          <td>Course</td>
+                          <td>Course Title</td>
+                          <td>Term</td>
+                          <td>CRN</td>
+                          <td>Credit</td>
+                          <td>No.</td>
+                          <td>Faculty</td>
+                          <td>Time</td>
+          
+                          <td>Enrolled</td>
+                          <td>Capacity</td>
+                        </tr> 
+              </tbody>
+            </table>
             </div>
-            <div class="col-6 mb-3">
-              <h6>Minor</h6>
-              <p class="text-muted"></p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Schools</h6>
-              <p class="text-muted">SITC</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Concentration</h6>
-              <p class="text-muted">AI and Machine Learning</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Level</h6>
-              <p class="text-muted">Undergraduate</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Program</h6>
-              <p class="text-muted">Bsc</p>
-            </div>
-          </div>
         </div>
-
-        <h6>Institution Credit</h6>
-        <hr class="mt-0 mb-4" />
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Course</th>
-              <th scope="col">Title</th>
-              <th scope="col">Grade</th>
-              <th scope="col">Hours</th>
-              <th scope="col">Repeat</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="card-body p-4">
-          <h6>Current Term</h6>
-          <hr class="mt-0 mb-4" />
-          <div class="row pt-1">
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Attempted Hours</h6>
-              <p class="text-muted">6.00</p>
+        <div class="text-center mb-4">
+          
+          <button type="button" class="btn btn-primary me-5" 
+          data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+          <button type="button" class="btn btn-success me-5"><i class="fa-solid fa-floppy-disk"></i></button>
+          <button type="button" class="btn btn-danger "><i class="fa fa-times" aria-hidden="true"></i></button>
+          <div class="modal fade" id="exampleModalLong" tabindex="-1" 
+          role="dialog" aria-hidden="true" aria-labelledby="exampleModalLongTitle">
+            <div class="modal-dialog" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <!--Footer-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+                <!--/.Content-->
             </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Quality Points</h6>
-              <p class="text-muted">10.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Passed Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Earned Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>GPA Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>GPA</h6>
-              <p class="text-muted">3.9</p>
-            </div>
-          </div>
-          <h6>Cumulative</h6>
-          <hr class="mt-0 mb-4" />
-          <div class="row pt-1">
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Attempted Hours</h6>
-              <p class="text-muted">6.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Quality Points</h6>
-              <p class="text-muted">10.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Passed Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Earned Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>GPA Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>GPA</h6>
-              <p class="text-muted">3.9</p>
-            </div>
-          </div>
-          <h6>Overall</h6>
-          <hr class="mt-0 mb-4" />
-          <div class="row pt-1">
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Attempted Hours</h6>
-              <p class="text-muted">6.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Quality Points</h6>
-              <p class="text-muted">10.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Passed Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Earned Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>GPA Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>GPA</h6>
-              <p class="text-muted">3.9</p>
-            </div>
-          </div>
         </div>
       </div>
+
+                    <!-- Modal -->
+                   
     </div>
   </div>
+  
+
+    
+    
 </main>
 {% endblock %}
