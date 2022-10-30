@@ -1,29 +1,35 @@
 conc = [
   {
-    "term": "Fall 2022",
-    "course_code": "CSC 174",
-    "title": "JTAPI",
-    "section_id": 5,
-    "lab": False,
-    "section_number": 1,
+    "student_id": "A00021204",
+    "name": "Jeanne Nikolaos Flott",
     "faculty": "Lynne Laurélie Dumke",
-    "time": "TR 3:0 - 4:30",
-    "location": "Classroom 90"
+    "session": "Fall 2022",
+    "session_id": 1,
+    "grade": "B",
+    "course_code": "CSC 174",
+    "title": "JTAPI"
   },
   {
-    "term": "Fall 2022",
-    "course_code": "CSC 833",
-    "title": "CNN Pathfire",
-    "section_id": 6,
-    "lab": False,
-    "section_number": 1,
+    "student_id": "A00021204",
+    "name": "Jeanne Nikolaos Flott",
     "faculty": "Raffaello Ruì Jennaway",
-    "time": "MW 3:0 - 4:30",
-    "location": "Classroom 78"
-  }
+    "session": "Fall 2022",
+    "session_id": 1,
+    "grade": "B",
+    "course_code": "CSC 833",
+    "title": "CNN Pathfire"
+  },
   ]
 
-dict1 = {}
-dict1['conc'] = conc[:]
+def order_records_by_session(enrollments):
+    result = {}
+    for course in enrollments:
+        if course['session'] in result:
+            result[course['session']].append(course)
+        else:
+            result[course['session']] = []
+            result[course['session']].append(course)
+    return result
 
-print(dict1)
+
+print(order_records_by_session(conc).keys())
