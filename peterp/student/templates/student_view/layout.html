@@ -30,7 +30,7 @@
   <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
       <!-- Navbar Brand-->
-      <a class="navbar-brand ps-3" href="{% url 'index' %}">AUN</a>
+      <a class="navbar-brand ps-3" href="{% url 'index' %}"><img src="{% static 'img/aun-logo.png' %}" width="60" alt=""> PetERP</a>
       <!-- Sidebar Toggle-->
       <button
         class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
@@ -141,7 +141,7 @@
                   <a class="nav-link" href="{% url 'registration' %}"
                     >Registration</a
                   >
-                  <a class="nav-link" href="{% url 'academic-records' %}"
+                  <a class="nav-link" href="{% url 'academic_records' %}"
                     >Academic Records</a
                   >
                   <a
@@ -174,7 +174,7 @@
                     >Concise Schedule</a
                   >
 
-                  <a class="nav-link" href="{% urls 'cgpa_calculator' %}"
+                  <a class="nav-link" href="{% url 'cgpa_calculator' %}"
                     >CGPA Calculator</a
                   >
                   <a
@@ -197,10 +197,10 @@
                     data-bs-parent="#sidenavAccordionPages"
                   >
                     <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="{% urls 'override' %}"
+                      <a class="nav-link" href="{% url 'override' %}"
                         >Override</a
                       >
-                      <a class="nav-link" href="{% urls 'overload' %}"
+                      <a class="nav-link" href="{% url 'overload' %}"
                         >Overload</a
                       >
                     </nav>
@@ -208,7 +208,7 @@
                 </nav>
               </div>
 
-              <a href="{% urls 'account' %}" class="nav-link">
+              <a href="{% url 'account' %}" class="nav-link">
                 <div class="sb-nav-link-icon">
                   <i class="fas fa-book-open"></i>
                 </div>
@@ -251,18 +251,5 @@
       crossorigin="anonymous"
     ></script>
     <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-      crossorigin="anonymous"
-    ></script>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-      crossorigin="anonymous"
-    ></script>
   </body>
 </html>

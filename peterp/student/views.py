@@ -8,6 +8,23 @@ from django.urls import reverse
 # Create your views here.
 URL = 'http://aun-erp-api.herokuapp.com'
 
+
+def order_records_by_session(enrollments):
+    """
+    This is supposed to be done with a proper query to the database but it's giving me problems
+    and I don't have time to spend reading the documentation.
+    For future purposes, the problem is with embedding using views
+    """
+    result = {}
+    for course in enrollments:
+        if course['session'] in result:
+            result[course['session']].append(course)
+        else:
+            result[course['session']] = []
+            result[course['session']].append(course)
+    return result
+
+
 # Create your views here.
 def index(request):
     # if there is a token in memory it means that the user is logged in
@@ -93,38 +110,187 @@ def academics(request):
 
     })
 
-
+ 
 def registration(request):
-    pass
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    if request.method == 'POST':
+        payload = convert(request.POST)
+
+        r = requests.post(URL+"/registration", json=payload,headers={'Authorization':'Bearer ' + token})
+        # 403 forbidden means the user is not allowed to access this page
+        if 0 <= r.status_code - 400 < 100:
+            messages.add_message(request, messages.WARNING, r.text['message'])
+            return redirect(reverse('home:index'))
+        else:
+            messages.add_message(request, messages.SUCCESS, 'Succesfully registered section')
+            return redirect(reverse('registration'))
+    registration = requests.get(URL+"/registration",headers={'Authorization':'Bearer ' + token}).json()
+    print(registration)
+    return render(request,"student_view/registration.html", {
+        'registration':registration
+        })
 
 
 def academic_records(request):
-    pass
+    """
+    ACADEMIC RECORDS HAS TO BE FIXED TO BE A DROPDOWN 
+    """
+    # if there's no student_data or profile then the user is not logged in, redirect to login
+    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+        return redirect(reverse('login'))
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    r = requests.get(URL+"/enrollments",headers={'Authorization':'Bearer ' + token})
+    if 0 <= r.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, r.text['message'])
+        return redirect(reverse('academic_records'))
+    else:
+        academic_records = r.json()
+        academic_records = order_records_by_session(academic_records)
+        
+    return render(request,'student_view/academic-record.html',{
+        'academic_records':academic_records,
+
+    })
 
 
 def cgpa_calculator(request):
-    pass
+    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+        return redirect(reverse('login'))
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    student_data = request.session.get('student_data')
+    token = request.session['token']
+    r = requests.get(URL+"/cgpa_calculator",headers={'Authorization':'Bearer ' + token})
+    if 0 <= r.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, r.text['message'])
+        return redirect(reverse('login'))
+        
+
+    return render(request,'student_view/cgpa_calculator.html',{
+        'student_data':student_data,
+    }) 
 
 
 def concise_schedule(request):
-    pass
+        # if there's no student_data or profile then the user is not logged in, redirect to login
+    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+        return redirect(reverse('login'))
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    concise_schedule = request.session.get('concise_schedule')
+    return render(request,'student_view/concise.html',{
+        'concise_schedule':concise_schedule,
+    })
+
 
 
 def override(request):
-    pass
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    if request.method == 'POST':
+        payload = convert(request.POST)
+
+        r = requests.post(URL+"/overrides", json=payload,headers={'Authorization':'Bearer ' + token})
+        # 403 forbidden means the user is not allowed to access this page
+        if 0 <= r.status_code - 400 < 100:
+            messages.add_message(request, messages.WARNING, r.text['message'])
+            return redirect(reverse('home:index'))
+        else:
+            messages.add_message(request, messages.SUCCESS, 'Succesfully created override')
+            return redirect(reverse('override'))
+    override = requests.get(URL+"/override",headers={'Authorization':'Bearer ' + token}).json()
+    return render(request,"student_view/override.html", {
+        'override':override
+        })
 
 
 def overload(request):
-    pass
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    if request.method == 'POST':
+        payload = convert(request.POST)
+
+        r = requests.post(URL+"/overloads", json=payload,headers={'Authorization':'Bearer ' + token})
+        # 403 forbidden means the user is not allowed to access this page
+        if 0 <= r.status_code - 400 < 100:
+            messages.add_message(request, messages.WARNING, r.text['message'])
+            return redirect(reverse('home:index'))
+        else:
+            messages.add_message(request, messages.SUCCESS, 'Succesfully created overload')
+            return redirect(reverse('overload'))
+    overload = requests.get(URL+"/overload",headers={'Authorization':'Bearer ' + token}).json()
+    return render(request,"student_view/overload.html", {
+        'overload':overload
+        })
+
 
 
 def account(request):
-    pass
+    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+        return redirect(reverse('login'))
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    student_data = request.session.get('student_data')
+    token = request.session['token']
+    r = requests.get(URL+"/transaction",headers={'Authorization':'Bearer ' + token})
+    r2 = requests.get(URL+"/rpc/get_account_balance",headers={'Authorization':'Bearer ' + token})
+    if 0 <= r.status_code - 400 < 100 or 0 <= r2.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, r.text['message'])
+        return redirect(reverse('account'))
+    else:
+        transactions = r.json()
+        balance = r2.json()
+        
+
+    return render(request,'student_view/account.html',{
+        'transactions':transactions,
+        'balance':balance,
+        'student_data':student_data
+    })
+
 
 
 def courses(request):
-    pass
+    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+        return redirect(reverse('login'))
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    r = requests.get(URL+"/courses",headers={'Authorization':'Bearer ' + token})
+    if 0 <= r.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, r.text['message'])
+        return redirect(reverse('account'))
+    else:
+        courses = r.json()
+        
+
+    return render(request,'student_view/courses.html',{
+        'courses':courses,
+    })
 
 
 def sections(request):
-    pass
+    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+        return redirect(reverse('login'))
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    r = requests.get(URL+"/sections",headers={'Authorization':'Bearer ' + token})
+    if 0 <= r.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, r.text['message'])
+        return redirect(reverse('account'))
+    else:
+        sections = r.json()
+        
+
+    return render(request,'student_view/sections.html',{
+        'sections':sections,
+    })
+
+
