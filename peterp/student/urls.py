@@ -12,6 +12,7 @@ urlpatterns = [
     path("registration/", views.registration,name='registration'),
     path("remove/<int:section_id>", views.remove,name='remove'),
     path("add_section/<int:section_id>", views.add_section,name='add_section'),
+    path("academic_records/<str:session>", views.semester_records,name='semester_records'),
     path("academic_records/", views.academic_records,name='academic_records'),
     path("courses/", views.courses,name='courses'),
     path("sections/", views.sections,name='sections'),
