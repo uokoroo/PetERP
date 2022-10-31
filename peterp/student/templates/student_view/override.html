@@ -3,174 +3,152 @@
 {% endblock %} {% block body %}
 <main style="background-color: rgba(0, 0, 0, 0.03)">
   <div class="container-fluid px-4">
-    <h1 class="mt-4">Home</h1>
+    <h1 class="mt-4">Override</h1>
     <ol class="breadcrumb mb-4">
-      <li class="breadcrumb-item active">Student</li>
+      <li class="breadcrumb-item active">Academics</li>
     </ol>
 
-    <div class="row">
-      <div class="col-xl-6">
+    
+      
+      <div class-="row px-4 text-center">
+
+     
         <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-chart-area me-1"></i>
-            Student Information
+          
+          <div class="card-body overflow-auto">
+            <div class="row">
+
+            <div class="col mb-4">
+            <h3 class="lead">
+              Type of Override
+             
+            </h3>
+            <div class="btn-group">
+              <button type="button" class="btn btn-danger">Action</button>
+              <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu z-dropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Separated link</a></li>
+              </ul>
+            </div>
           </div>
-          <div class="card-body">
-            <div class="row g-0">
-              <div
-                class="col-md-4 gradient-custom text-center text-white"
-                style="
-                  border-top-left-radius: 0.5rem;
-                  border-bottom-left-radius: 0.5rem;
-                "
-              >
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                  alt="Avatar"
-                  class="img-fluid my-5"
-                  style="width: 80px"
-                />
-                <h5>Marie Horwitz</h5>
-                <p>Web Designer</p>
-                <p>A00022012</p>
-              </div>
-              <div class="col-md-8">
-                <div class="card-body p-4">
-                  <h6>Information</h6>
-                  <hr class="mt-0 mb-4" />
-                  <div class="row pt-1">
-                    <div class="col-6 mb-3">
-                      <h6>Email</h6>
-                      <p class="text-muted">info@example.com</p>
+          <div class="col">
+            <h3 class="lead">
+              Requested Course
+             
+              
+            </h3>
+            <div class="modal-container container text-center m-3">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="addModalTrigger"
+                data-bs-target="#addmodal">
+                <i class="fa-solid fa-add"></i> 
+              </button>
+      
+              <!-- Modal -->
+              <div class="modal fade" id="addmodal" tabindex="-1" data-bs-backdrop="static"  aria-labelledby="addModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+      
+                  <div class="modal-content">
+      
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Sections</h4>
                     </div>
-                    <div class="col-6 mb-3">
-                      <h6>Phone</h6>
-                      <p class="text-muted">123 456 789</p>
+      
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <div class="card-body">
+      
+      
+                        <table id="datatablesSimple">
+                          <thead>
+                            <tr>
+                              <th>CRN</th>
+                              <th>Course Code</th>
+                              <th>Course Title</th>
+                              <th>Credit Hours</th>
+                              <th>Capacity</th>
+                              <th>Enrolled</th>
+                              <th>Time</th>
+                              <th>Faculty</th>
+                              <th>Term</th>
+                              <th>Location</th>
+                              <th>Section Number</th>
+                              <th> Add </th>
+                            </tr>
+                          </thead>
+      
+                          <tbody>
+                            {% for section in sections %}
+                              <tr>
+                                <td>{{ section.section_id }}</td>
+                                <td>{{ section.course_code }}</td>
+                                <td>{{ section.title }}</td>
+                                <td>{{ section.credit_hours }}</td>
+                                <td>{{ section.capacity }}</td>
+                                <td>{{ section.enrolled }}</td>
+                                <td>{{ section.time }}</td>
+                                <td>{{ section.faculty }}</td>
+                                <td>{{ section.term }}</td>
+                                <td>{{ section.location }}</td>
+                                <td>{{ section.section_number }}</td>
+                                <td><a href="{% url 'add_section' section.section_id %}"><button class="btn btn-primary">Add</button></a></td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
-                  </div>
-                  <h6>Projects</h6>
-                  <hr class="mt-0 mb-4" />
-                  <div class="row pt-1">
-                    <div class="col-6 mb-3">
-                      <h6>Recent</h6>
-                      <p class="text-muted">Lorem ipsum</p>
+      
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
-                    <div class="col-6 mb-3">
-                      <h6>Most Viewed</h6>
-                      <p class="text-muted">Dolor sit amet</p>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
-            </div>
+              <!-- Modal -->
+            </div> 
           </div>
         </div>
       </div>
-      <div class="col-xl-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-chart-area me-1"></i>
-            Calendar
+        <div class="text-center mt-4 mb-4">
+      
+           
+          <div class="form-outline mx-5 mt-4">
+            <textarea style="border: 1px solid black" class="form-control" id="textAreaExample" rows="4"></textarea>
+            <label class="form-label" for="textAreaExample">Notes</label>
           </div>
-          <div class="card-body">
-            <div class="card mb-4">
-              <iframe
-                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=Africa%2FLagos&showTitle=0&showNav=1&showTz=1&showTabs=1&showPrint=0&src=emFoaWxsZWVAZ21haWwuY29t&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZmFtaWx5MDcyNzM1MzU1ODUzOTQ1NjE4NDhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=ZW4ubmcjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039BE5&color=%2333B679&color=%237CB342&color=%230B8043"
-                style="border: solid 1px #777"
-                width="100%"
-                height="400"
-                frameborder="0"
-                scrolling="no"
-              ></iframe>
-            </div>
+          <div class="container mb-5">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col" class="lead">No. of Requested Courses</th>
+                <th scope="col" class="lead">Date</th>
+                <th scope="col" class="lead">Status</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
           </div>
-        </div>
-      </div>
-      <div class="col-xl-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-chart-area me-1"></i>
-            Concise Schedule
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Course</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+      <button type="button" class="btn btn-success me-5"><i class="fa-solid fa-floppy-disk"></i></button>
+      <button type="button" class="btn btn-danger "><i class="fa fa-times" aria-hidden="true"></i></button>
 
-      <div class="col-xl-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-chart-bar me-1"></i>
-            Academic Events
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Event</th>
-                  <th scope="col">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry the Bird</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+                    <!-- Modal -->
+                   
+    
+  
+
+    
+                  </div>
 </main>
 {% endblock %}
