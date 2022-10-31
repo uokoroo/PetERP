@@ -16,25 +16,25 @@
         <div class="card mb-4">
           
           <div class="card-body overflow-auto">
-            <div class="row">
+            <div class="container mt-3">
+              <div class="row">
 
             <div class="col mb-4">
             <h3 class="lead">
               Type of Override
              
             </h3>
-            <div class="btn-group">
-              <button type="button" class="btn btn-danger">Action</button>
-              <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="visually-hidden">Toggle Dropdown</span>
-              </button>
-              <ul class="dropdown-menu z-dropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Separated link</a></li>
-              </ul>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="form-check-label" for="flexCheckDefault">
+                Class Size Override
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+              <label class="form-check-label" for="flexCheckChecked">
+                Prerequisite Override
+              </label>
             </div>
           </div>
           <div class="col">
@@ -43,7 +43,7 @@
              
               
             </h3>
-            <div class="modal-container container text-center m-3">
+            <div class="modal-container container  m-3">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="addModalTrigger"
                 data-bs-target="#addmodal">
                 <i class="fa-solid fa-add"></i> 
@@ -104,6 +104,7 @@
                         </table>
                       </div>
                     </div>
+                   
       
                     <!-- Modal footer -->
                     <div class="modal-footer">
@@ -116,7 +117,27 @@
               <!-- Modal -->
             </div> 
           </div>
+          </div>
         </div>
+      </div>
+      <div class="container mb-5">
+      <table class="table table-striped">
+        <thead>
+         
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="col" class="lead">Course</td>
+            <td scope="col" class="lead">ID</td>
+            <td scope="col" class="lead">Status</td>
+            <td scope="col" class="lead">Overload Type</td>
+            <td scope="col" class="lead">Date</td>
+            
+            
+          </tr>
+          
+        </tbody>
+      </table>
       </div>
         <div class="text-center mt-4 mb-4">
       
@@ -132,6 +153,7 @@
                 <th scope="col" class="lead">Course</th>
                 <th scope="col" class="lead">ID</th>
                 <th scope="col" class="lead">Status</th>
+                <th scope="col" class="lead">Overload Type</th>
                 <th scope="col" class="lead">Date</th>
                 
                 
