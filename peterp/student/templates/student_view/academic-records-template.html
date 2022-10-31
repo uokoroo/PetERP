@@ -5,7 +5,7 @@
   <div class="container-fluid px-4">
     <h1 class="mt-4">Academic Records</h1>
     <ol class="breadcrumb mb-4">
-      <li class="breadcrumb-item"><a href="index.html">Academics</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'academic_records' %}">Academics</a></li>
       <li class="breadcrumb-item active">Fall 2022</li>
     </ol>
 
@@ -21,99 +21,48 @@
           <div class="row pt-1">
             <div class="col-6 mb-3">
               <h6>Term</h6>
-              <p class="text-muted">Fall 2022</p>
+              <p class="text-muted">{{ session }}</p>
             </div>
             <div class="col-6 mb-3">
               <h6>ID</h6>
-              <p class="text-muted">A0022012</p>
+              <p class="text-muted">{{student_data.student_id}}</p>
             </div>
             <div class="col-6 mb-3">
               <h6>Academic Standing</h6>
-              <p class="text-muted">Good Standing</p>
+              {% if student_data.cgpa >= 2 %}
+              <p class="text-success">Good Standing</p>
+              {% else %}
+              <p class="text-danger">Bad Standing</p>
+              {% endif %}
             </div>
             <div class="col-6 mb-3">
               <h6>Honors</h6>
-              <p class="text-muted">Dean's List</p>
+              <p class="text-muted">{{session_data.honors}}</p>
             </div>
           </div>
-          <h6>Degree Information</h6>
-          <hr class="mt-0 mb-4" />
-          <div class="row pt-1">
-            <div class="col-6 mb-3">
-              <h6>Major</h6>
-              <p class="text-muted">Computer Science</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Minor</h6>
-              <p class="text-muted"></p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Schools</h6>
-              <p class="text-muted">SITC</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Concentration</h6>
-              <p class="text-muted">AI and Machine Learning</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Level</h6>
-              <p class="text-muted">Undergraduate</p>
-            </div>
-            <div class="col-6 mb-3">
-              <h6>Program</h6>
-              <p class="text-muted">Bsc</p>
-            </div>
-          </div>
-        </div>
-
+          
         <h6>Institution Credit</h6>
         <hr class="mt-0 mb-4" />
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Course</th>
-              <th scope="col">Title</th>
-              <th scope="col">Grade</th>
-              <th scope="col">Hours</th>
-              <th scope="col">Repeat</th>
+              <th class="text-center">Course</th>
+              <th class="text-center">Title</th>
+              <th class="text-center">Grade</th>
+              <th class="text-center">Credit Hours</th>
+              <th class="text-center">Repeat</th>
             </tr>
           </thead>
           <tbody>
+            {% for course in data %}
             <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
+              <td class="text-center">{{ course.course_code }}</td>
+              <td class="text-center">{{ course.title }}</td>
+              <td class="text-center">{{ course.grade }}</td>
+              <td class="text-center">{{ course.credit_hours }}</td>
+              <td>-</td>
             </tr>
-            <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>A</td>
-              <td>3</td>
-              <td>1</td>
-            </tr>
+            {% endfor %}
           </tbody>
         </table>
         <div class="card-body p-4">
@@ -122,28 +71,28 @@
           <div class="row pt-1">
             <div class="col-6 col-md-4 mb-3">
               <h6>Attempted Hours</h6>
-              <p class="text-muted">6.00</p>
+              <p class="text-muted">{{ session_data.attempted_hours }}</p>
             </div>
             <div class="col-6 col-md-4 mb-3">
               <h6>Quality Points</h6>
-              <p class="text-muted">10.00</p>
+              <p class="text-muted"> {{ session_data.quality_points }}</p>
             </div>
             <div class="col-6 col-md-4 mb-3">
               <h6>Passed Hours</h6>
-              <p class="text-muted">3.00</p>
+              <p class="text-muted">{{ session_data.earned_hours }}</p>
             </div>
 
             <div class="col-6 col-md-4 mb-3">
               <h6>Earned Hours</h6>
-              <p class="text-muted">3.00</p>
+              <p class="text-muted">{{ session_data.earned_hours }}</p>
             </div>
             <div class="col-6 col-md-4 mb-3">
-              <h6>GPA Hours</h6>
-              <p class="text-muted">3.00</p>
+              <h6>Honors</h6>
+              <p class="text-muted">{{ session_data.honors }}</p>
             </div>
             <div class="col-6 col-md-4 mb-3">
               <h6>GPA</h6>
-              <p class="text-muted">3.9</p>
+              <p class="text-muted">{{ session_data.gpa }}</p>
             </div>
           </div>
           <h6>Cumulative</h6>
@@ -151,57 +100,36 @@
           <div class="row pt-1">
             <div class="col-6 col-md-4 mb-3">
               <h6>Attempted Hours</h6>
-              <p class="text-muted">6.00</p>
+              <p class="text-muted">{{ student_data.attempted_hours }}</p>
             </div>
             <div class="col-6 col-md-4 mb-3">
               <h6>Quality Points</h6>
-              <p class="text-muted">10.00</p>
+              <p class="text-muted">{{ student_data.quality_points | floatformat:2 }}</p>
             </div>
             <div class="col-6 col-md-4 mb-3">
               <h6>Passed Hours</h6>
-              <p class="text-muted">3.00</p>
+              <p class="text-muted">{{ student_data.earned_hours }}</p>
             </div>
 
             <div class="col-6 col-md-4 mb-3">
               <h6>Earned Hours</h6>
-              <p class="text-muted">3.00</p>
+              <p class="text-muted">{{ student_data.earned_hours }}</p>
             </div>
             <div class="col-6 col-md-4 mb-3">
-              <h6>GPA Hours</h6>
-              <p class="text-muted">3.00</p>
+              <h6>Current year</h6>
+              {% if student_data.year == 2 %}
+              <p class="text-muted">{{ student_data.year }}nd Year Student</p>
+              {% elif student_data.year == 1 %}
+              <p class="text-muted">{{ student_data.year }}st Year Student</p>
+              {% elif student_data.year == 3 %}
+              <p class="text-muted">{{ student_data.year }}rd Year Student</p>
+              {% else %}
+              <p class="text-muted">{{ student_data.year }}th Year Student</p>
+              {% endif %}
             </div>
             <div class="col-6 col-md-4 mb-3">
-              <h6>GPA</h6>
-              <p class="text-muted">3.9</p>
-            </div>
-          </div>
-          <h6>Overall</h6>
-          <hr class="mt-0 mb-4" />
-          <div class="row pt-1">
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Attempted Hours</h6>
-              <p class="text-muted">6.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Quality Points</h6>
-              <p class="text-muted">10.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Passed Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-
-            <div class="col-6 col-md-4 mb-3">
-              <h6>Earned Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>GPA Hours</h6>
-              <p class="text-muted">3.00</p>
-            </div>
-            <div class="col-6 col-md-4 mb-3">
-              <h6>GPA</h6>
-              <p class="text-muted">3.9</p>
+              <h6>CGPA</h6>
+              <p class="text-muted">{{ student_data.cgpa |floatformat:2 }}</p>
             </div>
           </div>
         </div>

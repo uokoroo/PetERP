@@ -153,9 +153,12 @@ def registration(request):
     if 0 <= registration.status_code - 400 < 100 or 0 <= sections.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, (registration.json()['message']))
         return HttpResponseRedirect(reverse('login'))
+    student_data = request.session.get('student_data')
+
     return render(request,"student_view/registration.html", {
         'registration':registration.json(),
-        'sections': sections.json()
+        'sections': sections.json(),
+        "student_data":student_data
         })
 
 
@@ -197,16 +200,33 @@ def academic_records(request):
         return redirect(reverse('home:login'))
     token = request.session['token']
     r = requests.get(URL+"/enrollments",headers={'Authorization':'Bearer ' + token})
+    print(r.json())
     if 0 <= r.status_code - 400 < 100:
-        messages.add_message(request, messages.WARNING, r.text['message'])
-        return redirect(reverse('academic_records'))
+        messages.add_message(request, messages.WARNING, r.json()['message'])
+        return redirect(reverse('login'))
     else:
         academic_records = r.json()
         academic_records = order_records_by_session(academic_records)
-        
+    student_data = request.session.get('student_data')
+    request.session['academic_records'] = academic_records
     return render(request,'student_view/academic-record.html',{
         'academic_records':academic_records,
+        'student_data':student_data
 
+    })
+
+def semester_records(request,session):
+    if not request.session.get('academic_records'):
+        return redirect(reverse('login'))
+    all_data = request.session.get('academic_records')
+    session_data = academic_data(all_data[session])
+    data = all_data[session]
+    student_data = request.session.get('student_data')
+    return render(request, 'student_view/academic-records-template.html',{
+        'data':data,
+        'student_data':student_data,
+        'session':session,
+        'session_data':session_data,
     })
 
 
@@ -219,7 +239,7 @@ def cgpa_calculator(request):
     token = request.session['token']
     r = requests.get(URL+"/cgpa_calculator",headers={'Authorization':'Bearer ' + token})
     if 0 <= r.status_code - 400 < 100:
-        messages.add_message(request, messages.WARNING, r.text['message'])
+        messages.add_message(request, messages.WARNING, r.json()['message'])
         return redirect(reverse('login'))
         
 
@@ -242,8 +262,8 @@ def concise_schedule(request):
 
 
 def override(request):
-    if not request.session['token']:
-        return redirect(reverse('home:login'))
+    if not request.session.get('token'):
+        return redirect(reverse('login'))
     token = request.session['token']
     if request.method == 'POST':
         payload = convert(request.POST)
@@ -347,3 +367,42 @@ def sections(request):
     })
 
 
+def academic_data(courses):
+    grade_assignments = {
+        'A':4,
+        'A-':3.7,
+        'B+':3.3,
+        'B':3,
+        'B-':2.7,
+        'C+':2.3,
+        'C':2,
+        'D':1,
+        'F':0,
+        'WP':0,
+        'WF':0,
+        'I':0,
+        }
+    gpa = 0
+    attempted_hours = 0
+    earned_hours = 0
+    honors = None
+    quality_points = 0
+    for course in courses:
+        print(course)
+        print("course['grade']",course['grade'])
+        print("course['']",course['credit_hours'])
+        attempted_hours += course['credit_hours'] if course['grade'] not in ['WP','I'] else 0
+        if course['grade'] not in ['D','F','WP','WF','I']:
+            earned_hours += course['credit_hours']
+
+        quality_points += (grade_assignments[course['grade']] * course['credit_hours'])
+    gpa = round(quality_points/attempted_hours,2)
+    honors = "Dean's list" if 3.5 <= gpa < 3.8 else "President's list" if gpa > 3.8 else None
+    return {
+        'gpa':gpa,
+        'attempted_hours':attempted_hours,
+        'earned_hours':earned_hours,
+        'honors':honors,
+        'quality_points':quality_points
+
+    }
