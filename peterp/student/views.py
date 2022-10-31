@@ -288,7 +288,6 @@ def overload(request):
     token = request.session['token']
     if request.method == 'POST':
         payload = convert(request.POST)
-
         r = requests.post(URL+"/overloads", json=payload,headers={'Authorization':'Bearer ' + token})
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
@@ -297,9 +296,16 @@ def overload(request):
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully created overload')
             return redirect(reverse('overload'))
-    overload = requests.get(URL+"/overload",headers={'Authorization':'Bearer ' + token}).json()
+    overload = requests.get(URL+"/overloads",headers={'Authorization':'Bearer ' + token})
+    max_courses = requests.get(URL+"/rpc/get_max_courses",headers={'Authorization':'Bearer ' + token}).json()
+    if 0 <= overload.status_code - 400 < 100:
+        print(overload.json())
+        messages.add_message(request, messages.WARNING, overload.json()['message'])
+        return redirect(reverse('login'))
+    messages.add_message(request, messages.SUCCESS, 'Succesfully created overload')
     return render(request,"student_view/overload.html", {
-        'overload':overload
+        'overloads':overload.json(),
+        "max_courses":max_courses,
         })
 
 
