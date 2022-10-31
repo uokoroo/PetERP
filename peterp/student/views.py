@@ -242,8 +242,8 @@ def concise_schedule(request):
 
 
 def override(request):
-    if not request.session['token']:
-        return redirect(reverse('home:login'))
+    if not request.session.get('token'):
+        return redirect(reverse('login'))
     token = request.session['token']
     if request.method == 'POST':
         payload = convert(request.POST)
