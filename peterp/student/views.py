@@ -5,6 +5,8 @@ import requests
 import json
 from django.contrib import messages
 from django.urls import reverse
+
+from django.http import HttpResponseRedirect
 # Create your views here.
 URL = 'http://aun-erp-api.herokuapp.com'
 
@@ -81,12 +83,32 @@ def convert(post_data):
 
     
 
-def redirect_by_code(code):
+def redirect_by_code(request,incoming_request,source_page):
     """
     This function is meant to handle error codes.
     Any 4** code will be received by this function and the appropriate page will be rendered
+
+    I know that this is a bit of an unsavory way of implementing this 
+    but it's the fastest and I don't have to use my brain
     """
-    pass
+    code = incoming_request.status_code
+
+    if code - 400 >= 0 and code - 400 <=99:
+        messages.add_message(request, messages.WARNING, incoming_request.json()['message'])
+        if code == 401:
+            return redirect(reverse('login'))
+        elif code == 403:
+            # 403 forbidden means the user is not allowed to access this page
+            return render(request,'student_ view/forbidden.html')
+        elif code == 404:
+            return render(request,'student_ view/notfound404.html')
+        else:
+            # if the status code is 400 it means it's a bad request so just login again.
+            return redirect(reverse(source_page))
+    else:
+        messages.add_message(request, messages.SUCCESS, "Success")
+        return redirect(reverse(source_page))
+
 
 
 def settings(request):
@@ -112,9 +134,9 @@ def academics(request):
 
  
 def registration(request):
-    if not request.session['token']:
-        return redirect(reverse('home:login'))
-    token = request.session['token']
+    if not request.session.get('token'):
+        return redirect('home:login')
+    token = request.session.get('token')
     if request.method == 'POST':
         payload = convert(request.POST)
 
@@ -122,15 +144,46 @@ def registration(request):
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
             messages.add_message(request, messages.WARNING, r.text['message'])
-            return redirect(reverse('home:index'))
+            return redirect(reverse('home:login'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully registered section')
             return redirect(reverse('registration'))
-    registration = requests.get(URL+"/registration",headers={'Authorization':'Bearer ' + token}).json()
-    print(registration)
+    registration = requests.get(URL+"/registration",headers={'Authorization':'Bearer ' + token})
+    sections = requests.get(URL+"/all_sections?order=session_id.desc",headers={'Authorization':'Bearer ' + token})
+    if 0 <= registration.status_code - 400 < 100 or 0 <= sections.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, (registration.json()['message']))
+        return HttpResponseRedirect(reverse('login'))
     return render(request,"student_view/registration.html", {
-        'registration':registration
+        'registration':registration.json(),
+        'sections': sections.json()
         })
+
+
+def remove(request,section_id):
+    token = request.session.get('token')
+    if not token:
+        return redirect('home:login')
+    delete_req = requests.delete(URL+f"/registration?section_id?section_id=eq.{section_id}",
+    headers={
+        'Authorization':'Bearer ' + token,
+        'Prefer':'return=representation'
+    })
+    return redirect_by_code(request,delete_req,'registration')
+
+
+def add_section(request,section_id):
+    token = request.session.get('token')
+    if not token:
+        return redirect('home:login')
+    add_req = requests.post(
+        URL+f"/registration",
+        headers={
+        'Authorization':'Bearer ' + token
+        },
+        json={"section_id":section_id})
+    return redirect_by_code(request,add_req,'registration')
+    
+
 
 
 def academic_records(request):
