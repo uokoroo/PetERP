@@ -14,79 +14,35 @@
         Academic Records
       </div>
       <div class="card-body">
-        <table class="table table-hover table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Term</th>
-            </tr>
-          </thead>
+        <h1 class="mt-4">Academic Records</h1>
+        <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item active">Academics</li>
+        </ol>
+    
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Academic Records
+          </div>
+          <div class="card-body">
+    
+    
+            <span class="h2 text-muted" >Term</span>
+            <ol class="list-group list-group-numbered">
+    
+                {% for session in academic_records %}
+                <a href="{% url 'semester_records' session %}">
+                  <li class="list-group-item">
+                        {{ session }}
+                      </li>
+                    </a>
+                    {% endfor %}
 
-          <tbody>
-            <tr>
-              <td scope="row">
-                Fall 2022
-                <hr />
-                <div class="row">
-                  <div class="col">
-                    <p>Credit Hours</p>
-                    <p>12</p>
-                  </div>
-                  <div class="col">
-                    <p>GPA</p>
-                    <p>3.0</p>
-                  </div>
-                  <div class="col">
-                    <p>CGPA</p>
-                    <p>2.3</p>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td scope="row">
-                Fall 2022
-                <hr />
-                <div class="row">
-                  <div class="col">
-                    <p>Credit Hours</p>
-                    <p>12</p>
-                  </div>
-                  <div class="col">
-                    <p>GPA</p>
-                    <p>3.0</p>
-                  </div>
-                  <div class="col">
-                    <p>CGPA</p>
-                    <p>2.3</p>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td scope="row">
-                Fall 2022
-                <hr />
-                <div class="row">
-                  <div class="col">
-                    <p>Credit Hours</p>
-                    <p>12</p>
-                  </div>
-                  <div class="col">
-                    <p>GPA</p>
-                    <p>3.0</p>
-                  </div>
-                  <div class="col">
-                    <p>CGPA</p>
-                    <p>2.3</p>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</main>
-
+                  </tbody>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </main>
+     
 {% endblock %}
