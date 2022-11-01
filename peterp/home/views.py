@@ -25,7 +25,7 @@ def index(request):
  
         
 
-def login(request):
+def login_user(request):
     if request.method == 'POST':
         payload = convert(request.POST)
         r = requests.post(URL+"/rpc/login", json=payload)
