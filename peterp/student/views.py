@@ -289,16 +289,18 @@ def overload(request):
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully created overload')
             return redirect(reverse('overload'))
-    overload = requests.get(URL+"/overloads",headers={'Authorization':'Bearer ' + token})
+    overload = requests.get(URL+"/overloads?select=*,session(semester,year)",headers={'Authorization':'Bearer ' + token})
     max_courses = requests.get(URL+"/rpc/get_max_courses",headers={'Authorization':'Bearer ' + token}).json()
+    session = requests.get(URL+"/session",headers={'Authorization':'Bearer ' + token}).json()
     if 0 <= overload.status_code - 400 < 100:
         print(overload.json())
         messages.add_message(request, messages.WARNING, overload.json()['message'])
         return redirect(reverse('login'))
-    messages.add_message(request, messages.SUCCESS, 'Succesfully created overload')
+    student_data = request.session.get('student_data')
     return render(request,"student_view/overload.html", {
         'overloads':overload.json(),
         "max_courses":max_courses,
+        "student_data":student_data,
         })
 
 

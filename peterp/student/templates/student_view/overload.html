@@ -25,15 +25,23 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col" class="lead">Additional Courses Requested</th>
-                <th scope="col" class="lead">Date</th>
-                <th scope="col" class="lead">Status</th>
-                <th scope="col" class="lead">Date</th>
+                <th scope="col" class="">Additional Courses Requested</th>
+                <th scope="col" class="">Date</th>
+                <th scope="col" class="">Status</th>
+                <th scope="col" class="">Semester</th>
                 
               </tr>
             </thead>
             <tbody>
-              
+              {% for overload in overloads %}
+              <tr>
+                <td scope="col" class="">{{ overload.additional_courses }}</td>
+                <td scope="col" class="">{{ overload.date }}</td>
+                <td scope="col" class="">{{ overload.state }}</td>
+                <td scope="col" class="">{{ overload.session.semester }} {{ overload.session.year }}</td>
+
+              </tr>
+              {% endfor %}
             </tbody>
           </table>
           </div>
@@ -57,13 +65,14 @@
       
                     <!-- Modal body -->
                     <div class="modal-body">
+                      <form action="{% url 'new_overload' %}">
                       <div class="card mb-4">
           
                         <div class="card-body overflow-auto">
                           <div class="row">
               
                           <div class="col mb-4">
-                          <h3 class="lead">
+                          <h3 class="">
                             Current Course Load
                            
                           </h3>
@@ -80,13 +89,13 @@
                           </div>
                         </div>
                         <div class="col">
-                          <h3 class="lead">
+                          <h3 class="">
                             Requested Course Addition
                            
                             
                           </h3>
                           <div class="form-outline me-5" style="width: 150px">
-                            <input type="number" id="typeNumber" class="form-control" />
+                            <input type="number" id="typeNumber" class="form-control" name="additional_courses"/>
                            
                           </div>
                         </div>
@@ -96,11 +105,12 @@
                     
                          
                         <div class="form-outline mx-5">
-                          <input class="form-control" id="textAreaExample" type="text" rows="4"></input>
+                          <input class="form-control" id="textAreaExample" type="text" rows="4" name="notes"></input>
                           <label class="form-label" for="textAreaExample">Notes</label>
                         </div>
                         </div>
                         </div>
+                      </form>
                     </div>
       
                     <!-- Modal footer -->
