@@ -33,9 +33,30 @@
                 {% for session in academic_records %}
                 <a href="{% url 'semester_records' session %}">
                   <li class="list-group-item">
-                        {{ session }}
+                        <span class="h3">{{ session }}</span>
+                        
                       </li>
+                      
+                    
+                  
                     </a>
+                   
+                    
+                    <div class="row">
+                      <div class="col">
+                      <p class="">Credits</p>
+                      <p class="">1</p>
+                      </div>
+                      <div class="col">
+                        <p class="">GPA</p>
+                        <p class="">1</p>
+                        </div>
+                        <div class="col">
+                          <p class="">CGPA</p>
+                          <p class="">1</p>
+                          </div>
+                    </div>
+                    
                     {% endfor %}
 
                   </tbody>
