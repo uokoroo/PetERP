@@ -8,194 +8,37 @@
       <li class="breadcrumb-item active">Academics</li>
     </ol>
 
-    
-      
-      <div class-="row px-4 text-center">
-
-     
-        <div class="card mb-4">
-          
-          <div class="card-body overflow-auto">
-            <div class="container mt-3">
-          <div class="row">
-
-            <div class="col mb-4">
-            <h3 class="lead">
-              Type of Override
-             
-            </h3>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-              <label class="form-check-label" for="exampleRadios1">
-                Class Size Override
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-              <label class="form-check-label" for="exampleRadios2">
-                Prerequisite Override
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-              <label class="form-check-label" for="exampleRadios2">
-                Time-Conflict Override
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-              <label class="form-check-label" for="exampleRadios2">
-                Level Override
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-              <label class="form-check-label" for="exampleRadios2">
-                Minimum Year Override
-              </label>
-            </div>
-            
-            
-          </div>
-         
-            <div class="modal-container container col m-3">
-              <h3 class="lead">
-                Requested Course
-               
-                
-              </h3>
-              
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="addModalTrigger"
-                data-bs-target="#addmodal">
-                <i class="fa-solid fa-add"></i> 
-              </button>
-      
-              <!-- Modal -->
-              <div class="modal fade" id="addmodal" tabindex="-1" data-bs-backdrop="static"  aria-labelledby="addModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
-      
-                  <div class="modal-content">
-      
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                      <h4 class="modal-title">Sections</h4>
-                    </div>
-      
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                      <div class="card-body">
-      
-      
-                        <table id="datatablesSimple">
-                          <thead>
-                            <tr>
-                              <th>CRN</th>
-                              <th>Course Code</th>
-                              <th>Course Title</th>
-                              <th>Credit Hours</th>
-                              <th>Capacity</th>
-                              <th>Enrolled</th>
-                              <th>Time</th>
-                              <th>Faculty</th>
-                              <th>Term</th>
-                              <th>Location</th>
-                              <th>Section Number</th>
-                              <th> Add </th>
-                            </tr>
-                          </thead>
-      
-                          <tbody>
-                            {% for section in sections %}
-                              <tr>
-                                <td>{{ section.section_id }}</td>
-                                <td>{{ section.course_code }}</td>
-                                <td>{{ section.title }}</td>
-                                <td>{{ section.credit_hours }}</td>
-                                <td>{{ section.capacity }}</td>
-                                <td>{{ section.enrolled }}</td>
-                                <td>{{ section.time }}</td>
-                                <td>{{ section.faculty }}</td>
-                                <td>{{ section.term }}</td>
-                                <td>{{ section.location }}</td>
-                                <td>{{ section.section_number }}</td>
-                                <td><a href="{% url 'add_section' section.section_id %}"><button class="btn btn-primary">Add</button></a></td>
-                              </tr>
-                            {% endfor %}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                   
-      
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              <!-- Modal -->
-            </div> 
-          </div>
-          </div>
-        
-        </div>
-      
-      <div class="container mb-5">
-      <table class="table table-striped">
-        <thead>
-         
-        </thead>
-        <tbody>
-          <tr>
-            <td scope="col" class="lead">Course</td>
-            <td scope="col" class="lead">ID</td>
-            <td scope="col" class="lead">Status</td>
-            <td scope="col" class="lead">Overload Type</td>
-            <td scope="col" class="lead">Date</td>
-            
-            
-          </tr>
-          
-        </tbody>
-      </table>
-      </div>
+    <div class-="row px-4 text-center">
+      <div class="card mb-4">
         <div class="text-center mt-4 mb-4">
-      
-           
-          <div class="form-outline mx-5 mt-2">
-            <textarea style="border: 1px solid black" class="form-control" id="textAreaExample" rows="4"></textarea>
-            <label class="form-label" for="textAreaExample">Notes</label>
-          </div>
-          <div class="container mb-3">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col" class="lead">Course</th>
-                <th scope="col" class="lead">ID</th>
-                <th scope="col" class="lead">Status</th>
-                <th scope="col" class="lead">Overload Type</th>
-                <th scope="col" class="lead">Date</th>
-                
-                
-              </tr>
-            </thead>
-            <tbody>
-              
-            </tbody>
-          </table>
-          </div>
-      <a class="btn btn-success me-5"><i class="fa-solid fa-floppy-disk"></i></a>
-      <a class="btn btn-danger "><i class="fa fa-times" aria-hidden="true"></i></a>
+          <div class="container mb-5">
+            <div class="card-header">
+              <i class="fas fa-chart-area me-1"></i>
+              Overload History
+            </div>
 
-                    <!-- Modal -->
-                   
-    
-  
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" class="lead">Course</th>
+                  <th scope="col" class="lead">ID</th>
+                  <th scope="col" class="lead">Type</th>
+                  <th scope="col" class="lead">Status</th>
+                  <th scope="col" class="lead">Date</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
 
-</div>
+          <a href="add_override.html" class="btn btn-primary">
+            <i class="fa fa-add" aria-hidden="true"></i>
+          </a>
+
+          <!-- Modal -->
+        </div>
+      </div>
     </div>
-    </div>
+  </div>
 </main>
 {% endblock %}

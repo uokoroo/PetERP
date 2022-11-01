@@ -1,0 +1,98 @@
+{% extends 'student_view/layout.html' %} {% load static %} {% block title %}
+<title>New Override - PetERP</title>
+{% endblock %} {% block body %}
+<main style="background-color: rgba(0, 0, 0, 0.03)">
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">New Override</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Academics</li>
+    </ol>
+
+    
+      
+      <div class-="row px-4 text-center">
+
+     
+        <div class="card mb-4">
+          
+          <div class="card-body overflow-auto">
+            <div class="container mt-3">
+          <div class="row">
+
+            <div class="col mb-4">
+            <h3 class="lead">
+              Type of Override
+             
+            </h3>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+              <label class="form-check-label" for="exampleRadios1">
+                Class Size Override
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <label class="form-check-label" for="exampleRadios2">
+                Prerequisite Override
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <label class="form-check-label" for="exampleRadios2">
+                Time-Conflict Override
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <label class="form-check-label" for="exampleRadios2">
+                Level Override
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <label class="form-check-label" for="exampleRadios2">
+                Minimum Year Override
+              </label>
+            </div>
+            
+            
+          </div>
+         
+            <div class="modal-container container col m-3">
+              <h3 class="lead">
+                Requested Course
+               
+                
+              </h3>
+              <input type="search" list="mylist">
+              <datalist id="mylist">
+                <option value="a">
+                <option value="b">
+                <option value="Option 3">
+             </datalist>
+            
+          </div>
+        
+        </div>
+      
+   
+<div class="text-center">
+  <button type="button" class="btn btn-success "><i class="fa fa-floppy-disk" aria-hidden="true"></i></button>
+
+</div>
+       
+  
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+              
+</main>
+{% endblock %}
