@@ -31,7 +31,7 @@ def order_records_by_session(enrollments):
 def index(request):
     # if there is a token in memory it means that the user is logged in
     if not request.session.get('token'):
-        return redirect('home:login')
+        return redirect('login')
 
     else:
         token = request.session.get('token')
@@ -231,19 +231,12 @@ def semester_records(request,session):
 
 
 def cgpa_calculator(request):
-    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+    if not request.session.get('student_data'):
         return redirect(reverse('login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
-    token = request.session['token']
-    r = requests.get(URL+"/cgpa_calculator",headers={'Authorization':'Bearer ' + token})
-    if 0 <= r.status_code - 400 < 100:
-        messages.add_message(request, messages.WARNING, r.json()['message'])
-        return redirect(reverse('login'))
-        
-
-    return render(request,'student_view/cgpa_calculator.html',{
+    return render(request,'student_view/cgpa-calculator.html',{
         'student_data':student_data,
     }) 
 

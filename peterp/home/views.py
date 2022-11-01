@@ -31,7 +31,7 @@ def login(request):
         r = requests.post(URL+"/rpc/login", json=payload)
         # 403 forbidden means the user is not allowed to access this page
         if r.status_code == 403:
-            messages.add_message(request, messages.WARNING, r.text['message'])
+            messages.add_message(request, messages.WARNING, r.json().get('message'))
             return redirect(reverse('index'))
 
         else:
