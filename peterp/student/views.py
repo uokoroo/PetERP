@@ -250,6 +250,7 @@ def concise_schedule(request):
     if not request.session['token']:
         return redirect(reverse('home:login'))
     concise_schedule = request.session.get('concise_schedule')
+    print(concise_schedule)
     return render(request,'student_view/concise.html',{
         'concise_schedule':concise_schedule,
     })

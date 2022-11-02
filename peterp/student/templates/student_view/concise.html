@@ -20,7 +20,6 @@
               <th scope="col">Term</th>
               <th scope="col">Course</th>
               <th scope="col">Title</th>
-              <th scope="col">CRN</th>
               <th scope="col">Lab</th>
               <th scope="col">No.</th>
               <th scope="col">Faculty</th>
@@ -29,72 +28,24 @@
             </tr>
           </thead>
           <tbody>
+            {% for course in concise_schedule %}
             <tr>
-              <td>Fall 2022</td>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>123345464</td>
-              <td>Yes</td>
-              <td>1</td>
-              <td>Djitog Ignace</td>
-              <td>MW 15:00</td>
-              <td>AS 231</td>
+              <td>{{ course.term }}</td>
+              <td>{{ course.course_code }}</td>
+              <td>{{ course.title }}</td>
+              <td>{{ course.lab }}</td>
+              <td>{{ course.section_number }}</td>
+              <td>{{ course.faculty }}</td>
+              <td>{{ course.time }}</td>
+              <td>{{ course.location }}</td>
+
             </tr>
+            {% empty %}
             <tr>
-              <td>Fall 2022</td>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>123345464</td>
-              <td>Yes</td>
-              <td>1</td>
-              <td>Djitog Ignace</td>
-              <td>MW 15:00</td>
-              <td>AS 231</td>
+              <td colspan="9" class="text-muted"> No courses on concise schedule</td>
             </tr>
-            <tr>
-              <td>Fall 2022</td>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>123345464</td>
-              <td>Yes</td>
-              <td>1</td>
-              <td>Djitog Ignace</td>
-              <td>MW 15:00</td>
-              <td>AS 231</td>
-            </tr>
-            <tr>
-              <td>Fall 2022</td>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>123345464</td>
-              <td>Yes</td>
-              <td>1</td>
-              <td>Djitog Ignace</td>
-              <td>MW 15:00</td>
-              <td>AS 231</td>
-            </tr>
-            <tr>
-              <td>Fall 2022</td>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>123345464</td>
-              <td>Yes</td>
-              <td>1</td>
-              <td>Djitog Ignace</td>
-              <td>MW 15:00</td>
-              <td>AS 231</td>
-            </tr>
-            <tr>
-              <td>Fall 2022</td>
-              <th scope="row">CSC 407</th>
-              <td>Programming Languages</td>
-              <td>123345464</td>
-              <td>Yes</td>
-              <td>1</td>
-              <td>Djitog Ignace</td>
-              <td>MW 15:00</td>
-              <td>AS 231</td>
-            </tr>
+            {% endfor %}
+
           </tbody>
         </table>
       </div>
