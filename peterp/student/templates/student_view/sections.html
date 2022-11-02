@@ -19,35 +19,35 @@
             <tr>
               <th>Course</th>
               <th>Course Title</th>
-              <th>Term</th>
               <th>CRN</th>
               <th>Credit</th>
               <th>No.</th>
               <th>Faculty</th>
               <th>Time</th>
               <th>Location</th>
-              <th>Enrolled</th>
               <th>Capacity</th>
-              <th>Class Status</th>
+              <th>Session</th>
             </tr>
           </thead>
-          <tfoot>
+
+          <tbody>
+            {% for section in sections %}
             <tr>
-              <th>Course</th>
-              <th>Course Title</th>
-              <th>Term</th>
-              <th>CRN</th>
-              <th>Credit</th>
-              <th>No.</th>
-              <th>Faculty</th>
-              <th>Time</th>
-              <th>Location</th>
-              <th>Enrolled</th>
-              <th>Capacity</th>
-              <th>Class Status</th>
+              <th>{{section.courses.course_code}}</th>
+              <th>{{ section.courses.title }}</th>
+              <th>{{section.section_id}}</th>
+              <th>{{section.courses.credit_hours}}</th>
+              <th>{{ section.section_number }}</th>
+                {% for fac in section.faculty_assignment%}
+              <th>{{fac.faculty.f_name}} {{fac.faculty.l_name}}</th>
+              {% endfor %}
+              <th>{{section.section_times.class_dates_abbrev.abbrev}} {{ section.section_times.class_times.str_rep }}</th>
+              <th>{{section.location}}</th>
+              <th>{{section.capacity}}</th>
+              <th>{{section.session.semester}} {{ section.session.year }}</th>
             </tr>
-          </tfoot>
-          <tbody></tbody>
+            {% endfor %}
+          </tbody>
         </table>
       </div>
     </div>

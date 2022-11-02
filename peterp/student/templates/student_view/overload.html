@@ -64,8 +64,9 @@
                     </div>
       
                     <!-- Modal body -->
+                    <form action="{% url 'overload' %}" method="post">
+                      {% csrf_token %}
                     <div class="modal-body">
-                      <form action="{% url 'new_overload' %}">
                       <div class="card mb-4">
           
                         <div class="card-body overflow-auto">
@@ -81,13 +82,15 @@
                               class="form-control"
                               id="formControlReadonly"
                               type="text"
-                              value="6 Courses"
+                              value="{{ max_courses }}"
                               aria-label="Course Load"
                               readonly
                             />
                             
                           </div>
                         </div>
+                        <input type="text" name="student_id" value="{{student_data.student_id}}" hidden>
+                        <input type="text" name="session_id" value="{{ session_id }}" hidden>
                         <div class="col">
                           <h3 class="">
                             Requested Course Addition
@@ -95,7 +98,7 @@
                             
                           </h3>
                           <div class="form-outline me-5" style="width: 150px">
-                            <input type="number" id="typeNumber" class="form-control" name="additional_courses"/>
+                            <input type="number" id="typeNumber"  name="additional_courses" class="form-control" name="additional_courses"/>
                            
                           </div>
                         </div>
@@ -110,14 +113,13 @@
                         </div>
                         </div>
                         </div>
-                      </form>
-                    </div>
-      
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-success me-5"><i class="fa fa-floppy-disk" aria-hidden="true"></i></button>
-                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
-                    </div>
+                        
+                      </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-success me-5"><i class="fa fa-floppy-disk" aria-hidden="true"></i></button>
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>
                     </form>
                   </div>
                 </div>

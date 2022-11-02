@@ -10,7 +10,7 @@
 
     <div class-="row px-4 text-center">
       <div class="card mb-4">
-        <div class="text-center mt-4 mb-4">
+        <div class="tex mt-4 mb-4">
           <div class="container mb-5">
             <div class="card-header">
               <i class="fas fa-chart-area me-1"></i>
@@ -20,20 +20,34 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col" class="lead">Course</th>
-                  <th scope="col" class="lead">ID</th>
-                  <th scope="col" class="lead">Type</th>
-                  <th scope="col" class="lead">Status</th>
-                  <th scope="col" class="lead">Date</th>
+                  <th scope="col" class="">Section</th>
+                  <th scope="col" class="">Type</th>
+                  <th scope="col" class="">Status</th>
+                  <th scope="col" class="">Date</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                {% for override in overrides %}
+                <tr>
+                  <th scope="col" class="">{{override.section_id}}</th>
+                  <th scope="col" class="">{{override.override_type}}</th>
+                  <th scope="col" class="">{{override.state}}</th>
+                  <th scope="col" class="">{{override.date}}</th>
+                </tr>
+                {% empty %}
+                  <tr>
+                    <td colspan="4" scope="col" class="text-center text-muted">No overrides on record</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
             </table>
           </div>
 
-          <a href="add_override.html" class="btn btn-primary">
-            <i class="fa fa-add" aria-hidden="true"></i>
-          </a>
+          <div class="text-center container">
+            <a href="{% url 'new_override' %}" class="btn btn-primary">
+              <i class="fa fa-add" aria-hidden="true"></i>
+            </a>
+          </div>
 
           <!-- Modal -->
         </div>

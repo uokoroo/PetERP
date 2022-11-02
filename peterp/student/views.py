@@ -92,6 +92,7 @@ def redirect_by_code(request,incoming_request,source_page):
     but it's the fastest and I don't have to use my brain
     """
     code = incoming_request.status_code
+    print(incoming_request.json())
 
     if code - 400 >= 0 and code - 400 <=99:
         messages.add_message(request, messages.WARNING, incoming_request.json()['message'])
@@ -143,7 +144,7 @@ def registration(request):
         r = requests.post(URL+"/registration", json=payload,headers={'Authorization':'Bearer ' + token})
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
-            messages.add_message(request, messages.WARNING, r.text['message'])
+            messages.add_message(request, messages.WARNING, r.json()['message'])
             return redirect(reverse('home:login'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully registered section')
@@ -178,8 +179,9 @@ def add_section(request,section_id):
     token = request.session.get('token')
     if not token:
         return redirect('home:login')
+    print(section_id)
     add_req = requests.post(
-        URL+f"/registration",
+        URL+"/registration",
         headers={
         'Authorization':'Bearer ' + token
         },
@@ -255,43 +257,89 @@ def concise_schedule(request):
 
 
 def override(request):
-    if not request.session.get('token'):
+    if not request.session['token']:
+        return redirect(reverse('login'))
+    token = request.session['token']
+    override = requests.get(URL+"/overrides?select=*",headers={'Authorization':'Bearer ' + token})
+    if 0 <= override.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, override.json()['message'])
+        return redirect(reverse('login'))
+    student_data = request.session.get('student_data')
+    return render(request,"student_view/override.html", {
+        'overrides':override.json(),
+        "student_data":student_data,
+        })
+
+
+def new_override(request):
+    if not request.session['token']:
         return redirect(reverse('login'))
     token = request.session['token']
     if request.method == 'POST':
         payload = convert(request.POST)
-
+        print(payload)
         r = requests.post(URL+"/overrides", json=payload,headers={'Authorization':'Bearer ' + token})
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
-            messages.add_message(request, messages.WARNING, r.text['message'])
-            return redirect(reverse('home:index'))
+            print(r.json())
+            messages.add_message(request, messages.WARNING, r.json()['message'])
+            return redirect(reverse('index'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully created override')
             return redirect(reverse('override'))
-    override = requests.get(URL+"/override",headers={'Authorization':'Bearer ' + token}).json()
-    return render(request,"student_view/override.html", {
-        'override':override
-        })
+    override = requests.get(URL+"/overrides?select=*",headers={'Authorization':'Bearer ' + token})
+    max_courses = requests.get(URL+"/rpc/get_max_courses",headers={'Authorization':'Bearer ' + token}).json()
+    session = requests.get(URL+"/session?select=session_id&status=eq.active&state_id=lt.3",headers={
+        'Authorization':'Bearer ' + token,
+        'Accept':'application/vnd.pgrst.object+json'
+    }).json()
+    if 0 <= override.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, override.json()['message'])
+        return redirect(reverse('login'))
 
+    session = session.get('session_id')
+    print('session:',session)
+    if not session:
+        messages.add_message(request,messages.WARNING,'No semester is open for registration')
+        return redirect(reverse('index'))
+    if 0 <= override.status_code - 400 < 100:
+        print(override.json())
+        messages.add_message(request, messages.WARNING, override.json()['message'])
+        return redirect(reverse('login'))
+    student_data = request.session.get('student_data')
+    return render(request,"student_view/add_override.html", {
+        'overrides':override.json(),
+        "max_courses":max_courses,
+        "student_data":student_data,
+        "session_id":session
+        })
 
 def overload(request):
     if not request.session['token']:
-        return redirect(reverse('home:login'))
+        return redirect(reverse('login'))
     token = request.session['token']
     if request.method == 'POST':
         payload = convert(request.POST)
+        print(payload)
         r = requests.post(URL+"/overloads", json=payload,headers={'Authorization':'Bearer ' + token})
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
-            messages.add_message(request, messages.WARNING, r.text['message'])
-            return redirect(reverse('home:index'))
+            print(r.json())
+            messages.add_message(request, messages.WARNING, r.json()['message'])
+            return redirect(reverse('index'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully created overload')
             return redirect(reverse('overload'))
     overload = requests.get(URL+"/overloads?select=*,session(semester,year)",headers={'Authorization':'Bearer ' + token})
     max_courses = requests.get(URL+"/rpc/get_max_courses",headers={'Authorization':'Bearer ' + token}).json()
-    session = requests.get(URL+"/session",headers={'Authorization':'Bearer ' + token}).json()
+    session = requests.get(URL+"/session?select=session_id&status=eq.active&state_id=lt.3",headers={
+        'Authorization':'Bearer ' + token,
+        'Accept':'application/vnd.pgrst.object+json'
+    }).json()
+    session = session.get('session_id')
+    if not session:
+        messages.add_message(request,messages.WARNING,'No semester is open for registration')
+        return render(request,reverse('index'))
     if 0 <= overload.status_code - 400 < 100:
         print(overload.json())
         messages.add_message(request, messages.WARNING, overload.json()['message'])
@@ -301,21 +349,21 @@ def overload(request):
         'overloads':overload.json(),
         "max_courses":max_courses,
         "student_data":student_data,
+        "session_id":session
         })
-
 
 
 def account(request):
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
         return redirect(reverse('login'))
     if not request.session['token']:
-        return redirect(reverse('home:login'))
+        return redirect(reverse('login'))
     student_data = request.session.get('student_data')
     token = request.session['token']
-    r = requests.get(URL+"/transaction",headers={'Authorization':'Bearer ' + token})
+    r = requests.get(URL+"/transaction?select=*,session(semester,year)",headers={'Authorization':'Bearer ' + token})
     r2 = requests.get(URL+"/rpc/get_account_balance",headers={'Authorization':'Bearer ' + token})
     if 0 <= r.status_code - 400 < 100 or 0 <= r2.status_code - 400 < 100:
-        messages.add_message(request, messages.WARNING, r.text['message'])
+        messages.add_message(request, messages.WARNING, r.json()['message'])
         return redirect(reverse('account'))
     else:
         transactions = r.json()
@@ -338,7 +386,7 @@ def courses(request):
     token = request.session['token']
     r = requests.get(URL+"/courses",headers={'Authorization':'Bearer ' + token})
     if 0 <= r.status_code - 400 < 100:
-        messages.add_message(request, messages.WARNING, r.text['message'])
+        messages.add_message(request, messages.WARNING, r.json()['message'])
         return redirect(reverse('account'))
     else:
         courses = r.json()
@@ -353,12 +401,12 @@ def sections(request):
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
         return redirect(reverse('login'))
     if not request.session['token']:
-        return redirect(reverse('home:login'))
+        return redirect(reverse('login'))
     token = request.session['token']
-    r = requests.get(URL+"/sections",headers={'Authorization':'Bearer ' + token})
+    r = requests.get(URL+"/sections?select=section_id,section_number,location,capacity,session(semester,year),courses(course_code,credit_hours,title),section_times(class_dates_abbrev(abbrev),class_times(str_rep)),faculty_assignment(faculty(f_name,l_name,m_name))",headers={'Authorization':'Bearer ' + token})
     if 0 <= r.status_code - 400 < 100:
-        messages.add_message(request, messages.WARNING, r.text['message'])
-        return redirect(reverse('account'))
+        messages.add_message(request, messages.WARNING, r.json()['message'])
+        return redirect(reverse('login'))
     else:
         sections = r.json()
         

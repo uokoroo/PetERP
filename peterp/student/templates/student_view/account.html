@@ -1,6 +1,11 @@
-{% extends 'student_view/layout.html' %} {% load static %} {% block title %}
+{% extends 'student_view/layout.html' %}
+{% load static %} 
+{% load humanize %}
+{% block title %}
 <title>Accounting - PetERP</title>
-{% endblock %} {% block body %}
+{% endblock %} 
+
+{% block body %}
 <main>
   <div class="container-fluid px-4">
     <h1 class="mt-4">Accounting</h1>
@@ -21,11 +26,11 @@
           <div class="row pt-1">
             <div class="col-6 mb-3">
               <h6>Name</h6>
-              <p class="text-muted">Udochukwu Okoro</p>
+              <p class="text-muted">{{ student_data.name }}</p>
             </div>
             <div class="col-6 mb-3">
               <h6>ID</h6>
-              <p class="text-muted">A0022012</p>
+              <p class="text-muted">{{student_data.student_id}}</p>
             </div>
           </div>
           <h6>Financial Information</h6>
@@ -33,7 +38,7 @@
           <div class="row pt-1">
             <div class="col-6 mb-3">
               <h6>Balance</h6>
-              <p class="text-muted">&#8358 650,000</p>
+              <p class="text-muted">&#8358 {{balance | intcomma}}</p>
             </div>
             <div class="col-6 mb-3">
               <h6>Status</h6>
@@ -46,96 +51,28 @@
           <thead>
             <tr>
               <th>Type</th>
-              <th>Detail Code</th>
               <th>Description</th>
-              <th>Term/th></th>
-              <th>Charge</th>
+              <th>Term</th>
+              <th>Amount</th>
               <th>Date</th>
             </tr>
           </thead>
-          <tfoot>
-            <tr>
-              <th>Type</th>
-              <th>Detail Code</th>
-              <th>Description</th>
-              <th>Term</th>
-              <th>Charge</th>
-              <th>Date</th>
-            </tr>
-          </tfoot>
+
           <tbody>
+            {% for transaction in transactions %}
             <tr>
-              <td>Credit</td>
-              <td>5678</td>
-              <td>Course Registration</td>
-              <td>Fall 2022</td>
-              <td>40,000</td>
-              <td>23/10//22</td>
+              <td>{{transaction.transaction_type}}</td>
+              <td>{{ transaction.description }}</td>
+              <td>{{transaction.session.semester}} {{ transaction.session.year }}</td>
+              <td>{{transaction.amount | intcomma}}</td>
+              <td>{{ transaction.date }}</td>
             </tr>
+            {%empty%}
             <tr>
-              <td>Credit</td>
-              <td>5678</td>
-              <td>Course Registration</td>
-              <td>Fall 2022</td>
-              <td>40,000</td>
-              <td>23/10//22</td>
+              <td colspan="5" class="text-muted text-center">No transactions on record</td>
             </tr>
-            <tr>
-              <td>Credit</td>
-              <td>5678</td>
-              <td>Course Registration</td>
-              <td>Fall 2022</td>
-              <td>40,000</td>
-              <td>23/10//22</td>
-            </tr>
-            <tr>
-              <td>Credit</td>
-              <td>5678</td>
-              <td>Course Registration</td>
-              <td>Fall 2022</td>
-              <td>40,000</td>
-              <td>23/10//22</td>
-            </tr>
-            <tr>
-              <td>Credit</td>
-              <td>5678</td>
-              <td>Course Registration</td>
-              <td>Fall 2022</td>
-              <td>40,000</td>
-              <td>23/10//22</td>
-            </tr>
-            <tr>
-              <td>Credit</td>
-              <td>5678</td>
-              <td>Course Registration</td>
-              <td>Fall 2022</td>
-              <td>40,000</td>
-              <td>23/10//22</td>
-            </tr>
-            <tr>
-              <td>Credit</td>
-              <td>5678</td>
-              <td>Course Registration</td>
-              <td>Fall 2022</td>
-              <td>40,000</td>
-              <td>23/10//22</td>
-            </tr>
-            <tr>
-              <td>Credit</td>
-              <td>5678</td>
-              <td>Course Registration</td>
-              <td>Fall 2022</td>
-              <td>40,000</td>
-              <td>23/10//22</td>
-            </tr>
-            <tr>
-              <td>Credit</td>
-              <td>5678</td>
-              <td>Course Registration</td>
-              <td>Fall 2022</td>
-              <td>40,000</td>
-              <td>23/10//22</td>
-            </tr>
+            {% endfor %}
+            
           </tbody>
         </table>
       </div>

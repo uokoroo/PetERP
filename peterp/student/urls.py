@@ -19,6 +19,7 @@ urlpatterns = [
     path("concise_schedule/", views.concise_schedule,name='concise_schedule'),
     path("cgpa_calculator/", views.cgpa_calculator,name='cgpa_calculator'),
     path("override/", views.override,name='override'),
+    path("new_override/", views.new_override,name='new_override'),
     path("overload/", views.overload,name='overload'),
     path("account/", views.account,name='account'),
 ]
