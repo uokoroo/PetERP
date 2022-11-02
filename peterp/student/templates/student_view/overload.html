@@ -60,61 +60,83 @@
       
                     <!-- Modal Header -->
                     <div class="modal-header">
-                      <h4 class="modal-title">Sections</h4>
+                      <h4 class="modal-title">New Overload</h4>
                     </div>
       
                     <!-- Modal body -->
                     <form action="{% url 'overload' %}" method="post">
                       {% csrf_token %}
-                    <div class="modal-body">
-                      <div class="card mb-4">
-          
-                        <div class="card-body overflow-auto">
+                      <div class="container">
+                    <div class="modal-body card-body mb-4 container">
                           <div class="row">
-              
-                          <div class="col mb-4">
-                          <h3 class="">
-                            Current Course Load
-                           
-                          </h3>
-                          <div class="form-outline" style="width: 150px">
-                            <input
-                              class="form-control"
-                              id="formControlReadonly"
-                              type="text"
-                              value="{{ max_courses }}"
-                              aria-label="Course Load"
-                              readonly
-                            />
-                            
+                          <div class="col">
+                            <table class="table">
+                              <tbody>
+                                <tr>
+                                  <td> <p class="">
+                                    Current Course Load
+                                   
+                                  </p></td>
+                                </tr>
+                                <tr>
+                                <td>
+                                  <div class="form-outline" style="width: 150px">
+                                    <input
+                                      class="form-control"
+                                      id="formControlReadonly"
+                                      type="text"
+                                      value="{{ max_courses }}"
+                                      aria-label="Course Load"
+                                      readonly
+                                    />
+                                    
+                                  </div>
+                                </td>
+                                
+
+                                </tr>
+                                </tbody>
+                                </table>
+                         
                           </div>
-                        </div>
+                          
+                        
                         <input type="text" name="student_id" value="{{student_data.student_id}}" hidden>
                         <input type="text" name="session_id" value="{{ session_id }}" hidden>
                         <div class="col">
-                          <h3 class="">
-                            Requested Course Addition
-                           
-                            
-                          </h3>
-                          <div class="form-outline me-5" style="width: 150px">
-                            <input type="number" id="typeNumber"  name="additional_courses" class="form-control" name="additional_courses"/>
-                           
-                          </div>
-                        </div>
+                          <table class="table">
+                            <tbody>
+                              <tr>
+                                <td> <p class="">
+                                  Requested Course Addition
+                                 
+                                  
+                                </p></td>
+                              </tr>
+                              <tr>
+                              <td>
+                                <div class="form-outline me-5" style="width: 150px">
+                                  <input type="number" id="typeNumber"  name="additional_courses" class="form-control" name="additional_courses"/>
+                                 
+                                </div>
+                              </td>
+                              
+
+                              </tr>
+                              </tbody>
+                              </table>
+                       
                       </div>
-                    </div>
-                      <div class="text-center mt-4 mb-4">
                     
-                         
-                        <div class="form-outline mx-5">
+                    
+                         </div>
+                        <div class="form-outline mx-5 my-4">
                           <input class="form-control" id="textAreaExample" type="text" rows="4" name="notes"></input>
                           <label class="form-label" for="textAreaExample">Notes</label>
                         </div>
-                        </div>
-                        </div>
                         
-                      </div>
+                        
+                        
                         <!-- Modal footer -->
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-success me-5"><i class="fa fa-floppy-disk" aria-hidden="true"></i></button>
@@ -136,6 +158,7 @@
     
   
 
+                  </div>
                   </div>
                   </div>
 </main>
