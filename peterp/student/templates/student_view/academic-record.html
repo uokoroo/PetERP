@@ -28,11 +28,12 @@
     
     
             <span class="h2 text-muted" >Term</span>
+            <hr class="divider"/>
             <ol class="list-group list-group-numbered">
     
                 {% for session in academic_records %}
                 <a href="{% url 'semester_records' session %}">
-                  <li class="list-group-item">
+                  <li class="">
                         <span class="h3">{{ session }}</span>
                         
                       </li>
@@ -56,6 +57,7 @@
                           <p class="">1</p>
                           </div>
                     </div>
+                    <hr class="divider"/>
                     
                     {% endfor %}
 
