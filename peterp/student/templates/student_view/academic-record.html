@@ -9,51 +9,58 @@
     </ol>
 
     <div class="card mb-4">
-      <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        Academic Records
-      </div>
+     
+      
+        
+    
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Academic Records
+          </div>
+          <div class="card-body">
+    
+    
+            <span class="h2 text-muted" >Term</span>
+            <hr class="divider"/>
+            <ol class="list-group list-group-numbered">
+    
+                {% for session in academic_records %}
+                <a href="{% url 'semester_records' session %}">
+                  <li class="">
+                        <span class="h3">{{ session }}</span>
+                        
+                      </li>
+                      
+                    
+                  
+                    </a>
+                   
+                    
+                    <div class="row">
+                      <div class="col">
+                      <p class="">Credits</p>
+                      <p class="">1</p>
+                      </div>
+                      <div class="col">
+                        <p class="">GPA</p>
+                        <p class="">1</p>
+                        </div>
+                        <div class="col">
+                          <p class="">CGPA</p>
+                          <p class="">1</p>
+                          </div>
+                    </div>
+                    <hr class="divider"/>
+                    
+                    {% endfor %}
 
-      <div class="card-body">
-
-
-        <span class="h2 text-muted">Term</span>
-        <ol class="list-group list-group-numbered">
-
-          {% for session in academic_records %}
-          <a href="{% url 'semester_records' session %}">
-            <li class="list-group-item">
-              <span class="h3">{{ session }}</span>
-
-            </li>
-
-
-
-          </a>
-
-
-          <div class="row">
-            <div class="col">
-              <p class="">Credits</p>
-              <p class="">1</p>
-            </div>
-            <div class="col">
-              <p class="">GPA</p>
-              <p class="">1</p>
-            </div>
-            <div class="col">
-              <p class="">CGPA</p>
-              <p class="">1</p>
+                  </tbody>
+                </ol>
+              </div>
             </div>
           </div>
-
-          {% endfor %}
-
-          </tbody>
-        </ol>
-      </div>
-    </div>
-  </div>
-</main>
-
+          </div>
+        </main>
+     
 {% endblock %}
