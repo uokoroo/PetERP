@@ -238,9 +238,7 @@ def cgpa_calculator(request):
     if not request.session['token']:
         return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
-    return render(request,'student_view/cgpa-calculator.html',{
-        'student_data':student_data,
-    }) 
+    return render(request,'student_view/cgpa-calculator.html') 
 
 
 def concise_schedule(request):
