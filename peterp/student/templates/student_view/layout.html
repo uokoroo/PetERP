@@ -123,9 +123,6 @@
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <a class="dropdown-item" href="{% url 'settings' %}">Settings</a>
-            </li>
-            <li>
               <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
             </li>
             <li><hr class="dropdown-divider" /></li>
@@ -266,9 +263,37 @@
               </a>
             </div>
           </div>
-          <div class="sb-sidenav-footer">
-            <div class="small">Logged in as:</div>
-            {{student_data.student_id}}
+
+          <hr />
+          <div class="dropdown sb-sidenav-footer">
+            <a
+              href="#"
+              class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+              id="dropdownUser1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="https://github.com/mdo.png"
+                alt=""
+                width="32"
+                height="32"
+                class="rounded-circle me-2"
+              />
+              <div class="small">{{student_data.student_id}}</div>
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-light text-small shadow"
+              aria-labelledby="dropdownUser1"
+            >
+              <li>
+                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'logout' %}">Sign out</a>
+              </li>
+            </ul>
           </div>
         </nav>
       </div>
