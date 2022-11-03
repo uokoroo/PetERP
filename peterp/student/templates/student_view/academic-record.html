@@ -8,7 +8,7 @@
       <li class="breadcrumb-item active">Academics</li>
     </ol>
 
-    <div class="card mb-4">
+  
      
       
         
@@ -28,7 +28,7 @@
                 {% for session in academic_records %}
                 <a href="{% url 'semester_records' session %}">
                   <li class="">
-                        <span class="h3">{{ session }}</span>
+                        <span class="h5  text-decoration-none text-dark">{{ session }}</span>
                         
                       </li>
                       
@@ -39,16 +39,16 @@
                     
                     <div class="row">
                       <div class="col">
-                      <p class="">Credits</p>
-                      <p class="">1</p>
+                      <h6 class="">Credits</h6>
+                      <p class="text-muted">1</p>
                       </div>
                       <div class="col">
-                        <p class="">GPA</p>
-                        <p class="">1</p>
+                        <h6 class="">GPA</h6>
+                        <p class="text-muted">1</p>
                         </div>
                         <div class="col">
-                          <p class="">CGPA</p>
-                          <p class="">1</p>
+                          <h6 class="">CGPA</h6>
+                          <p class="text-muted">1</p>
                           </div>
                     </div>
                     <hr class="divider"/>
@@ -59,7 +59,7 @@
                 </ol>
               </div>
             </div>
-          </div>
+          
           </div>
         </main>
      

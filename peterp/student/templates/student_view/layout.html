@@ -19,7 +19,7 @@
     <link href="{% static 'css/cgpaCalc.css' %}" rel="stylesheet" />
     <link
       rel="shortcut icon"
-      href="{% static 'img/peterp-favicon.png' %}"
+      href="{% static 'img/peterp-faviconq.png' %}"
       type="image/png"
     />
     <script
@@ -83,10 +83,9 @@
         <div class="spinner-grow blue-text"></div>
       </div>
       <!-- Navbar Brand-->
-      <a class="navbar-brand ps-3" href="{% url 'index' %}"
-        ><img src="{% static 'img/aun-logo.png' %}" width="60" alt="" />
-        PetERP</a
-      >
+      <a class="navbar-brand ps-3 text-center mt-1" href="{% url 'index' %}"
+        ><img src="{% static 'img/aun-logo.png' %}" width="80" alt="" />
+      </a>
       <!-- Sidebar Toggle-->
       <button
         class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
@@ -141,7 +140,10 @@
     </nav>
     <div id="layoutSidenav">
       <div id="layoutSidenav_nav">
-        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <nav
+          class="sb-sidenav accordion sb-sidenav-dark bg-dark"
+          id="sidenavAccordion"
+        >
           <div class="sb-sidenav-menu">
             <div class="nav">
               <img
@@ -149,7 +151,7 @@
                 alt="Avatar"
                 class=""
                 style="
-                  margin-top: 0px;
+                  margin-top: 15px;
                   width: 80px;
                   margin-left: auto;
                   margin-right: auto;
@@ -270,7 +272,6 @@
             </div>
           </div>
 
-          <hr />
           <div
             class="dropdown sb-sidenav-footer"
             style="
@@ -278,12 +279,12 @@
               text-align: center;
               color: #fff;
               flex-shrink: 0;
-              border-top: none;
+              border-top: 1px solid #a0a0a0;
             "
           >
             <a
               href="#"
-              class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+              class="align-items-center text-white text-decoration-none dropdown-toggle"
               id="dropdownUser1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -314,11 +315,18 @@
       </div>
       <div id="layoutSidenav_content">
         {% block body %} {% endblock %}
-        <footer class="py-4 bg-light px-auto text-center">
-          <div class="container-fluid px-4 text-center mx-auto">
-            <div
-              class="d-flex align-items-center justify-content-between small"
-            >
+        <footer
+          class="py-2 bg-light px-auto text-center"
+          style="border-top: 1px solid #a0a0a0"
+        >
+          <div class="container-fluid text-center mx-auto">
+            <div class="align-items-center text-center small">
+              <img
+                src="{% static 'img/peterp-favicon.png' %}"
+                width="60"
+                alt=""
+              />
+
               <div class="text-muted">Copyright &copy; PetERP</div>
             </div>
           </div>
