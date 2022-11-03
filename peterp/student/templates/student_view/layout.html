@@ -60,6 +60,12 @@
       left: 0;
       right: 0;
     }
+
+    .sb-sidenav-footer {
+      text-align: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
@@ -195,9 +201,9 @@
                     class="nav-link collapsed"
                     href="#"
                     data-bs-toggle="collapse"
-                    data-bs-target="#pagesCollapseError"
+                    data-bs-target="#pagesCollapseErrorr"
                     aria-expanded="false"
-                    aria-controls="pagesCollapseError"
+                    aria-controls="pagesCollapseErrorr"
                   >
                     Courses
                     <div class="sb-sidenav-collapse-arrow">
@@ -206,7 +212,7 @@
                   </a>
                   <div
                     class="collapse"
-                    id="pagesCollapseError"
+                    id="pagesCollapseErrorr"
                     aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordionPages"
                   >
@@ -265,7 +271,16 @@
           </div>
 
           <hr />
-          <div class="dropdown sb-sidenav-footer">
+          <div
+            class="dropdown sb-sidenav-footer"
+            style="
+              background-color: #14213d;
+              text-align: center;
+              color: #fff;
+              flex-shrink: 0;
+              border-top: none;
+            "
+          >
             <a
               href="#"
               class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
@@ -280,7 +295,7 @@
                 height="32"
                 class="rounded-circle me-2"
               />
-              <div class="small">{{student_data.student_id}}</div>
+              <strong>{{student_data.student_id}}</strong>
             </a>
             <ul
               class="dropdown-menu dropdown-menu-light text-small shadow"
