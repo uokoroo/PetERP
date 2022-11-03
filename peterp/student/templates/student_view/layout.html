@@ -27,8 +27,61 @@
       crossorigin="anonymous"
     ></script>
   </head>
+  <style>
+    /* Paste this css to your style sheet file or under head tag */
+    /* This only works with JavaScript,
+    if it's not present, don't show loader */
+    .no-js #loader {
+      display: none;
+    }
+    .js #loader {
+      display: block;
+      position: absolute;
+      left: 100px;
+      top: 0;
+    }
+    .se-pre-con {
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: url(https://smallenvelop.com/wp-content/uploads/2014/08/Preloader_11.gif)
+        center no-repeat #fff;
+    }
+    .spinner-grow {
+      width: 3rem;
+      height: 3rem;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .sb-sidenav-footer {
+      text-align: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+  <script>
+    //paste this code under the head tag or in a separate js file.
+    // Wait for window load
+    $(window).load(function () {
+      // Animate loader off screen
+      $(".se-pre-con").fadeOut("slow");
+    });
+  </script>
   <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+      <div class="se-pre-con">
+        <div class="spinner-grow blue-text"></div>
+      </div>
       <!-- Navbar Brand-->
       <a class="navbar-brand ps-3" href="{% url 'index' %}"
         ><img src="{% static 'img/aun-logo.png' %}" width="60" alt="" />
@@ -75,9 +128,6 @@
             class="dropdown-menu dropdown-menu-end"
             aria-labelledby="navbarDropdown"
           >
-            <li>
-              <a class="dropdown-item" href="{% url 'settings' %}">Settings</a>
-            </li>
             <li>
               <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
             </li>
@@ -151,9 +201,9 @@
                     class="nav-link collapsed"
                     href="#"
                     data-bs-toggle="collapse"
-                    data-bs-target="#pagesCollapseError"
+                    data-bs-target="#pagesCollapseErrorr"
                     aria-expanded="false"
-                    aria-controls="pagesCollapseError"
+                    aria-controls="pagesCollapseErrorr"
                   >
                     Courses
                     <div class="sb-sidenav-collapse-arrow">
@@ -162,7 +212,7 @@
                   </a>
                   <div
                     class="collapse"
-                    id="pagesCollapseError"
+                    id="pagesCollapseErrorr"
                     aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordionPages"
                   >
@@ -219,9 +269,46 @@
               </a>
             </div>
           </div>
-          <div class="sb-sidenav-footer">
-            <div class="small">Logged in as:</div>
-            {{student_data.student_id}}
+
+          <hr />
+          <div
+            class="dropdown sb-sidenav-footer"
+            style="
+              background-color: #14213d;
+              text-align: center;
+              color: #fff;
+              flex-shrink: 0;
+              border-top: none;
+            "
+          >
+            <a
+              href="#"
+              class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+              id="dropdownUser1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="https://github.com/mdo.png"
+                alt=""
+                width="32"
+                height="32"
+                class="rounded-circle me-2"
+              />
+              <strong>{{student_data.student_id}}</strong>
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-light text-small shadow"
+              aria-labelledby="dropdownUser1"
+            >
+              <li>
+                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'logout' %}">Sign out</a>
+              </li>
+            </ul>
           </div>
         </nav>
       </div>
