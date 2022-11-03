@@ -151,7 +151,8 @@
                 alt="Avatar"
                 class=""
                 style="
-                  margin-top: 15px;
+                  padding-top: 15px;
+                  margin-top: 0px;
                   width: 80px;
                   margin-left: auto;
                   margin-right: auto;
@@ -164,7 +165,7 @@
               <p style="text-align: center">{{ student_data.major }}</p>
               <a class="nav-link" href="{% url 'index' %}">
                 <div class="sb-nav-link-icon">
-                  <i class="fas fa-tachometer-alt"></i>
+                  <i class="fa fa-home"></i>
                 </div>
                 Home
               </a>
@@ -178,7 +179,7 @@
                 aria-controls="collapseLayouts"
               >
                 <div class="sb-nav-link-icon">
-                  <i class="fas fa-columns"></i>
+                  <i class="fas fa-book-open"></i>
                 </div>
                 Academics
                 <div class="sb-sidenav-collapse-arrow">
@@ -192,12 +193,23 @@
                 data-bs-parent="#sidenavAccordion"
               >
                 <nav class="sb-sidenav-menu-nested nav">
-                  <a class="nav-link" href="{% url 'academics' %}">Dashboard</a>
+                  <a class="nav-link" href="{% url 'academics' %}">
+                    <div class="sb-nav-link-icon">
+                      <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    Dashboard</a
+                  >
                   <a class="nav-link" href="{% url 'registration' %}"
-                    >Registration</a
+                    ><div class="sb-nav-link-icon">
+                      <i class="fas fa-archive"></i>
+                    </div>
+                    Registration</a
                   >
                   <a class="nav-link" href="{% url 'academic_records' %}"
-                    >Academic Records</a
+                    ><div class="sb-nav-link-icon">
+                      <i class="fa fa-history" aria-hidden="true"></i>
+                    </div>
+                    Academic Records</a
                   >
                   <a
                     class="nav-link collapsed"
@@ -206,12 +218,15 @@
                     data-bs-target="#pagesCollapseErrorr"
                     aria-expanded="false"
                     aria-controls="pagesCollapseErrorr"
-                  >
+                    ><div class="sb-nav-link-icon">
+                      <i class="fa fa-chalkboard"></i>
+                    </div>
                     Courses
                     <div class="sb-sidenav-collapse-arrow">
                       <i class="fas fa-angle-down"></i>
                     </div>
                   </a>
+
                   <div
                     class="collapse"
                     id="pagesCollapseErrorr"
@@ -219,18 +234,32 @@
                     data-bs-parent="#sidenavAccordionPages"
                   >
                     <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="{% url 'courses' %}">Courses</a>
+                      <a class="nav-link" href="{% url 'courses' %}"
+                        ><div class="sb-nav-link-icon">
+                          <i class="fa-solid fa-chalkboard"></i>
+                        </div>
+                        Courses</a
+                      >
                       <a class="nav-link" href="{% url 'sections' %}"
-                        >Sections</a
+                        ><div class="sb-nav-link-icon">
+                          <i class="fas fa-book"></i>
+                        </div>
+                        Sections</a
                       >
                     </nav>
                   </div>
                   <a class="nav-link" href="{% url 'concise_schedule' %}"
-                    >Concise Schedule</a
+                    ><div class="sb-nav-link-icon">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </div>
+                    Concise Schedule</a
                   >
 
                   <a class="nav-link" href="{% url 'cgpa_calculator' %}"
-                    >CGPA Calculator</a
+                    ><div class="sb-nav-link-icon">
+                      <i class="fa fa-calculator" aria-hidden="true"></i>
+                    </div>
+                    CGPA Calculator</a
                   >
                   <a
                     class="nav-link collapsed"
@@ -239,7 +268,9 @@
                     data-bs-target="#pagesCollapseError"
                     aria-expanded="false"
                     aria-controls="pagesCollapseError"
-                  >
+                    ><div class="sb-nav-link-icon">
+                      <i class="fa-solid fa-file"></i>
+                    </div>
                     Forms
                     <div class="sb-sidenav-collapse-arrow">
                       <i class="fas fa-angle-down"></i>
@@ -253,10 +284,16 @@
                   >
                     <nav class="sb-sidenav-menu-nested nav">
                       <a class="nav-link" href="{% url 'override' %}"
-                        >Override</a
+                        ><div class="sb-nav-link-icon">
+                          <i class="fa-solid fa-school"></i>
+                        </div>
+                        Override</a
                       >
                       <a class="nav-link" href="{% url 'overload' %}"
-                        >Overload</a
+                        ><div class="sb-nav-link-icon">
+                          <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                        Overload</a
                       >
                     </nav>
                   </div>
@@ -265,7 +302,7 @@
 
               <a href="{% url 'account' %}" class="nav-link">
                 <div class="sb-nav-link-icon">
-                  <i class="fas fa-book-open"></i>
+                  <i class="fa-solid fa-money-bill"></i>
                 </div>
                 Accounting
               </a>
