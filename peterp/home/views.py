@@ -35,7 +35,6 @@ def login_user(request):
             return redirect(reverse('index'))
 
         else:
-            print(r.json())
             request.session['token'] = r.json()['token']
             return redirect(reverse('index'))
     return render(request,"login.html")

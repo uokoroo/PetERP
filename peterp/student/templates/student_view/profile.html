@@ -1,5 +1,6 @@
 {% extends 'student_view/layout.html' %}
 {% load static %}
+{% load humanize %}
     {% block title %}
     <title>Profile - PetERP</title>
     {% endblock %}
@@ -235,7 +236,7 @@
                 <div class="row pt-1 mt-4 mx-4">
                   <div class="col-6 mb-3">
                     <h6>Balance</h6>
-                    <p class="text-muted">+650,000</p>
+                    <p class="text-muted">&#8358 {{balance | intcomma}}</p>
                   </div>
                   <div class="col-6 mb-3">
                     <h6>Status</h6>

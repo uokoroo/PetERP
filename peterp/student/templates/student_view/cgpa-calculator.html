@@ -28,11 +28,15 @@
                         <div class="form-row top">
                             <div class="col-lg-6 col-xs-6">
                                 <label for="cgpa">Current CGPA:</label>
-                                <input id="cgpa" type="number" class="form-control" ng-model="data.cgpa" placeholder="E.g. 2.56">
+                                {% endverbatim %}
+                                <input id="cgpa" type="number" class="form-control" ng-model="data.cgpa" value="{{ student_data.cgpa }}" >
+                                {% verbatim %}
                             </div>
                             <div class="col-lg-6 col-xs-6">
                                 <label for="cgpa">Credit Earned</label>
-                                <input id="creditsCompleted" type="number" class="form-control" ng-model="data.creditsCompleted" placeholder="E.g. 45">
+                                {% endverbatim %}
+                                <input id="creditsCompleted" type="number" class="form-control" ng-model="data.creditsCompleted" value="{{ student_data.earned_hours }}" disabled>
+                                {% verbatim %}
                             </div>
                         </div>
                     </div>

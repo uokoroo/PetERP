@@ -38,6 +38,7 @@ def index(request):
         # make api requests and get important data that will be cached
         student_data = requests.get(URL+"/student_data",headers={'Authorization':'Bearer ' + token})
         concise_schedule = requests.get(URL+"/concise_schedule",headers={'Authorization':'Bearer ' + token})
+
         # if the status_code is 401 it means the token is expired. Redirect the user to logout and create an error message
         if student_data.status_code == 401 or concise_schedule.status_code == 401:
             messages.add_message(request,messages.WARNING,"Session expired, please login again")
@@ -50,20 +51,24 @@ def index(request):
             request.session['concise_schedule'] = concise_schedule.json()
         return render(request,"student_view/index.html",{
             'student_data':student_data.json()[0],
-            'concise_schedule' : concise_schedule.json()
+            'concise_schedule' : concise_schedule.json(),
             })
 
 
 
 def profile(request):
+    token = request.session.get('token')
     # if there's no student_data or profile then the user is not logged in, redirect to login
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
         return redirect(reverse('login'))
     student_data = request.session.get('student_data')
     concise_schedule = request.session.get('concise_schedule')
+    
+    balance = requests.get(URL+"/rpc/get_account_balance",headers={'Authorization':'Bearer ' + token}).json()
     return render(request,'student_view/profile.html',{
         'student_data':student_data,
         'concise_schedule':concise_schedule,
+        'balance':balance
 
     })
 
@@ -92,7 +97,6 @@ def redirect_by_code(request,incoming_request,source_page):
     but it's the fastest and I don't have to use my brain
     """
     code = incoming_request.status_code
-    print(incoming_request.json())
 
     if code - 400 >= 0 and code - 400 <=99:
         messages.add_message(request, messages.WARNING, incoming_request.json()['message'])
@@ -145,14 +149,14 @@ def registration(request):
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
             messages.add_message(request, messages.WARNING, r.json()['message'])
-            return redirect(reverse('home:login'))
+            return redirect(reverse('login'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully registered section')
             return redirect(reverse('registration'))
     registration = requests.get(URL+"/registration",headers={'Authorization':'Bearer ' + token})
     sections = requests.get(URL+"/all_sections?order=session_id.desc",headers={'Authorization':'Bearer ' + token})
     if 0 <= registration.status_code - 400 < 100 or 0 <= sections.status_code - 400 < 100:
-        messages.add_message(request, messages.WARNING, (registration.json()['message']))
+        messages.add_message(request, messages.WARNING, registration.json()['message'])
         return HttpResponseRedirect(reverse('login'))
     student_data = request.session.get('student_data')
 
@@ -238,7 +242,9 @@ def cgpa_calculator(request):
     if not request.session['token']:
         return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
-    return render(request,'student_view/cgpa-calculator.html') 
+    return render(request,'student_view/cgpa-calculator.html',{
+        'student_data':student_data
+    }) 
 
 
 def concise_schedule(request):
@@ -386,7 +392,7 @@ def courses(request):
     r = requests.get(URL+"/courses",headers={'Authorization':'Bearer ' + token})
     if 0 <= r.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, r.json()['message'])
-        return redirect(reverse('account'))
+        return redirect(reverse('login'))
     else:
         courses = r.json()
         

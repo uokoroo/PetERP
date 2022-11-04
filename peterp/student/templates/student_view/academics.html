@@ -30,36 +30,13 @@
                 </tr>
               </thead>
               <tbody>
+                {% for course in concise_schedule %}
                 <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
+                  <th scope="row">{{course.course_code}}</th>
+                  <td>{{course.time}}</td>
+                  <td>{{course.location}}</td>
                 </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
-                <tr>
-                  <th scope="row">CSC 407</th>
-                  <td>MW 15:00</td>
-                  <td>Classsroom 5</td>
-                </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>
@@ -83,8 +60,8 @@
                 "
               >
           
-                <h5>Marie Horwitz</h5>
-                <p>Web Designer</p>
+                <h5>s{{tudent_data.name}}</h5>
+                <p>{{student_data.major}}</p>
                 
               </div>
               <div class="col-md-8">
@@ -94,22 +71,22 @@
                   <div class="row pt-1">
                     <div class="col-6 mb-3">
                       <h6>Attempted Hours</h6>
-                      <p class="text-muted">360.00</p>
+                      <p class="text-muted">{{ student_data.attempted_hours | floatformat:0}}</p>
                     </div>
                     <div class="col-6 mb-3">
                       <h6>Earned Hours</h6>
-                      <p class="text-muted">356.00</p>
+                      <p class="text-muted">{{ student_data.earned_hours | floatformat:2}}</p>
                     </div>
                   </div>
                   
                   <div class="row pt-1">
                     <div class="col-6 mb-3">
                       <h6>Quality Points</h6>
-                      <p class="text-muted">1356.00</p>
+                      <p class="text-muted">{{ student_data.quality_points | floatformat:2}}</p>
                     </div>
                     <div class="col-6 mb-3">
                       <h6>CGPA</h6>
-                      <p class="text-muted">750.00</p>
+                      <p class="text-muted">{{ student_data.cgpa | floatformat:2}}</p>
                     </div>
                   </div>
                  
@@ -130,14 +107,14 @@
             <div class="card-body">
             
             <ul class="list-group list-group-flush">
-               <li class="list-group-item"><a href ="academics.html">Registration</a></li>
-               <li class="list-group-item"><a href ="academics.html">Academic Records</a></li>
-               <li class="list-group-item"><a href ="academics.html">Courses</a></li>
-               <li class="list-group-item"><a href ="academics.html">Sections</a></li>
-               <li class="list-group-item"><a href ="academics.html">Concise Schedule</a></li>
-               <li class="list-group-item"><a href ="academics.html">CGPA Calculator</a></li>
-               <li class="list-group-item"><a href ="academics.html">Override</a></li>
-               <li class="list-group-item"><a href ="academics.html">Overload</a></li>
+               <li class="list-group-item"><a href ="{% url 'registration' %}">Registration</a></li>
+               <li class="list-group-item"><a href ="{% url 'academic_records' %}">Academic Records</a></li>
+               <li class="list-group-item"><a href ="{% url 'courses' %}">Courses</a></li>
+               <li class="list-group-item"><a href ="{% url 'sections' %}">Sections</a></li>
+               <li class="list-group-item"><a href ="{% url 'concise_schedule' %}">Concise Schedule</a></li>
+               <li class="list-group-item"><a href ="{% url 'cgpa_calculator' %}">CGPA Calculator</a></li>
+               <li class="list-group-item"><a href ="{% url 'override' %}">Override</a></li>
+               <li class="list-group-item"><a href ="{% url 'overload' %}">Overload</a></li>
 
               
           </div>
