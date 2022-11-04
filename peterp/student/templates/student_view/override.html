@@ -9,14 +9,13 @@
     </ol>
 
     <div class-="row px-4 text-center">
+      <div class="card-header">
+        <i class="fa-solid fa-school me-1"></i>
+        Override History
+      </div>
       <div class="card mb-4">
         <div class="tex mt-4 mb-4">
           <div class="container mb-5">
-            <div class="card-header">
-              <i class="fas fa-chart-area me-1"></i>
-              Overload History
-            </div>
-
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -35,9 +34,11 @@
                   <th scope="col" class="">{{override.date}}</th>
                 </tr>
                 {% empty %}
-                  <tr>
-                    <td colspan="4" scope="col" class="text-center text-muted">No overrides on record</td>
-                  </tr>
+                <tr>
+                  <td colspan="4" scope="col" class="text-center text-muted">
+                    No overrides on record
+                  </td>
+                </tr>
                 {% endfor %}
               </tbody>
             </table>

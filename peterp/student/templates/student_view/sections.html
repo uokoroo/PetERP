@@ -10,7 +10,7 @@
 
     <div class="card mb-4">
       <div class="card-header">
-        <i class="fas fa-table me-1"></i>
+        <i class="fa fa-screen-users me-1"></i>
         Sections
       </div>
       <div class="card-body">
@@ -38,10 +38,13 @@
               <th>{{section.section_id}}</th>
               <th>{{section.courses.credit_hours}}</th>
               <th>{{ section.section_number }}</th>
-                {% for fac in section.faculty_assignment%}
+              {% for fac in section.faculty_assignment%}
               <th>{{fac.faculty.f_name}} {{fac.faculty.l_name}}</th>
               {% endfor %}
-              <th>{{section.section_times.class_dates_abbrev.abbrev}} {{ section.section_times.class_times.str_rep }}</th>
+              <th>
+                {{section.section_times.class_dates_abbrev.abbrev}} {{
+                section.section_times.class_times.str_rep }}
+              </th>
               <th>{{section.location}}</th>
               <th>{{section.capacity}}</th>
               <th>{{section.session.semester}} {{ section.session.year }}</th>

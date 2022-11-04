@@ -10,7 +10,7 @@
 
     <div class="card mb-4">
       <div class="card-header">
-        <i class="fas fa-table me-1"></i>
+        <i class="fa fa-chalkboard me-1"></i>
         Courses
       </div>
       <div class="card-body">
@@ -30,13 +30,33 @@
               <td>{{course.course_id}}</td>
               <td>{{course.title}}</td>
               {% if course.lab %}
-              <td class="text-center"><div class="form-check"><input type="checkbox" class="form-check-input" name="lab" id="lab" checked disabled></div></td>
+              <td class="text-center">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    name="lab"
+                    id="lab"
+                    checked
+                    disabled
+                  />
+                </div>
+              </td>
               {% else %}
-              <td class="text-center"><div class="form-check" ><input type="checkbox" name="lab"  class="form-check-input" id="lab" disabled></div></td>
+              <td class="text-center">
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    name="lab"
+                    class="form-check-input"
+                    id="lab"
+                    disabled
+                  />
+                </div>
+              </td>
               {% endif %}
               <td>{{course.course_code}}</td>
               <td>{{course.credit_hours}}</td>
-
             </tr>
             {% endfor%}
           </tbody>

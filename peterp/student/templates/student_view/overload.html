@@ -11,7 +11,10 @@
     
       
       <div class-="row px-4 text-center">
-
+        <div class="card-header">
+          <i class="fa fa-plus me-1"></i>
+          Overload History
+        </div>
      
         <div class="card mb-4">
           
@@ -22,6 +25,7 @@
          
           
           <div class="container mb-5">
+            
           <table class="table table-striped">
             <thead>
               <tr>
@@ -70,19 +74,19 @@
                     <div class="modal-body card-body mb-4 container">
                           <div class="row">
                           <div class="col">
-                            <table class="table">
+                            <table class="table table-borderless">
                               <tbody>
                                 <tr>
-                                  <td> <p class="">
+                                  <td> <h6 class="">
                                     Current Course Load
                                    
-                                  </p></td>
+                                  </h6></td>
                                 </tr>
                                 <tr>
-                                <td>
+                                <td align="center">
                                   <div class="form-outline" style="width: 150px">
                                     <input
-                                      class="form-control"
+                                      class="form-control text-center"
                                       id="formControlReadonly"
                                       type="text"
                                       value="{{ max_courses }}"
@@ -104,19 +108,19 @@
                         <input type="text" name="student_id" value="{{student_data.student_id}}" hidden>
                         <input type="text" name="session_id" value="{{ session_id }}" hidden>
                         <div class="col">
-                          <table class="table">
+                          <table class="table table-borderless">
                             <tbody>
                               <tr>
-                                <td> <p class="">
+                                <td> <h6 class="">
                                   Requested Course Addition
                                  
                                   
-                                </p></td>
+                                </h6></td>
                               </tr>
-                              <tr>
-                              <td>
-                                <div class="form-outline me-5" style="width: 150px">
-                                  <input type="number" id="typeNumber"  name="additional_courses" class="form-control" name="additional_courses"/>
+                              <tr >
+                              <td align="center">
+                                <div class="form-outline text-center" style="width: 150px">
+                                  <input type="number" id="typeNumber"  name="additional_courses" class="form-control text-center" name="additional_courses"/>
                                  
                                 </div>
                               </td>
