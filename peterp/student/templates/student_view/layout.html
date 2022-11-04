@@ -83,7 +83,7 @@
         <div class="spinner-grow blue-text"></div>
       </div>
       <!-- Navbar Brand-->
-      <a class="navbar-brand ps-3 text-center mt-1" href="{% url 'index' %}"
+      <a class="navbar-brand ps-3 text-center mt-1" href="{% url 'student:index' %}"
         ><img src="{% static 'img/aun-logo.png' %}" width="80" alt="" />
       </a>
       <!-- Sidebar Toggle-->
@@ -128,11 +128,11 @@
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+              <a class="dropdown-item" href="{% url 'student:profile' %}">Profile</a>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+              <a class="dropdown-item" href="{% url 'student:logout' %}">Logout</a>
             </li>
           </ul>
         </li>
@@ -168,7 +168,7 @@
               <p class="text-white" style="text-align: center">
                 {{ student_data.major }}
               </p>
-              <a class="nav-link" href="{% url 'index' %}">
+              <a class="nav-link" href="{% url 'student:index' %}">
                 <div class="sb-nav-link-icon">
                   <i class="fa fa-home"></i>
                 </div>
@@ -198,19 +198,19 @@
                 data-bs-parent="#sidenavAccordion"
               >
                 <nav class="sb-sidenav-menu-nested nav">
-                  <a class="nav-link" href="{% url 'academics' %}">
+                  <a class="nav-link" href="{% url 'student:academics' %}">
                     <div class="sb-nav-link-icon">
                       <i class="fas fa-tachometer-alt"></i>
                     </div>
                     Dashboard</a
                   >
-                  <a class="nav-link" href="{% url 'registration' %}"
+                  <a class="nav-link" href="{% url 'student:registration' %}"
                     ><div class="sb-nav-link-icon">
                       <i class="fas fa-archive"></i>
                     </div>
                     Registration</a
                   >
-                  <a class="nav-link" href="{% url 'academic_records' %}"
+                  <a class="nav-link" href="{% url 'student:academic_records' %}"
                     ><div class="sb-nav-link-icon">
                       <i class="fa fa-history" aria-hidden="true"></i>
                     </div>
@@ -239,13 +239,13 @@
                     data-bs-parent="#sidenavAccordionPages"
                   >
                     <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="{% url 'courses' %}"
+                      <a class="nav-link" href="{% url 'student:courses' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fa-solid fa-chalkboard"></i>
                         </div>
                         Courses</a
                       >
-                      <a class="nav-link" href="{% url 'sections' %}"
+                      <a class="nav-link" href="{% url 'student:sections' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fas fa-book"></i>
                         </div>
@@ -253,14 +253,14 @@
                       >
                     </nav>
                   </div>
-                  <a class="nav-link" href="{% url 'concise_schedule' %}"
+                  <a class="nav-link" href="{% url 'student:concise_schedule' %}"
                     ><div class="sb-nav-link-icon">
                       <i class="fa fa-calendar" aria-hidden="true"></i>
                     </div>
                     Concise Schedule</a
                   >
 
-                  <a class="nav-link" href="{% url 'cgpa_calculator' %}"
+                  <a class="nav-link" href="{% url 'student:cgpa_calculator' %}"
                     ><div class="sb-nav-link-icon">
                       <i class="fa fa-calculator" aria-hidden="true"></i>
                     </div>
@@ -288,13 +288,13 @@
                     data-bs-parent="#sidenavAccordionPages"
                   >
                     <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="{% url 'override' %}"
+                      <a class="nav-link" href="{% url 'student:override' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fa-solid fa-school"></i>
                         </div>
                         Override</a
                       >
-                      <a class="nav-link" href="{% url 'overload' %}"
+                      <a class="nav-link" href="{% url 'student:overload' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
@@ -305,7 +305,7 @@
                 </nav>
               </div>
 
-              <a href="{% url 'account' %}" class="nav-link">
+              <a href="{% url 'student:account' %}" class="nav-link">
                 <div class="sb-nav-link-icon">
                   <i class="fa-solid fa-money-bill"></i>
                 </div>
@@ -345,11 +345,11 @@
               aria-labelledby="dropdownUser1"
             >
               <li>
-                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                <a class="dropdown-item" href="{% url 'student:profile' %}">Profile</a>
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
-                <a class="dropdown-item" href="{% url 'logout' %}">Sign out</a>
+                <a class="dropdown-item" href="{% url 'student:logout' %}">Sign out</a>
               </li>
             </ul>
           </div>

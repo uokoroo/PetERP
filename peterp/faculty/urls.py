@@ -1,8 +1,9 @@
 from django.urls import include,path
 from . import views
 
-APP_NAME = 'faculty'
+app_name = 'faculty'
 
 urlpatterns = [
-
+    path("",views.index,name='index'),
+    path("logout/",views.logout_user,name='logout')
 ]

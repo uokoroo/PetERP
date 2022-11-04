@@ -64,7 +64,7 @@
                         </div>
                         <div class="modal-body">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <a href="{% url 'remove' course.section_id %}"><button type="submit"
+                          <a href="{% url 'student:remove' course.section_id %}"><button type="submit"
                               class="btn btn-danger">Delete</button></a>
                         </div>
                       </div>
@@ -144,7 +144,7 @@
                           <td>{{ section.term }}</td>
                           <td>{{ section.location }}</td>
                           <td>{{ section.section_number }}</td>
-                          <td><a href="{% url 'add_section' section.section_id %}"><button class="btn btn-primary">Add</button></a></td>
+                          <td><a href="{% url 'student:add_section' section.section_id %}"><button class="btn btn-primary">Add</button></a></td>
                         </tr>
                       {% endfor %}
                     </tbody>

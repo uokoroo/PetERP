@@ -31,7 +31,7 @@ def order_records_by_session(enrollments):
 def index(request):
     # if there is a token in memory it means that the user is logged in
     if not request.session.get('token'):
-        return redirect('login')
+        return redirect('home:login')
 
     else:
         token = request.session.get('token')
@@ -42,7 +42,7 @@ def index(request):
         # if the status_code is 401 it means the token is expired. Redirect the user to logout and create an error message
         if student_data.status_code == 401 or concise_schedule.status_code == 401:
             messages.add_message(request,messages.WARNING,"Session expired, please login again")
-            return redirect(reverse('logout'))
+            return redirect(reverse('student:logout'))
         # for the current use case if there is no 401 error then the data is valid
         # this probably will not hold in production but suffices for now
         else:
@@ -60,7 +60,7 @@ def profile(request):
     token = request.session.get('token')
     # if there's no student_data or profile then the user is not logged in, redirect to login
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
     concise_schedule = request.session.get('concise_schedule')
     
@@ -101,7 +101,7 @@ def redirect_by_code(request,incoming_request,source_page):
     if code - 400 >= 0 and code - 400 <=99:
         messages.add_message(request, messages.WARNING, incoming_request.json()['message'])
         if code == 401:
-            return redirect(reverse('login'))
+            return redirect(reverse('home:login'))
         elif code == 403:
             # 403 forbidden means the user is not allowed to access this page
             return render(request,'student_ view/forbidden.html')
@@ -122,13 +122,13 @@ def settings(request):
 def logout_user(request):
     # delete the session data and redirect to login. This makes the system forget there's ever been a person logged in
     request.session.flush()
-    return redirect(reverse('login'))
+    return redirect(reverse('home:login'))
 
 
 def academics(request):
         # if there's no student_data or profile then the user is not logged in, redirect to login
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
     concise_schedule = request.session.get('concise_schedule')
     return render(request,'student_view/academics.html',{
@@ -140,7 +140,7 @@ def academics(request):
  
 def registration(request):
     if not request.session.get('token'):
-        return redirect('home:login')
+        return redirect('home:home:login')
     token = request.session.get('token')
     if request.method == 'POST':
         payload = convert(request.POST)
@@ -149,7 +149,7 @@ def registration(request):
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
             messages.add_message(request, messages.WARNING, r.json()['message'])
-            return redirect(reverse('login'))
+            return redirect(reverse('home:login'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully registered section')
             return redirect(reverse('registration'))
@@ -157,7 +157,7 @@ def registration(request):
     sections = requests.get(URL+"/all_sections?order=session_id.desc",headers={'Authorization':'Bearer ' + token})
     if 0 <= registration.status_code - 400 < 100 or 0 <= sections.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, registration.json()['message'])
-        return HttpResponseRedirect(reverse('login'))
+        return HttpResponseRedirect(reverse('home:login'))
     student_data = request.session.get('student_data')
 
     return render(request,"student_view/registration.html", {
@@ -176,7 +176,7 @@ def remove(request,section_id):
         'Authorization':'Bearer ' + token,
         'Prefer':'return=representation'
     })
-    return redirect_by_code(request,delete_req,'registration')
+    return redirect_by_code(request,delete_req,'student:registration')
 
 
 def add_section(request,section_id):
@@ -190,7 +190,7 @@ def add_section(request,section_id):
         'Authorization':'Bearer ' + token
         },
         json={"section_id":section_id})
-    return redirect_by_code(request,add_req,'registration')
+    return redirect_by_code(request,add_req,'student:registration')
     
 
 
@@ -201,7 +201,7 @@ def academic_records(request):
     """
     # if there's no student_data or profile then the user is not logged in, redirect to login
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
     token = request.session['token']
@@ -209,7 +209,7 @@ def academic_records(request):
     print(r.json())
     if 0 <= r.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, r.json()['message'])
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     else:
         academic_records = r.json()
         academic_records = order_records_by_session(academic_records)
@@ -223,7 +223,7 @@ def academic_records(request):
 
 def semester_records(request,session):
     if not request.session.get('academic_records'):
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     all_data = request.session.get('academic_records')
     session_data = academic_data(all_data[session])
     data = all_data[session]
@@ -238,7 +238,7 @@ def semester_records(request,session):
 
 def cgpa_calculator(request):
     if not request.session.get('student_data'):
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
@@ -250,7 +250,7 @@ def cgpa_calculator(request):
 def concise_schedule(request):
         # if there's no student_data or profile then the user is not logged in, redirect to login
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
     concise_schedule = request.session.get('concise_schedule')
@@ -263,12 +263,12 @@ def concise_schedule(request):
 
 def override(request):
     if not request.session['token']:
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     token = request.session['token']
     override = requests.get(URL+"/overrides?select=*",headers={'Authorization':'Bearer ' + token})
     if 0 <= override.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, override.json()['message'])
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
     return render(request,"student_view/override.html", {
         'overrides':override.json(),
@@ -278,7 +278,7 @@ def override(request):
 
 def new_override(request):
     if not request.session['token']:
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     token = request.session['token']
     if request.method == 'POST':
         payload = convert(request.POST)
@@ -288,10 +288,10 @@ def new_override(request):
         if 0 <= r.status_code - 400 < 100:
             print(r.json())
             messages.add_message(request, messages.WARNING, r.json()['message'])
-            return redirect(reverse('index'))
+            return redirect(reverse('student:index'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully created override')
-            return redirect(reverse('override'))
+            return redirect(reverse('student:override'))
     override = requests.get(URL+"/overrides?select=*",headers={'Authorization':'Bearer ' + token})
     max_courses = requests.get(URL+"/rpc/get_max_courses",headers={'Authorization':'Bearer ' + token}).json()
     session = requests.get(URL+"/session?select=session_id&status=eq.active&state_id=lt.3",headers={
@@ -300,17 +300,17 @@ def new_override(request):
     }).json()
     if 0 <= override.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, override.json()['message'])
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
 
     session = session.get('session_id')
     print('session:',session)
     if not session:
         messages.add_message(request,messages.WARNING,'No semester is open for registration')
-        return redirect(reverse('index'))
+        return redirect(reverse('student:index'))
     if 0 <= override.status_code - 400 < 100:
         print(override.json())
         messages.add_message(request, messages.WARNING, override.json()['message'])
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
     return render(request,"student_view/add_override.html", {
         'overrides':override.json(),
@@ -321,7 +321,7 @@ def new_override(request):
 
 def overload(request):
     if not request.session['token']:
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     token = request.session['token']
     if request.method == 'POST':
         payload = convert(request.POST)
@@ -331,10 +331,10 @@ def overload(request):
         if 0 <= r.status_code - 400 < 100:
             print(r.json())
             messages.add_message(request, messages.WARNING, r.json()['message'])
-            return redirect(reverse('index'))
+            return redirect(reverse('student:index'))
         else:
             messages.add_message(request, messages.SUCCESS, 'Succesfully created overload')
-            return redirect(reverse('overload'))
+            return redirect(reverse('student:overload'))
     overload = requests.get(URL+"/overloads?select=*,session(semester,year)",headers={'Authorization':'Bearer ' + token})
     max_courses = requests.get(URL+"/rpc/get_max_courses",headers={'Authorization':'Bearer ' + token}).json()
     session = requests.get(URL+"/session?select=session_id&status=eq.active&state_id=lt.3",headers={
@@ -344,11 +344,11 @@ def overload(request):
     session = session.get('session_id')
     if not session:
         messages.add_message(request,messages.WARNING,'No semester is open for registration')
-        return render(request,reverse('index'))
+        return render(request,reverse('student:index'))
     if 0 <= overload.status_code - 400 < 100:
         print(overload.json())
         messages.add_message(request, messages.WARNING, overload.json()['message'])
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
     return render(request,"student_view/overload.html", {
         'overloads':overload.json(),
@@ -360,16 +360,16 @@ def overload(request):
 
 def account(request):
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     if not request.session['token']:
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
     token = request.session['token']
     r = requests.get(URL+"/transaction?select=*,session(semester,year)",headers={'Authorization':'Bearer ' + token})
     r2 = requests.get(URL+"/rpc/get_account_balance",headers={'Authorization':'Bearer ' + token})
     if 0 <= r.status_code - 400 < 100 or 0 <= r2.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, r.json()['message'])
-        return redirect(reverse('account'))
+        return redirect(reverse('student:account'))
     else:
         transactions = r.json()
         balance = r2.json()
@@ -385,14 +385,14 @@ def account(request):
 
 def courses(request):
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
     token = request.session['token']
     r = requests.get(URL+"/courses",headers={'Authorization':'Bearer ' + token})
     if 0 <= r.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, r.json()['message'])
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     else:
         courses = r.json()
         
@@ -404,14 +404,14 @@ def courses(request):
 
 def sections(request):
     if not request.session.get('student_data') or not request.session.get('concise_schedule'):
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     if not request.session['token']:
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     token = request.session['token']
     r = requests.get(URL+"/sections?select=section_id,section_number,location,capacity,session(semester,year),courses(course_code,credit_hours,title),section_times(class_dates_abbrev(abbrev),class_times(str_rep)),faculty_assignment(faculty(f_name,l_name,m_name))",headers={'Authorization':'Bearer ' + token})
     if 0 <= r.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, r.json()['message'])
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
     else:
         sections = r.json()
         

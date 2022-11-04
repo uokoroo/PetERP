@@ -15,12 +15,13 @@ def index(request):
         r = requests.post(URL+"/rpc/get_role", headers={'Authorization':'Bearer ' + token})
         if r.status_code - 400 >= 0 and r.status_code - 400 <=99:
             # if the status code is 400 it means it's a bad request so just login again.
-            return redirect(reverse('login'))
+            messages.add_message(request, messages.WARNING, r.json().get('message'))
+            return redirect(reverse('home:login'))
         else:
             # redirect to the correct app based on the details of the user
             return redirect(f'{r.json()}:index')
     else:
-        return redirect(reverse('login'))
+        return redirect(reverse('home:login'))
 
  
         
@@ -32,11 +33,11 @@ def login_user(request):
         # 403 forbidden means the user is not allowed to access this page
         if r.status_code == 403:
             messages.add_message(request, messages.WARNING, r.json().get('message'))
-            return redirect(reverse('index'))
+            return redirect(reverse('home:index'))
 
         else:
             request.session['token'] = r.json()['token']
-            return redirect(reverse('index'))
+            return redirect(reverse('home:index'))
     return render(request,"login.html")
 
 

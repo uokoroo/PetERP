@@ -1,7 +1,7 @@
 from django.urls import include,path
 from . import views
 
-APP_NAME = 'registrar'
+app_name = 'registrar'
 
 urlpatterns = [
 
