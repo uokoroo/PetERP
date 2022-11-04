@@ -159,10 +159,15 @@
                   display: block;
                 "
               />
-              <h5 style="text-align: center; margin-top: 30px">
+              <h5
+                class="text-white"
+                style="text-align: center; margin-top: 20px"
+              >
                 {{ student_data.name }}
               </h5>
-              <p style="text-align: center">{{ student_data.major }}</p>
+              <p class="text-white" style="text-align: center">
+                {{ student_data.major }}
+              </p>
               <a class="nav-link" href="{% url 'index' %}">
                 <div class="sb-nav-link-icon">
                   <i class="fa fa-home"></i>
