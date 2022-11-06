@@ -53,14 +53,14 @@ def index(request):
 
 
 def semester_schedule(request):
-    # if there's no student_data or profile then the user is not logged in, redirect to login
+    # if there's no faculty_data or profile then the user is not logged in, redirect to login
     if not request.session.get('faculty_data') or not request.session.get('semester_schedule'):
         return redirect(reverse('home:login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
     semester_schedule = request.session.get('semester_schedule')
     faculty_data = request.session.get('faculty_data')
-    return render(request,'faculty_view/semester_schedule.html',{
+    return render(request,'faculty_view/semester.html',{
         'semester_schedule':semester_schedule,
         'faculty_data':faculty_data,
     })
@@ -89,21 +89,28 @@ def profile(request):
 
 
 def sections(request):
-    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+    if not request.session.get('faculty_data') or not request.session.get('semester_schedule'):
         return redirect(reverse('home:login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
     token = request.session['token']
     r = requests.get(URL+"/sections?select=section_id,section_number,location,capacity,session(semester,year),courses(course_code,credit_hours,title),section_times(class_dates_abbrev(abbrev),class_times(str_rep)),faculty_assignment(faculty(f_name,l_name,m_name))",headers={'Authorization':'Bearer ' + token})
     if 0 <= r.status_code - 400 < 100:
+        print(r.json()['message'])
         messages.add_message(request, messages.WARNING, r.json()['message'])
         return redirect(reverse('home:login'))
     else:
         sections = r.json()
 
+    faculty_data = request.session.get('faculty_data')
+    return render(request,'faculty_view/sections.html',{
+        'faculty_data':faculty_data,
+        'sections':sections,
+    })
+
 
 def courses(request):
-    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+    if not request.session.get('faculty_data') or not request.session.get('semester_schedule'):
         return redirect(reverse('home:login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
@@ -115,9 +122,10 @@ def courses(request):
     else:
         courses = r.json()
         
-
-    return render(request,'student_view/courses.html',{
+    faculty_data = request.session.get('faculty_data')
+    return render(request,'faculty_view/courses.html',{
         'courses':courses,
+        'faculty_data':faculty_data,
     })
 
 

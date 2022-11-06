@@ -22,21 +22,19 @@
               <th scope="col">Title</th>
               <th scope="col">Lab</th>
               <th scope="col">No.</th>
-              <th scope="col">Faculty</th>
               <th scope="col">Time</th>
               <th scope="col">Location</th>
             </tr>
           </thead>
           <tbody>
-            {% for course in concise_schedule %}
+            {% for course in semester_schedule.sections %}
             <tr>
-              <td>{{ course.term }}</td>
-              <td>{{ course.course_code }}</td>
-              <td>{{ course.title }}</td>
-              <td>{{ course.lab }}</td>
+              <td>{{ semester_schedule.semester }} {{ semester_schedule.year }}</td>
+              <td>{{ course.course.course_code }}</td>
+              <td>{{ course.course.title }}</td>
+              <td>{{ course.course.lab }}</td>
               <td>{{ course.section_number }}</td>
-              <td>{{ course.faculty }}</td>
-              <td>{{ course.time }}</td>
+              <td>{{ course.section_times.class_dates_abbrev.abbrev }}</td>
               <td>{{ course.location }}</td>
             </tr>
             {% empty %}
