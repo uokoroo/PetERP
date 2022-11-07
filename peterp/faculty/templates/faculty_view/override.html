@@ -1,0 +1,79 @@
+{% extends 'student_view/layout.html' %} {% load static %} {% block title %}
+<title>Override - PetERP</title>
+{% endblock %} {% block body %}
+<main style="background-color: rgba(0, 0, 0, 0.03)">
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Override</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Academics</li>
+    </ol>
+
+    <div class-="row px-4 text-center">
+      <div class="card-header">
+        <i class="fa-solid fa-school me-1"></i>
+        Override Overview
+      </div>
+      <div class="card mb-4">
+        <div class="tex mt-4 mb-4">
+          <div class="container mb-5">
+            <table id="datatablesSimple">
+              <thead>
+                <tr>
+                  <th>CRN</th>
+                  <th>Course Code</th>
+                  <th>Course Title</th>
+                  <th>Credit Hours</th>
+                  <th>Capacity</th>
+                  <th>Enrolled</th>
+                  <th>Time</th>
+                  <th>Faculty</th>
+                  <th>Term</th>
+                  <th>Location</th>
+                  <th>Section Number</th>
+                  <th>Add</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for section in sections %}
+                <tr>
+                  <td>{{ section.section_id }}</td>
+                  <td>{{ section.course_code }}</td>
+                  <td>{{ section.title }}</td>
+                  <td>{{ section.credit_hours }}</td>
+                  <td>{{ section.capacity }}</td>
+                  <td>{{ section.enrolled }}</td>
+                  <td>{{ section.time }}</td>
+                  <td>{{ section.faculty }}</td>
+                  <td>{{ section.term }}</td>
+                  <td>{{ section.location }}</td>
+                  <td>{{ section.section_number }}</td>
+                  <td>
+                    <a href="{% url 'student:add_section' section.section_id %}"
+                      ><button class="btn btn-primary">Approve</button></a
+                    >
+                  </td>
+                  <td>
+                    <a href="{% url 'student:add_section' section.section_id %}"
+                      ><button class="btn btn-danger">Decline</button></a
+                    >
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="text-center container">
+            <a href="{% url 'student:new_override' %}" class="btn btn-primary">
+              <i class="fa fa-add" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <!-- Modal -->
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
