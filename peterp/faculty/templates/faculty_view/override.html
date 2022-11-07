@@ -19,46 +19,57 @@
             <table id="datatablesSimple">
               <thead>
                 <tr>
-                  <th>CRN</th>
                   <th>Course Code</th>
-                  <th>Course Title</th>
+
                   <th>Credit Hours</th>
                   <th>Capacity</th>
                   <th>Enrolled</th>
                   <th>Time</th>
-                  <th>Faculty</th>
+
                   <th>Term</th>
-                  <th>Location</th>
+
                   <th>Section Number</th>
-                  <th>Accept</th>
-                  <th>Decline</th>
+
+                  <th>Action</th>
                 </tr>
               </thead>
 
               <tbody>
                 {% for section in sections %}
                 <tr>
-                  <td>{{ section.section_id }}</td>
                   <td>{{ section.course_code }}</td>
-                  <td>{{ section.title }}</td>
+
                   <td>{{ section.credit_hours }}</td>
                   <td>{{ section.capacity }}</td>
                   <td>{{ section.enrolled }}</td>
                   <td>{{ section.time }}</td>
-                  <td>{{ section.faculty }}</td>
+
                   <td>{{ section.term }}</td>
-                  <td>{{ section.location }}</td>
+
                   <td>{{ section.section_number }}</td>
                   <td>
                     <a href="{% url 'student:add_section' section.section_id %}"
                       ><button class="btn btn-primary">Approve</button></a
                     >
-                  </td>
-                  <td>
+
                     <a href="{% url 'student:add_section' section.section_id %}"
                       ><button class="btn btn-danger">Decline</button></a
                     >
                   </td>
+                </tr>
+                {% endfor %} {% for section in sections %}
+                <tr>
+                  <td>{{ section.course_code }}</td>
+
+                  <td>{{ section.credit_hours }}</td>
+                  <td>{{ section.capacity }}</td>
+                  <td>{{ section.enrolled }}</td>
+                  <td>{{ section.time }}</td>
+
+                  <td>{{ section.term }}</td>
+
+                  <td>{{ section.section_number }}</td>
+                  <td>Accepted</td>
                 </tr>
                 {% endfor %}
               </tbody>
