@@ -11,7 +11,7 @@
     <div class="card mb-4">
       <div class="card-header">
         <i class="fa fa-calendar me-1"></i>
-        Semester Schedule
+        {{ course.course.course_code }}
       </div>
       <div class="card-body">
         <table class="table table-hover">
@@ -19,17 +19,14 @@
             <tr>
               <th scope="col">Term</th>
               <th scope="col">Course</th>
-              <th scope="col">Title</th>
-              <th scope="col">Lab</th>
-              <th scope="col">No.</th>
-              <th scope="col">Time</th>
-              <th scope="col">Location</th>
+              <th scope="col">Student Name</th>
+              <th scope="col">Student ID/th></th>
+              <th scope="col">Student Email</th>
             </tr>
           </thead>
           <tbody>
             {% for course in semester_schedule.sections %}
-
-            <tr class="clickable-row" data-href="semester_records.html">
+            <tr>
               <td>
                 {{ semester_schedule.semester }} {{ semester_schedule.year }}
               </td>
@@ -38,13 +35,11 @@
               <td>{{ course.course.lab }}</td>
               <td>{{ course.section_number }}</td>
               <td>{{ course.section_times.class_dates_abbrev.abbrev }}</td>
-              <td>{{ course.location }}</td>
             </tr>
-
             {% empty %}
             <tr>
               <td colspan="9" class="text-muted">
-                No courses on Semester schedule
+                No courses on concise schedule
               </td>
             </tr>
             {% endfor %}
@@ -54,11 +49,4 @@
     </div>
   </div>
 </main>
-<script>
-  jQuery(document).ready(function ($) {
-    $(".clickable-row").click(function () {
-      window.location = $(this).data("href");
-    });
-  });
-</script>
 {% endblock %}
