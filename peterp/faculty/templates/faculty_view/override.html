@@ -30,7 +30,8 @@
                   <th>Term</th>
                   <th>Location</th>
                   <th>Section Number</th>
-                  <th>Add</th>
+                  <th>Accept</th>
+                  <th>Decline</th>
                 </tr>
               </thead>
 
@@ -62,12 +63,6 @@
                 {% endfor %}
               </tbody>
             </table>
-          </div>
-
-          <div class="text-center container">
-            <a href="{% url 'student:new_override' %}" class="btn btn-primary">
-              <i class="fa fa-add" aria-hidden="true"></i>
-            </a>
           </div>
 
           <!-- Modal -->
