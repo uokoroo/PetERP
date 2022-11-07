@@ -130,13 +130,17 @@ def courses(request):
 
 
 def overrides(request):
-    pass
+    return render(request,'faculty_view/override.html')
 
 
 def logout_user(request):
     # delete the session data and redirect to login. This makes the system forget there's ever been a person logged in
     request.session.flush()
     return redirect(reverse('home:login'))
+
+
+def semester_records(request):
+    return render(request,'faculty_view/semester_records.html')
 
 
 def redirect_by_code(request, incoming_request, source_page):

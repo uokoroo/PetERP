@@ -183,7 +183,7 @@
 
               <a
                 class="nav-link collapsed"
-                href="index.html"
+                href="{% url 'faculty:index' %}"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseLayouts"
                 aria-expanded="false"
@@ -216,7 +216,7 @@
                     </div>
                     Semester Schedule</a
                   >
-                  <a class="nav-link" href="{% url 'faculty:semester_schedule' %}"
+                  <a class="nav-link" href="{% url 'faculty:overrides' %}"
                   ><div class="sb-nav-link-icon">
                     <i class="fas fa-archive"></i>
                   </div>
