@@ -40,6 +40,8 @@
               <th>{{ section.section_number }}</th>
               {% for fac in section.faculty_assignment%}
               <th>{{fac.faculty.f_name}} {{fac.faculty.l_name}}</th>
+              {% empty %}
+              <th> None</th>
               {% endfor %}
               <th>
                 {{section.section_times.class_dates_abbrev.abbrev}}

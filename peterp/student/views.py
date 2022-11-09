@@ -140,7 +140,7 @@ def academics(request):
  
 def registration(request):
     if not request.session.get('token'):
-        return redirect('home:home:login')
+        return redirect('home:login')
     token = request.session.get('token')
     if request.method == 'POST':
         payload = convert(request.POST)
@@ -183,7 +183,6 @@ def add_section(request,section_id):
     token = request.session.get('token')
     if not token:
         return redirect('home:login')
-    print(section_id)
     add_req = requests.post(
         URL+"/registration",
         headers={

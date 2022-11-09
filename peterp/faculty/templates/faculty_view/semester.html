@@ -29,7 +29,7 @@
           <tbody>
             {% for course in semester_schedule.sections %}
 
-            <tr class="clickable-row" data-href="semester_records.html">
+            <tr class="clickable-row" data-href="{% url 'faculty:section_records' course.section_id %}">
               <!--link to the semester records-->
               <td>
                 {{ semester_schedule.semester }} {{ semester_schedule.year }}

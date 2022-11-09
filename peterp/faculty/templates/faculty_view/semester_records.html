@@ -3,7 +3,8 @@
 {% endblock %} {% block body %}
 <main>
   <div class="container-fluid px-4">
-    <h1 class="mt-4">Semester Schedule</h1>
+    <h1 class="mt-4">Section Details</h1>
+    <h6 class="text-muted">{{ section_data.course.course_code }}: {{ section_data.session.semester }} {{ section_data.session.year }} </h6>
     <ol class="breadcrumb mb-4">
       <li class="breadcrumb-item active">Academics</li>
     </ol>
@@ -11,35 +12,33 @@
     <div class="card mb-4">
       <div class="card-header">
         <i class="fa fa-calendar me-1"></i>
-        {{ course.course.course_code }}
       </div>
       <div class="card-body">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Term</th>
-              <th scope="col">Course</th>
+              <th scope="col">#</th>
               <th scope="col">Student Name</th>
-              <th scope="col">Student ID/th></th>
+              <th scope="col">Student ID</th>
               <th scope="col">Student Email</th>
             </tr>
           </thead>
           <tbody>
-            {% for students in student.course %} </tbody> <!--the linking would be for students in the course-->
+            {% for student in section_data.student_enrollment %} </tbody> <!--the linking would be for students in the course-->
             <tr>
-              <td>
-                {{ semester_schedule.semester }} {{ semester_schedule.year }}
-              </td>
-              <td>{{ course.course.course_code }}</td>
-              <td>{{ course.course.title }}</td>
-              <td>{{ course.course.lab }}</td>
-              <td>{{ course.section_number }}</td>
-              <td>{{ course.section_times.class_dates_abbrev.abbrev }}</td>
+              <td> {{forloop.counter}}</td>
+              {% if student.student.middle_name is not None  %}
+              <td>{{ student.student.first_name}} {{ student.student.middle_name}} {{ student.student.last_name}}</td>
+              {% else %}
+              <td>{{ student.student.first_name}}  {{ student.student.last_name}}</td>
+              {% endif %}
+              <td> {{student.student.student_id}}</td>
+              <td> {{student.student.email}}</td>
             </tr>
             {% empty %}
             <tr>
               <td colspan="9" class="text-muted">
-                No courses on concise schedule
+                No students enrolled yet
               </td>
             </tr>
             {% endfor %}

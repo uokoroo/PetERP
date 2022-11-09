@@ -16,34 +16,32 @@
       <div class="card-body">
         <table class="table table-hover">
           <thead>
-            <tr>
+            <tr class="text-center">
               <th scope="col">Term</th>
               <th scope="col">Name</th>
               <th scope="col">Student ID</th>
-              <th scope="col">Credits</th>
               <th scope="col">Course</th>
+              <th scope="col">Section No</th>
+              <th scope="col">Section ID</th>
               <th scope="col">Grade</th>
-              
               <th scope="col">Change</th>
             </tr>
           </thead>
           <tbody>
-            {% for course in semester_schedule.sections %}
+            {% for g in grades %}
 
-            <tr data-href="semester_records.html">
-              <!--link to the semester records-->
-              <td>
-                {{ semester_schedule.semester }} {{ semester_schedule.year }}
-              </td>
-              <td>{{ student.name }}</td>
-              <td>{{ student.student_id }}</td>
-              
-              <td>{{ course.course.credits }}</td>
-              <td>{{ course.course.course_code }}</td>
-              <td>{{ course.grade }}</td>
+            <tr class="text-center">
+              <td>{{g.sections.session.semester}} {{g.sections.session.year}}</td>
+              <td>{{g.student.first_name}} {{ g.student.last_name }}</td>
+              <td>{{g.student_id}}</td>
+              <td>{{g.sections.course.course_code}}</td>
+              <td>{{g.sections.section_number}}</td>
+              <td>{{g.sections.section_id}}</td>
+              <td>{{g.grade}}</td>
               <td>
                 <div class="modal-container container text-center">
-                  <span class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#gradeModal-{{ course.section_id }}">
+                  <span class="btn btn-primary" type="button" data-bs-toggle="modal"
+                    data-bs-target="#gradeModal-{{ course.section_id }}">
                     <span class="">Change</span>
                   </span>
                   <!-- Modal -->
@@ -52,54 +50,51 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                         
-                          
+
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                           <div class="row mx-4">
                             <div class="col-4">
-                              <button class="btn btn-primary">A</button>
+                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'A' %}">A</a>
                             </div>
                             <div class="col-4">
-                              <button class="btn btn-primary">A-</button>
+                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'A-' %}">A-</a>
                             </div>
                             <div class="col-4">
-                              <button class="btn btn-primary">B+
-                              </button>
+                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'B+' %}">B+
+                              </a>
                             </div>
                             <div class="col-4">
-                              <button class="btn btn-primary">B</button>
+                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'B' %}">B</a>
                             </div>
                             <div class="col-4">
-                              <button class="btn btn-primary">B-</button>
+                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'B-' %}">B-</a>
                             </div>
                             <div class="col-4">
-                              <button class="btn btn-primary">C+</button>
-                              </div>
-                              <div class="col">
-                                <button class="btn btn-primary">C</button>
-                              </div>
-                              <div class="col">
-                                <button class="btn btn-primary">D-</button>
-                              </div>
-                              <div class="col">
-                                <button class="btn btn-primary">F-</button>
-                              </div>
+                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'C+' %}">C+</a>
+                            </div>
+                            <div class="col">
+                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'C' %}">C</a>
+                            </div>
+                            <div class="col">
+                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'D' %}">D-</a>
+                            </div>
+                            <div class="col">
+                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'F' %}">F</a>
+                            </div>
 
-                           
+
 
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                
+
               </td>
 
-              {% empty %}
             </tr>
-
             {% endfor %}
           </tbody>
         </table>
