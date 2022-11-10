@@ -1,0 +1,101 @@
+{% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
+<title>Assign Faculty - PetERP</title>
+{% endblock %} {% block body %}
+<main>
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Assign Faculty</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Academics</li>
+    </ol>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa fa-calendar me-1"></i>
+        Assign Faculty to Courses
+      </div>
+      <div class="card-body"> 
+        <table id="datatablesSimple" class="table table">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">Term</th>
+              <th scope="col">Course ID</th>
+              <th scope="col">Course</th>
+              <th scope="col">Time</th>
+              <th scope="col">Location</th>
+              <th scope="col">Section No</th>
+              <th scope="col">Section ID</th>
+              <th scope="col">Faculty</th>
+              
+              <th scope="col">Change Faculty</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for g in grades %}
+
+            <tr class="text-center">
+              <td>{{g.sections.session.semester}} {{g.sections.session.year}}</td>
+              <td>{{g.student.first_name}} {{ g.student.last_name }}</td>
+              <td>{{g.student_id}}</td>
+              <td>{{g.sections.course.course_code}}</td>
+              <td>{{g.sections.section_number}}</td>
+              <td>{{g.sections.section_id}}</td>
+              <td>{{g.grade}}</td>
+              <td>
+                <div class="modal-container container text-center">
+                  <span class="btn btn-primary" type="button" data-bs-toggle="modal"
+                    data-bs-target="#gradeModal-{{ course.section_id }}">
+                    <span class="">Change Faculty</span>
+                  </span>
+                  <!-- Modal -->
+                  <div class="modal fade" id="gradeModal-{{ course.section_id }}" tabindex="-1"
+                    aria-labelledby="gradeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="gradeModalLabel">Faculty for {{g.sections.course.course_code}}</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <table id="datatablesSimple">
+                            <thead>
+                              <tr>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Assign</th>
+                                
+                              </tr>
+                            </thead>
+                  
+                            <tbody>
+                              {% for faculty in faculty %}
+                              <tr>
+                                <td>{{transaction.transaction_type}}</td>
+                                <td>{{ transaction.description }}</td>
+                                <td><a href="{% url 'student:add_section' section.section_id %}"><button class="btn btn-primary">Assign</button></a></td>
+                              </tr>
+                              {%empty%}
+                              <tr>
+                                <td colspan="5" class="text-muted text-center">No faculty on record</td>
+                              </tr>
+                              {% endfor %}
+                              
+                            </tbody>
+                          </table>
+                          <hr class="divider" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              </td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
