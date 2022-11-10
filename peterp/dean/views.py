@@ -20,19 +20,20 @@ def index(request):
 
     else:
         token = request.session.get('token')
+        fac_id = request.session.get('id')
         # make api requests and get important data that will be cached
         dean_data = requests.get(
-            URL+"/faculty", headers={
+            URL+f"/faculty?select=*&faculty_id=eq.{fac_id}", headers={
                 'Authorization': 'Bearer ' + token,
                 'Accept': 'application/vnd.pgrst.object+json'
             })
         # if the status_code is 401 it means the token is expired. Redirect the user to logout and create an error message
-        fac_id = dean_data.json()['dean_id']
         semester_schedule = requests.get(
             URL+f"/session?select=*,sections(*,section_times(class_dates_abbrev(abbrev),class_times(str_rep)),course:courses(*),faculty_assignment!inner(*))&sections.faculty_assignment.fac_id=eq.{fac_id}&status=eq.active&state_id=gt.2", headers={
                 'Authorization': 'Bearer ' + token,
                 'Accept': 'application/vnd.pgrst.object+json'
             })
+        print(semester_schedule.json())
         if dean_data.status_code == 401:
             messages.add_message(request, messages.WARNING,
                                  "Session expired, please login again")
@@ -46,7 +47,7 @@ def index(request):
         role = requests.get(URL+"/get_role")
         request.session['role'] = role.json()
         return render(request, "dean_view/index.html", {
-            'dean_data': dean_data.json(),
+            'faculty_data': dean_data.json(),
             'semester_schedule': semester_schedule.json(),
         })
 
@@ -61,7 +62,7 @@ def semester_schedule(request):
     dean_data = request.session.get('dean_data')
     return render(request, 'dean_view/semester.html', {
         'semester_schedule': semester_schedule,
-        'dean_data': dean_data,
+        'faculty_data': dean_data,
     })
 
 
@@ -100,7 +101,7 @@ def allocate_grades(request):
     dean_data = request.session.get('dean_data')
     return render(request, "dean_view/allocate-grade.html", {
         'grades': grades.json(),
-        "dean_data": dean_data
+        "faculty_data": dean_data
     })
 
 
@@ -124,7 +125,7 @@ def sections(request):
 
     dean_data = request.session.get('dean_data')
     return render(request, 'dean_view/sections.html', {
-        'dean_data': dean_data,
+        'faculty_data': dean_data,
         'sections': sections,
     })
 
@@ -146,7 +147,7 @@ def courses(request):
     dean_data = request.session.get('dean_data')
     return render(request, 'dean_view/courses.html', {
         'courses': courses,
-        'dean_data': dean_data,
+        'faculty_data': dean_data,
     })
 
 
@@ -178,7 +179,7 @@ def overrides(request):
 
     return render(request, "dean_view/override.html", {
         'overrides': overrides.json(),
-        "dean_data": dean_data
+        "faculty_data": dean_data
     })
 
 
@@ -211,11 +212,10 @@ def section_records(request, section_id):
     dean_data = request.session.get('dean_data')
     return render(request, 'dean_view/semester_records.html', {
         'section_data': section_data,
-        'dean_data': dean_data
+        'faculty_data': dean_data
 
     })
-    "sections?select=*,session(semester,year),student_enrollment!inner(students(first_name,middle_name,last_name))"
-    return render(request, 'dean_view/semester_records.html')
+
 
 
 def override_action(request, new_state, override_id):

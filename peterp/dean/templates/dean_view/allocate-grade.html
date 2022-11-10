@@ -1,4 +1,4 @@
-{% extends 'faculty_view/layout.html' %} {% load static %} {% block title %}
+{% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
 <title>Course Overview - PetERP</title>
 {% endblock %} {% block body %}
 <main>
@@ -56,32 +56,32 @@
                         <div class="modal-body">
                           <div class="row mx-4 my-4">
                             <div class="col-4 my-3">
-                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'A' %}">A</a>
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'A' %}">A</a>
                             </div>
                             <div class="col-4 my-3">
-                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'A-' %}">A-</a>
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'A-' %}">A-</a>
                             </div>
                             <div class="col-4 my-3">
-                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'B+' %}">B+
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'B+' %}">B+
                               </a>
                             </div>
                             <div class="col-4 my-3">
-                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'B' %}">B</a>
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'B' %}">B</a>
                             </div>
                             <div class="col-4 my-3">
-                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'B-' %}">B-</a>
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'B-' %}">B-</a>
                             </div>
                             <div class="col-4 my-3">
-                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'C+' %}">C+</a>
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'C+' %}">C+</a>
                             </div>
                             <div class="col my-3">
-                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'C' %}">C</a>
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'C' %}">C</a>
                             </div>
                             <div class="col my-3">
-                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'D' %}">D-</a>
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'D' %}">D-</a>
                             </div>
                             <div class="col my-3">
-                              <a class="btn btn-primary" href="{% url 'faculty:change_grade' g.student_enrollment_id 'F' %}">F</a>
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'F' %}">F</a>
                             </div>
 
 

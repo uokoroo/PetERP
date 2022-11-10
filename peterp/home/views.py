@@ -37,6 +37,7 @@ def login_user(request):
 
         else:
             request.session['token'] = r.json().get('token')
+            request.session['id'] = payload.get('id')
             return redirect(reverse('home:index'))
     return render(request,"login.html")
 

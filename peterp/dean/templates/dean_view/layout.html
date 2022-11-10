@@ -85,7 +85,7 @@
       <!-- Navbar Brand-->
       <a
         class="navbar-brand text-center mt-1"
-        href="{% url 'faculty:index' %}"
+        href="{% url 'dean:index' %}"
         ><h4 class=>AUN</h4>
       </a>
       <!-- Sidebar Toggle-->
@@ -130,13 +130,13 @@
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <a class="dropdown-item" href="{% url 'faculty:profile' %}"
+              <a class="dropdown-item" href="{% url 'dean:profile' %}"
                 >Profile</a
               >
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="{% url 'faculty:logout' %}"
+              <a class="dropdown-item" href="{% url 'dean:logout' %}"
                 >Logout</a
               >
             </li>
@@ -174,7 +174,7 @@
               <p class="text-muted" style="text-align: center">
                 {{ faculty_data.school }}
               </p>
-              <a class="nav-link" href="{% url 'faculty:index' %}">
+              <a class="nav-link" href="{% url 'dean:index' %}">
                 <div class="sb-nav-link-icon">
                   <i class="fa fa-home"></i>
                 </div>
@@ -183,7 +183,7 @@
 
               <a
                 class="nav-link collapsed"
-                href="{% url 'faculty:index' %}"
+                href="{% url 'dean:index' %}"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseLayouts"
                 aria-expanded="false"
@@ -205,13 +205,13 @@
               >
                 <nav class="sb-sidenav-menu-nested nav">
 
-                  <a class="nav-link" href="{% url 'faculty:semester_schedule' %}"
+                  <a class="nav-link" href="{% url 'dean:semester_schedule' %}"
                     ><div class="sb-nav-link-icon">
                       <i class="fas fa-archive"></i>
                     </div>
                     Semester Schedule</a
                   >
-                  <a class="nav-link" href="{% url 'faculty:overrides' %}"
+                  <a class="nav-link" href="{% url 'dean:overrides' %}"
                   ><div class="sb-nav-link-icon">
                     <i class="fas fa-archive"></i>
                   </div>
@@ -219,7 +219,7 @@
                 >
                   <a
                     class="nav-link"
-                    href="{% url 'faculty:course_overview' %}"
+                    href="{% url 'dean:course_overview' %}"
                     ><div class="sb-nav-link-icon">
                       <i class="fa fa-history" aria-hidden="true"></i>
                     </div>
@@ -248,13 +248,13 @@
                     data-bs-parent="#sidenavAccordionPages"
                   >
                     <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="{% url 'faculty:courses' %}"
+                      <a class="nav-link" href="{% url 'dean:courses' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fa-solid fa-chalkboard"></i>
                         </div>
                         Courses</a
                       >
-                      <a class="nav-link" href="{% url 'faculty:sections' %}"
+                      <a class="nav-link" href="{% url 'dean:sections' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fas fa-book"></i>
                         </div>
@@ -285,13 +285,13 @@
                     data-bs-parent="#sidenavAccordionPages"
                   >
                     <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="{% url 'faculty:allocate_grades' %}"
+                      <a class="nav-link" href="{% url 'dean:allocate_grades' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fa-solid fa-school"></i>
                         </div>
                         Allocate Grades</a
                       >
-                      <a class="nav-link" href="{% url 'faculty:grade_history' %}"
+                      <a class="nav-link" href="{% url 'dean:grade_history' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
@@ -337,13 +337,13 @@
               aria-labelledby="dropdownUser1"
             >
               <li>
-                <a class="dropdown-item" href="{% url 'faculty:profile' %}"
+                <a class="dropdown-item" href="{% url 'dean:profile' %}"
                   >Profile</a
                 >
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
-                <a class="dropdown-item" href="{% url 'faculty:logout' %}"
+                <a class="dropdown-item" href="{% url 'dean:logout' %}"
                   >Sign out</a
                 >
               </li>
