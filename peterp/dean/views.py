@@ -106,7 +106,14 @@ def allocate_grades(request):
 
 
 def profile(request):
-    return render(request, 'dean_view/profile.html')
+    # if there's no student_data or profile then the user is not logged in, redirect to login
+    if not request.session.get('dean_data'):
+        return redirect(reverse('home:login'))
+    dean_data = request.session.get('dean_data')
+    return render(request,'dean_view/profile.html',{
+        'faculty_data':dean_data,
+
+    })
 
 
 def sections(request):
@@ -271,3 +278,49 @@ def redirect_by_code(request, incoming_request, source_page):
         messages.add_message(request, messages.SUCCESS, "Success")
         return redirect(reverse(source_page))
 
+
+
+def overloads(request):
+    if not request.session.get('token'):
+        return redirect('home:home:login')
+    token = request.session.get('token')
+    if request.method == 'POST':
+        # incomplete
+        payload = request.POST
+        r = requests.post(URL+"/registration", json=payload,
+                          headers={'Authorization': 'Bearer ' + token})
+        # 403 forbidden means the user is not allowed to access this page
+        if 0 <= r.status_code - 400 < 100:
+            messages.add_message(
+                request, messages.WARNING, r.json()['message'])
+            return redirect(reverse('home:login'))
+        else:
+            messages.add_message(request, messages.SUCCESS,
+                                 'Succesfully registered section')
+            return redirect(reverse('registration'))
+    overloads = requests.get(URL+"/overloads?select=*,session(year,semester)",
+                             headers={'Authorization': 'Bearer ' + token})
+    if 0 <= overloads.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING,
+                             overloads.json()['message'])
+        return HttpResponseRedirect(reverse('home:login'))
+    dean_data = request.session.get('dean_data')
+
+    return render(request, "dean_view/overload.html", {
+        'overloads': overloads.json(),
+        "faculty_data": dean_data
+    })
+
+
+
+def overload_action(request, new_state, overload_id):
+    token = request.session.get('token')
+    if not token:
+        return redirect('home:login')
+    patch_overloads = requests.patch(
+        URL+f"/overloads?overload_id=eq.{overload_id}",
+        headers={
+            'Authorization': 'Bearer ' + token
+        },
+        json={"state": new_state})
+    return redirect_by_code(request, patch_overloads, 'dean:overloads')

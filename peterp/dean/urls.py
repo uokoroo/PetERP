@@ -13,8 +13,10 @@ urlpatterns = [
     path("sections/",views.sections,name='sections'),
     path("courses/",views.courses,name='courses'),
     path("overrides/",views.overrides,name='overrides'),
+    path("overloads/",views.overloads,name='overloads'),
     path("allocate_grades/",views.allocate_grades,name='allocate_grades'),
     path("change_grade/<int:enrollment_id>/<str:new_grade>",views.change_grade,name='change_grade'),
     path("grade_history/",views.grade_history,name='grade_history'),
     path("override_action/<int:override_id>/<str:new_state>",views.override_action,name='override_action'),
+    path("overload_action/<int:overload_id>/<str:new_state>",views.overload_action,name='overload_action'),
 ]
