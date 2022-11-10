@@ -1,55 +1,49 @@
-{% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
-<title>Academic Record Template - PetERP</title>
+{% extends 'registrar_view/layout.html' %} {% load static %} {% block title %}
+<title>Faculty Information - PetERP</title>
 {% endblock %} {% block body %}
 <main>
   <div class="container-fluid px-4">
-    <h1 class="mt-4">Sections</h1>
+    <h1 class="mt-4">Faculty Information</h1>
     <ol class="breadcrumb mb-4">
-      <li class="breadcrumb-item active">Academics</li>
+      <li class="breadcrumb-item active">Information</li>
     </ol>
 
     <div class="card mb-4">
       <div class="card-header">
-        <i class="fa fa-screen-users me-1"></i>
-        Sections
+        <i class="fa fa-calendar me-1"></i>
+        View Faculty Records
       </div>
       <div class="card-body">
-        <table id="datatablesSimple">
+        <table class="table table-hover">
           <thead>
             <tr>
-              <th>Course</th>
-              <th>Course Title</th>
-              <th>CRN</th>
-              <th>Credit</th>
-              <th>No.</th>
-              <th>Faculty</th>
-              <th>Time</th>
-              <th>Location</th>
-              <th>Capacity</th>
-              <th>Session</th>
+              <th scope="col">Name</th>
+              <th scope="col">StaffNo</th>
+              <th scope="col">Department</th>
+              <th scope="col">Email-Address</th>
             </tr>
           </thead>
-
           <tbody>
-            {% for section in sections %}
+            {% for course in semester_schedule.sections %}
+
+            <tr
+              class="clickable-row"
+              data-href="{% url 'registrar:faculty_profile' student:student_id %}"
+            >
+              <!--link to the semester records-->
+              <td>
+                {{ semester_schedule.semester }} {{ semester_schedule.year }}
+              </td>
+              <td>{{ course.course.course_code }}</td>
+              <td>{{ course.course.title }}</td>
+              <td>{{ course.course.lab }}</td>
+            </tr>
+
+            {% empty %}
             <tr>
-              <th>{{section.courses.course_code}}</th>
-              <th>{{ section.courses.title }}</th>
-              <th>{{section.section_id}}</th>
-              <th>{{section.courses.credit_hours}}</th>
-              <th>{{ section.section_number }}</th>
-              {% for fac in section.faculty_assignment%}
-              <th>{{fac.faculty.f_name}} {{fac.faculty.l_name}}</th>
-              {% empty %}
-              <th>None</th>
-              {% endfor %}
-              <th>
-                {{section.section_times.class_dates_abbrev.abbrev}}
-                {{section.section_times.class_times.str_rep }}
-              </th>
-              <th>{{section.location}}</th>
-              <th>{{section.capacity}}</th>
-              <th>{{section.session.semester}} {{ section.session.year }}</th>
+              <td colspan="9" class="text-muted">
+                No Faculty Currently in Record
+              </td>
             </tr>
             {% endfor %}
           </tbody>

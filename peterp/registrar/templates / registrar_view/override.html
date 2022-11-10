@@ -1,4 +1,4 @@
-{% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
+{% extends 'registrar_view/layout.html' %} {% load static %} {% block title %}
 <title>Override - PetERP</title>
 {% endblock %} {% block body %}
 <main style="background-color: rgba(0, 0, 0, 0.03)">
@@ -52,12 +52,16 @@
                   {% if override.state == 'Posted' %}
                   <td>
                     <div class="d-flex flex-row">
-                      <a href="{% url 'dean:override_action' override.override_id 'Accepted' %}"><button class="btn btn-primary"><i
-                            class="fa-solid fa-correct me-1"></i>
-                        </button></a>
-                      <a href="{% url 'dean:override_action' override.override_id 'Rejected' %}"><button class="btn btn-danger"> <i
-                            class="fa-solid fa-cancel me-1"></i>
-                        </button></a>
+                      <a
+                        href="{% url 'dean:override_action' override.override_id 'Accepted' %}"
+                        ><button class="btn btn-primary">
+                          <i class="fa-solid fa-correct me-1"></i></button
+                      ></a>
+                      <a
+                        href="{% url 'dean:override_action' override.override_id 'Rejected' %}"
+                        ><button class="btn btn-danger">
+                          <i class="fa-solid fa-cancel me-1"></i></button
+                      ></a>
                     </div>
                   </td>
                   {% else %}
