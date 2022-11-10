@@ -22,13 +22,12 @@
                   <th>Course Code</th>
                   <th>Student ID</th>
 
-                  <th>Credit Hours</th>
-                  <th>Capacity</th>
+                  <th>Current Credit Hours</th>
+                  <th>Requested Credit Hours</th>
 
-                  <th>Term</th>
+                  <th>CGPA</th>
 
-                  <th>Section Number</th>
-                  <th>Type</th>
+                  <th>Level</th>
 
                   <th>Action</th>
                 </tr>
@@ -48,7 +47,7 @@
                   </td>
 
                   <td>{{ override.section_id }}</td>
-                  <td>{{ override.override_type }}</td>
+
                   {% if override.state == 'Posted' %}
                   <td>
                     <div class="d-flex flex-row">
