@@ -1,0 +1,65 @@
+{% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
+<title>Concise Schedule - PetERP</title>
+{% endblock %} {% block body %}
+<main>
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Semester Schedule</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Academics</li>
+    </ol>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa fa-calendar me-1"></i>
+        Semester Schedule
+      </div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Term</th>
+              <th scope="col">Course</th>
+              <th scope="col">Title</th>
+              <th scope="col">Lab</th>
+              <th scope="col">No.</th>
+              <th scope="col">Time</th>
+              <th scope="col">Location</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for course in semester_schedule.sections %}
+
+            <tr class="clickable-row" data-href="{% url 'dean:section_records' course.section_id %}">
+              <!--link to the semester records-->
+              <td>
+                {{ semester_schedule.semester }} {{ semester_schedule.year }}
+              </td>
+              <td>{{ course.course.course_code }}</td>
+              <td>{{ course.course.title }}</td>
+              <td>{{ course.course.lab }}</td>
+              <td>{{ course.section_number }}</td>
+              <td>{{ course.section_times.class_dates_abbrev.abbrev }}</td>
+              <td>{{ course.location }}</td>
+            </tr>
+
+            {% empty %}
+            <tr>
+              <td colspan="9" class="text-muted">
+                No courses on Semester schedule
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+  jQuery(document).ready(function ($) {
+    $(".clickable-row").click(function () {
+      window.location = $(this).data("href");
+    });
+  });
+</script>
+{% endblock %}

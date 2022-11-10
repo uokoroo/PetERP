@@ -1,0 +1,79 @@
+{% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
+<title>Override - PetERP</title>
+{% endblock %} {% block body %}
+<main style="background-color: rgba(0, 0, 0, 0.03)">
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Override</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Academics</li>
+    </ol>
+
+    <div class-="row px-4 text-center">
+      <div class="card-header">
+        <i class="fa-solid fa-school me-1"></i>
+        Override Overview
+      </div>
+      <div class="card mb-4">
+        <div class="tex mt-4 mb-4">
+          <div class="container mb-5">
+            <table id="datatablesSimple">
+              <thead>
+                <tr>
+                  <th>Course Code</th>
+                  <th>Student ID</th>
+
+                  <th>Credit Hours</th>
+                  <th>Capacity</th>
+
+                  <th>Term</th>
+
+                  <th>Section Number</th>
+                  <th>Type</th>
+
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for override in overrides %}
+                <tr>
+                  <td>{{ override.section.course.course_code }}</td>
+                  <td>{{ override.student_id}}</td>
+
+                  <td>{{ override.section.course.credit_hours }}</td>
+                  <td>{{ override.section.capacity }}</td>
+                  <td>
+                    {{ override.section.session.semester }} {{
+                    override.section.session.year }}
+                  </td>
+
+                  <td>{{ override.section_id }}</td>
+                  <td>{{ override.override_type }}</td>
+                  {% if override.state == 'Posted' %}
+                  <td>
+                    <div class="d-flex flex-row">
+                      <a href="{% url 'dean:override_action' override.override_id 'Accepted' %}"><button class="btn btn-primary"><i
+                            class="fa-solid fa-correct me-1"></i>
+                        </button></a>
+                      <a href="{% url 'dean:override_action' override.override_id 'Rejected' %}"><button class="btn btn-danger"> <i
+                            class="fa-solid fa-cancel me-1"></i>
+                        </button></a>
+                    </div>
+                  </td>
+                  {% else %}
+                  <td>{{override.state}}</td>
+
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Modal -->
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

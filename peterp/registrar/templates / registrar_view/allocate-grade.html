@@ -1,0 +1,107 @@
+{% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
+<title>Course Overview - PetERP</title>
+{% endblock %} {% block body %}
+<main>
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Allocate Grades</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Academics</li>
+    </ol>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa fa-calendar me-1"></i>
+        {{ semester_schedule.semester }} {{ semester_schedule.year }} Final Grades
+      </div>
+      <div class="card-body"> 
+        <table id="datatablesSimple" class="table table">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">Term</th>
+              <th scope="col">Name</th>
+              <th scope="col">Student ID</th>
+              <th scope="col">Course</th>
+              <th scope="col">Section No</th>
+              <th scope="col">Section ID</th>
+              <th scope="col">Grade</th>
+              <th scope="col">Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for g in grades %}
+
+            <tr class="text-center">
+              <td>{{g.sections.session.semester}} {{g.sections.session.year}}</td>
+              <td>{{g.student.first_name}} {{ g.student.last_name }}</td>
+              <td>{{g.student_id}}</td>
+              <td>{{g.sections.course.course_code}}</td>
+              <td>{{g.sections.section_number}}</td>
+              <td>{{g.sections.section_id}}</td>
+              <td>{{g.grade}}</td>
+              <td>
+                <div class="modal-container container text-center">
+                  <span class="btn btn-primary" type="button" data-bs-toggle="modal"
+                    data-bs-target="#gradeModal-{{ course.section_id }}">
+                    <span class="">Change</span>
+                  </span>
+                  <!-- Modal -->
+                  <div class="modal fade" id="gradeModal-{{ course.section_id }}" tabindex="-1"
+                    aria-labelledby="gradeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="gradeModalLabel">{{g.student_id}} in {{g.sections.course.course_code}}</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row mx-4 my-4">
+                            <div class="col-4 my-3">
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'A' %}">A</a>
+                            </div>
+                            <div class="col-4 my-3">
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'A-' %}">A-</a>
+                            </div>
+                            <div class="col-4 my-3">
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'B+' %}">B+
+                              </a>
+                            </div>
+                            <div class="col-4 my-3">
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'B' %}">B</a>
+                            </div>
+                            <div class="col-4 my-3">
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'B-' %}">B-</a>
+                            </div>
+                            <div class="col-4 my-3">
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'C+' %}">C+</a>
+                            </div>
+                            <div class="col my-3">
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'C' %}">C</a>
+                            </div>
+                            <div class="col my-3">
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'D' %}">D-</a>
+                            </div>
+                            <div class="col my-3">
+                              <a class="btn btn-primary" href="{% url 'dean:change_grade' g.student_enrollment_id 'F' %}">F</a>
+                            </div>
+
+
+
+                          </div>
+                          <hr class="divider" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              </td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

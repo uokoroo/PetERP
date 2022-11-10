@@ -1,0 +1,176 @@
+{% extends 'student_view/layout.html' %}
+{% load static %} 
+
+{% block title %}
+<title>Registration - PetERP</title>
+{% endblock %} 
+
+
+{% block body %}
+
+<main style="background-color: rgba(0, 0, 0, 0.03)">
+  <div class="container-fluid px-4">
+    {% if messages %}
+    {% for message in messages %}
+    <div{% if message.tags %} class="alert text-center m-3 alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    <h1 class="mt-4">Registration</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Academics</li>
+    </ol>
+
+
+
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="	fas fa-archive me-1"></i>
+        Registration
+      </div>
+      <div class="card-body overflow-auto">
+        <table class="table table-hover table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>CRN</th>
+              <th>Course Code</th>
+              <th>Course Title</th>
+              <th>Credit Hours</th>
+              <th>Enrolled</th>
+              <th>Capacity</th>
+              <th>Faculty</th>
+              <th>Time</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for course in registration %}
+            <tr>
+              <td>
+                <div class="modal-container container text-center">
+                  <span type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ course.section_id }}">
+                    <span class="fa-solid fa-trash"></span>
+                  </span>
+                  <!-- Modal -->
+                  <div class="modal fade" id="deleteModal-{{ course.section_id }}" tabindex="-1"
+                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to remove this section?
+                          </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <a href="{% url 'student:remove' course.section_id %}"><button type="submit"
+                              class="btn btn-danger">Delete</button></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+              </td>
+              <td class="text-primary">{{ course.section_id }}</td>
+              <td class="text-primary">{{ course.course_code }}</td>
+              <td class="text-primary">{{ course.title }}</td>
+              <td class="text-primary">{{ course.credit_hours }}</td>
+              <td class="text-primary">{{ course.enrolled }}</td>
+              <td class="text-primary">{{ course.capacity }}</td>
+              <td class="text-primary">{{ course.faculty }}</td>
+              <td class="text-primary">{{ course.time }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td class="text-muted text-center" colspan="9">No courses registered</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+  
+    <div class="text-center mb-4">
+      <div class="modal-container container text-center">
+        <button type="button" class="btn btn-primary " data-bs-toggle="modal" id="addModalTrigger"
+          data-bs-target="#addmodal">
+          <i class="fa-solid fa-add"></i>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addmodal" tabindex="-1" data-bs-backdrop="static"  aria-labelledby="addModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Sections</h4>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <div class="card-body">
+
+
+                  <table id="datatablesSimple">
+                    <thead>
+                      <tr>
+                        <th>CRN</th>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Credit Hours</th>
+                        <th>Capacity</th>
+                        <th>Enrolled</th>
+                        <th>Time</th>
+                        <th>Faculty</th>
+                        <th>Term</th>
+                        <th>Location</th>
+                        <th>Section Number</th>
+                        <th> Add </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {% for section in sections %}
+                        <tr>
+                          <td>{{ section.section_id }}</td>
+                          <td>{{ section.course_code }}</td>
+                          <td>{{ section.title }}</td>
+                          <td>{{ section.credit_hours }}</td>
+                          <td>{{ section.capacity }}</td>
+                          <td>{{ section.enrolled }}</td>
+                          <td>{{ section.time }}</td>
+                          <td>{{ section.faculty }}</td>
+                          <td>{{ section.term }}</td>
+                          <td>{{ section.location }}</td>
+                          <td>{{ section.section_number }}</td>
+                          <td><a href="{% url 'student:add_section' section.section_id %}"><button class="btn btn-primary">Add</button></a></td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Modal -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+</main>
+
+{% endblock %}

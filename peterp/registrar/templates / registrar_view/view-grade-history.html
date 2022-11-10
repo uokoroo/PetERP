@@ -1,0 +1,100 @@
+{% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
+<title>Course Overview - PetERP</title>
+{% endblock %} {% block body %}
+<main>
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Grade <i class="fa fa-history" aria-hidden="true"></i></h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Academics</li>
+    </ol>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa fa-calendar me-1"></i>
+        Grade History
+      </div>
+      <div class="card-body">
+    
+    
+        <span class="h2 text-muted" >Term</span>
+        <hr class="divider"/>
+        <ol class="list-group list-group-numbered">
+
+            {% for session in academic_records %}
+            <a href="{% url 'student:semester_records' session %}">
+              <li class="">
+                    <span class="h5  text-decoration-none text-dark">{{ session }}</span>
+                    
+                  </li>
+                  
+                
+              
+                </a>
+               <div class="container">
+                <table id="table">
+                  <thead>
+                    <tr>
+                      <th>Course ID</th>
+                      <th>Course Title</th>
+                      <th>Lab</th>
+                      <th>Course Code</th>
+                      <th>Credit Hours</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for course in courses %}
+                    <tr class="clickable-row" data-href="semester_records.html">
+                      <td>{{course.course_id}}</td>
+                      <td>{{course.title}}</td>
+                      {% if course.lab %}
+                      <td class="text-center">
+                        <div class="form-check">
+                          <input
+                            type="checkbox"
+                            class="form-check-input"
+                            name="lab"
+                            id="lab"
+                            checked
+                            disabled
+                          />
+                        </div>
+                      </td>
+                      {% else %}
+                      <td class="text-center">
+                        <div class="form-check">
+                          <input
+                            type="checkbox"
+                            name="lab"
+                            class="form-check-input"
+                            id="lab"
+                            disabled
+                          />
+                        </div>
+                      </td>
+                      {% endif %}
+                      <td>{{course.course_code}}</td>
+                      <td>{{course.credit_hours}}</td>
+                    </tr>
+                    {% endfor%}
+                  </tbody>
+                </table>
+              </div>
+                <hr class="divider"/>
+                
+                {% endfor %}
+
+              </tbody>
+            </ol>
+          </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  jQuery(document).ready(function ($) {
+    $(".clickable-row").click(function () {
+      window.location = $(this).data("href");
+    });
+  });
+</script>
+{% endblock %}

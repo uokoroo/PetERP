@@ -1,0 +1,51 @@
+{% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
+<title>Concise Schedule - PetERP</title>
+{% endblock %} {% block body %}
+<main>
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Section Details</h1>
+    <h6 class="text-muted">{{ section_data.course.course_code }}: {{ section_data.session.semester }} {{ section_data.session.year }} </h6>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Academics</li>
+    </ol>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa fa-calendar me-1"></i>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Student Name</th>
+              <th scope="col">Student ID</th>
+              <th scope="col">Student Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for student in section_data.student_enrollment %} </tbody> <!--the linking would be for students in the course-->
+            <tr>
+              <td> {{forloop.counter}}</td>
+              {% if student.student.middle_name is not None  %}
+              <td>{{ student.student.first_name}} {{ student.student.middle_name}} {{ student.student.last_name}}</td>
+              {% else %}
+              <td>{{ student.student.first_name}}  {{ student.student.last_name}}</td>
+              {% endif %}
+              <td> {{student.student.student_id}}</td>
+              <td> {{student.student.email}}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="9" class="text-muted">
+                No students enrolled yet
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
