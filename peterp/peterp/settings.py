@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'student',
     'faculty',
     'registrar',
+    'dean',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

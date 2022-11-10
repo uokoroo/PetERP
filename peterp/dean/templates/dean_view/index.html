@@ -1,0 +1,165 @@
+{% extends 'faculty_view/layout.html' %} 
+{% load static %} 
+
+{% block title %}
+<title>Home - PetERP</title>
+{% endblock %} 
+
+{% block body %}
+<main style="background-color: rgba(0, 0, 0, 0.03)">
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Home</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Faculty</li>
+    </ol>
+
+    <div class="row">
+      <div class="col-xl-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-chart-area me-1"></i>
+            Faculty Information
+          </div>
+          <div class="card-body">
+            <div class="row g-0">
+              <div
+                class="col-md-4 gradient-custom text-center text-white"
+                style="
+                  border-top-left-radius: 0.5rem;
+                  border-bottom-left-radius: 0.5rem;
+                "
+              >
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                  alt="Avatar"
+                  class="img-fluid my-5"
+                  style="width: 80px"
+                />
+                <h5>{{ faculty_data.f_name }}  {{faculty_data.l_name}}</h5>
+
+                <p>Assistant Professor</p>
+                <a href="{% url 'faculty:profile' %}"><i class="fa-solid fa-expand"></i></a>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body p-4">
+                  <h6>Information</h6>
+                  <hr class="mt-0 mb-4" />
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Department</h6>
+                      <p class="text-muted">{{ faculty_data.department }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>School</h6>
+                      <p class="text-muted">
+                        {{faculty_data.school}}
+                      </p>
+                    </div>
+                  </div>
+                  <h6>Personal Information</h6>
+                  <hr class="mt-0 mb-4" />
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Email</h6>
+                      <p class="text-muted">{{faculty_data.email}}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Phone</h6>
+                      <p class="text-muted">{{faculty_data.phone_no }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fa-solid fa-calendar-days me-1"></i>
+            Calendar
+          </div>
+          <div class="card-body">
+            <div class="card">
+              <iframe
+                src="https://embed.styledcalendar.com/#jbMUWbAiGXYCMgSjuqdz"
+                title="Styled Calendar"
+                class="styled-calendar-container"
+                style="width: 100%; border: none"
+                data-cy="calendar-embed-iframe"
+              ></iframe>
+              <script
+                async
+                type="module"
+                src="https://embed.styledcalendar.com/assets/parent-window.js"
+              ></script>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fa fa-calendar me-1" aria-hidden="true"></i>
+            Semester Schedule
+          </div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Course</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Location</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for course in semester_schedule.sections %}
+                <tr>
+                  <th scope="row">{{course.course.course_code}}</th>
+                  <td>{{course.section_times.class_dates_abbrev.abbrev}} {{course.section_times.class_times.str_rep}}</td>
+                  <td>{{course.location}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-bell me-1"></i>
+            Academic Events
+          </div>
+          <div class="card-body">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Event</th>
+                  <th scope="col">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Add and Drop Opens</th>
+                  <td>10/03/2022</td>
+                </tr>
+                <tr>
+                  <th scope="row">Add and Drop Closes</th>
+                  <td>24/03/22</td>
+                </tr>
+                <tr>
+                  <th scope="row">Late Registration Begins</th>
+                  <td>28/03/2022</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
