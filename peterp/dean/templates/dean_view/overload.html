@@ -1,9 +1,9 @@
 {% extends 'dean_view/layout.html' %} {% load static %} {% block title %}
-<title>Override - PetERP</title>
+<title>Overload - PetERP</title>
 {% endblock %} {% block body %}
 <main style="background-color: rgba(0, 0, 0, 0.03)">
   <div class="container-fluid px-4">
-    <h1 class="mt-4">Override</h1>
+    <h1 class="mt-4">Overload</h1>
     <ol class="breadcrumb mb-4">
       <li class="breadcrumb-item active">Academics</li>
     </ol>
@@ -11,7 +11,7 @@
     <div class-="row px-4 text-center">
       <div class="card-header">
         <i class="fa-solid fa-school me-1"></i>
-        Override Overview
+        Overload Overview
       </div>
       <div class="card mb-4">
         <div class="tex mt-4 mb-4">
@@ -22,13 +22,12 @@
                   <th>Course Code</th>
                   <th>Student ID</th>
 
-                  <th>Credit Hours</th>
-                  <th>Capacity</th>
+                  <th>Current Credit Hours</th>
+                  <th>Requested Credit Hours</th>
 
-                  <th>Term</th>
+                  <th>CGPA</th>
 
-                  <th>Section Number</th>
-                  <th>Type</th>
+                  <th>Level</th>
 
                   <th>Action</th>
                 </tr>
@@ -48,16 +47,20 @@
                   </td>
 
                   <td>{{ override.section_id }}</td>
-                  <td>{{ override.override_type }}</td>
+
                   {% if override.state == 'Posted' %}
                   <td>
                     <div class="d-flex flex-row">
-                      <a href="{% url 'dean:override_action' override.override_id 'Accepted' %}"><button class="btn btn-primary"><i
-                            class="fa-solid fa-correct me-1"></i>
-                        </button></a>
-                      <a href="{% url 'dean:override_action' override.override_id 'Rejected' %}"><button class="btn btn-danger"> <i
-                            class="fa-solid fa-cancel me-1"></i>
-                        </button></a>
+                      <a
+                        href="{% url 'faculty:override_action' override.override_id 'Accepted' %}"
+                        ><button class="btn btn-primary">
+                          <i class="fa-solid fa-correct me-1"></i></button
+                      ></a>
+                      <a
+                        href="{% url 'faculty:override_action' override.override_id 'Rejected' %}"
+                        ><button class="btn btn-danger">
+                          <i class="fa-solid fa-cancel me-1"></i></button
+                      ></a>
                     </div>
                   </td>
                   {% else %}
