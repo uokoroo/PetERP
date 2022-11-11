@@ -66,94 +66,95 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fa-solid fa-calendar-days me-1"></i>
-            Calendar
-          </div>
-          <div class="card-body">
-            <div class="card">
-              <iframe
-                src="https://embed.styledcalendar.com/#jbMUWbAiGXYCMgSjuqdz"
-                title="Styled Calendar"
-                class="styled-calendar-container"
-                style="width: 100%; border: none"
-                data-cy="calendar-embed-iframe"
-              ></iframe>
-              <script
-                async
-                type="module"
-                src="https://embed.styledcalendar.com/assets/parent-window.js"
-              ></script>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fa fa-calendar me-1" aria-hidden="true"></i>
-            Semester Schedule
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Course</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for course in semester_schedule.sections %}
-                <tr>
-                  <th scope="row">{{course.course.course_code}}</th>
-                  <td>
-                    {{course.section_times.class_dates_abbrev.abbrev}}
-                    {{course.section_times.class_times.str_rep}}
-                  </td>
-                  <td>{{course.location}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-xl-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-bell me-1"></i>
-            Academic Events
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Event</th>
-                  <th scope="col">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Add and Drop Opens</th>
-                  <td>10/03/2022</td>
-                </tr>
-                <tr>
-                  <th scope="row">Add and Drop Closes</th>
-                  <td>24/03/22</td>
-                </tr>
-                <tr>
-                  <th scope="row">Late Registration Begins</th>
-                  <td>28/03/2022</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="col-xl-6">
+              <div class="card mb-4">
+                <div class="card-header">
+                  <i class="fa-solid fa-calendar-days me-1"></i>
+                  Calendar
+                </div>
+                <div class="card-body">
+                  <div class="card">
+                    <iframe
+                      src="https://embed.styledcalendar.com/#jbMUWbAiGXYCMgSjuqdz"
+                      title="Styled Calendar"
+                      class="styled-calendar-container"
+                      style="width: 100%; border: none"
+                      data-cy="calendar-embed-iframe"
+                    ></iframe>
+                    <script
+                      async
+                      type="module"
+                      src="https://embed.styledcalendar.com/assets/parent-window.js"
+                    ></script>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6">
+              <div class="card mb-4">
+                <div class="card-header">
+                  <i class="fa fa-calendar me-1" aria-hidden="true"></i>
+                  Semester Schedule
+                </div>
+                <div class="card-body">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Course</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Location</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for course in semester_schedule.sections %}
+                      <tr>
+                        <th scope="row">{{course.course.course_code}}</th>
+                        <td>
+                          {{course.section_times.class_dates_abbrev.abbrev}}
+                          {{course.section_times.class_times.str_rep}}
+                        </td>
+                        <td>{{course.location}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6">
+              <div class="card mb-4">
+                <div class="card-header">
+                  <i class="fas fa-bell me-1"></i>
+                  Academic Events
+                </div>
+                <div class="card-body">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Event</th>
+                        <th scope="col">Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Add and Drop Opens</th>
+                        <td>10/03/2022</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Add and Drop Closes</th>
+                        <td>24/03/22</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Late Registration Begins</th>
+                        <td>28/03/2022</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
