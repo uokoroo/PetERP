@@ -85,7 +85,7 @@
       <!-- Navbar Brand-->
       <a
         class="navbar-brand text-center mt-1"
-        href="{% url 'registrar:index' %}"
+        href="{% url 'student:index' %}"
         ><h4 class=>AUN</h4>
       </a>
       <!-- Sidebar Toggle-->
@@ -130,13 +130,13 @@
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <a class="dropdown-item" href="{% url 'registrar:profile' %}"
+              <a class="dropdown-item" href="{% url 'student:profile' %}"
                 >Profile</a
               >
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="{% url 'dean:logout' %}"
+              <a class="dropdown-item" href="{% url 'student:logout' %}"
                 >Logout</a
               >
             </li>
@@ -169,12 +169,12 @@
                 class="text-white"
                 style="text-align: center; margin-top: 20px"
               >
-                {{ faculty_data.f_name }} {{ faculty_data.l_name }}
+                {{ student_data.name }}
               </h5>
-              <p class="text-muted" style="text-align: center">
-                Registrar
+              <p class="text-white" style="text-align: center">
+                {{ student_data.major }}
               </p>
-              <a class="nav-link" href="{% url 'dean:index' %}">
+              <a class="nav-link" href="{% url 'registrar:index' %}">
                 <div class="sb-nav-link-icon">
                   <i class="fa fa-home"></i>
                 </div>
@@ -183,7 +183,7 @@
 
               <a
                 class="nav-link collapsed"
-                href="{% url 'dean:index' %}"
+                href="index.html"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseLayouts"
                 aria-expanded="false"
@@ -204,174 +204,160 @@
                 data-bs-parent="#sidenavAccordion"
               >
                 <nav class="sb-sidenav-menu-nested nav">
-
-                  <a class="nav-link" href="{% url 'registrar:student_info' %}"
-                    ><div class="sb-nav-link-icon">
-                      <i class="fas fa-archive"></i>
+                  <a class="nav-link" href="{% url 'registrar:student_information' %}">
+                    <div class="sb-nav-link-icon">
+                      <i class="fas fa-tachometer-alt"></i>
                     </div>
                     Student Information</a
                   >
-                  <a class="nav-link" href="{% url 'registrar:faculty_info' %}"
-                  ><div class="sb-nav-link-icon">
-                    <i class="fas fa-archive"></i>
-                  </div>
+                  <a class="nav-link" href="{% url 'registrar:faculty_information' %}"
+                    ><div class="sb-nav-link-icon">
+                      <i class="fas fa-archive"></i>
+                    </div>
                     Faculty Information</a
-                >
-                </nav>
-                <a
-                class="nav-link collapsed"
-                href="{% url 'dean:index' %}"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseLayouts"
-                aria-expanded="false"
-                aria-controls="collapseLayouts"
-              >
-                <div class="sb-nav-link-icon">
-                  <i class="fas fa-book-open"></i>
-                </div>
-                Session
-                <div class="sb-sidenav-collapse-arrow">
-                  <i class="fas fa-angle-down"></i>
-                </div>
-              </a>
-              <div
-                class="collapse"
-                id="collapseLayouts"
-                aria-labelledby="headingOne"
-                data-bs-parent="#sidenavAccordion"
-              >
-                <nav class="sb-sidenav-menu-nested nav">
-
-                  <a class="nav-link" href="{% url 'dean:semester_schedule' %}"
-                    ><div class="sb-nav-link-icon">
-                      <i class="fas fa-archive"></i>
-                    </div>
-                    Create Session</a
                   >
-                  <a class="nav-link" href="{% url 'dean:overrides' %}"
-                  ><div class="sb-nav-link-icon">
-                    <i class="fas fa-archive"></i>
+                 
+                    </nav>
                   </div>
-                    Edit Session</a
-                >
-                </nav>
-                <a
+                  <a
                 class="nav-link collapsed"
-                href="{% url 'dean:index' %}"
+                href="index.html"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseLayouts"
                 aria-expanded="false"
                 aria-controls="collapseLayouts"
               >
-                <div class="sb-nav-link-icon">
-                  <i class="fas fa-book-open"></i>
-                </div>
-                Hold
-                <div class="sb-sidenav-collapse-arrow">
-                  <i class="fas fa-angle-down"></i>
-                </div>
-              </a>
-              <div
-                class="collapse"
-                id="collapseLayouts"
-                aria-labelledby="headingOne"
-                data-bs-parent="#sidenavAccordion"
-              >
-                
-                <a
-                class="nav-link collapsed"
-                href="{% url 'dean:index' %}"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseLayouts"
-                aria-expanded="false"
-                aria-controls="collapseLayouts"
-              >
-                <div class="sb-nav-link-icon">
-                  <i class="fas fa-book-open"></i>
-                </div>
-                Courses
-                <div class="sb-sidenav-collapse-arrow">
-                  <i class="fas fa-angle-down"></i>
-                </div>
-              </a>
-              <div
-                class="collapse"
-                id="collapseLayouts"
-                aria-labelledby="headingOne"
-                data-bs-parent="#sidenavAccordion"
-              >
-                <nav class="sb-sidenav-menu-nested nav">
-
-                  <a class="nav-link" href="{% url 'dean:semester_schedule' %}"
-                    ><div class="sb-nav-link-icon">
-                      <i class="fas fa-archive"></i>
-                    </div>
-                    Courses</a
-                  >
-                  <a class="nav-link" href="{% url 'dean:semester_schedule' %}"
-                  ><div class="sb-nav-link-icon">
-                    <i class="fas fa-archive"></i>
-                  </div>
-                  Sections</a
-                >
-                  <a class="nav-link" href="{% url 'dean:overrides' %}"
-                  ><div class="sb-nav-link-icon">
-                    <i class="fas fa-archive"></i>
-                  </div>
-                    Create Course</a
-                >
-                <a class="nav-link" href="{% url 'dean:overrides' %}"
-                  ><div class="sb-nav-link-icon">
-                    <i class="fas fa-archive"></i>
-                  </div>
-                    Create Session</a
-                >
-                </nav>
-                <a class="nav-link" href="{% url 'dean:index' %}">
                   <div class="sb-nav-link-icon">
-                    <i class="fa fa-home"></i>
+                    <i class="fas fa-book-open"></i>
                   </div>
-                  Assign Faculty
+                  Session
+                  <div class="sb-sidenav-collapse-arrow">
+                    <i class="fas fa-angle-down"></i>
+                  </div>
                 </a>
-                </nav>
-                <a
+                <div
+                  class="collapse"
+                  id="collapseLayouts"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#sidenavAccordion"
+                >
+                  <nav class="sb-sidenav-menu-nested nav">
+                    <a class="nav-link" href="{% url 'registrar:create-session' %}">
+                      <div class="sb-nav-link-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                      </div>
+                      Create Session</a
+                    >
+                    <a class="nav-link" href="{% url 'registrar:edit-session' %}"
+                      ><div class="sb-nav-link-icon">
+                        <i class="fas fa-archive"></i>
+                      </div>
+                      Edit Session</a
+                    >
+                   
+                      </nav>
+                    </div>
+                    <a
                 class="nav-link collapsed"
-                href="#"
+                href="index.html"
                 data-bs-toggle="collapse"
-                data-bs-target="#pagesCollapseError"
+                data-bs-target="#collapseLayouts"
                 aria-expanded="false"
-                aria-controls="pagesCollapseError"
-                ><div class="sb-nav-link-icon">
-                  <i class="fa-solid fa-file"></i>
-                </div>
-                Grades
-                <div class="sb-sidenav-collapse-arrow">
-                  <i class="fas fa-angle-down"></i>
-                </div>
-              </a>
-              <div
-                class="collapse"
-                id="pagesCollapseError"
-                aria-labelledby="headingOne"
-                data-bs-parent="#sidenavAccordionPages"
+                aria-controls="collapseLayouts"
               >
-                <nav class="sb-sidenav-menu-nested nav">
-                  <a class="nav-link" href="{% url 'dean:allocate_grades' %}"
-                    ><div class="sb-nav-link-icon">
-                      <i class="fa-solid fa-school"></i>
+                    <div class="sb-nav-link-icon">
+                      <i class="fas fa-book-open"></i>
                     </div>
-                    Allocate Grades</a
-                  >
-                  <a class="nav-link" href="{% url 'dean:grade_history' %}"
-                    ><div class="sb-nav-link-icon">
-                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    Courses
+                    <div class="sb-sidenav-collapse-arrow">
+                      <i class="fas fa-angle-down"></i>
                     </div>
-                    Grade History</a
+                  </a>
+                  <div
+                    class="collapse"
+                    id="collapseLayouts"
+                    aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion"
                   >
-                </nav>
-              </div>
-
-            
+                    <nav class="sb-sidenav-menu-nested nav">
+                      <a class="nav-link" href="{% url 'registrar:courses' %}">
+                        <div class="sb-nav-link-icon">
+                          <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        Courses</a
+                      >
+                      <a class="nav-link" href="{% url 'registrar:sections' %}"
+                        ><div class="sb-nav-link-icon">
+                          <i class="fas fa-archive"></i>
+                        </div>
+                        Sections</a
+                      >
+                      <a class="nav-link" href="{% url 'registrar:create_course' %}">
+                        <div class="sb-nav-link-icon">
+                          <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        Create Courses</a
+                      >
+                      <a class="nav-link" href="{% url 'student:registration' %}"
+                        ><div class="sb-nav-link-icon">
+                          <i class="fas fa-archive"></i>
+                        </div>
+                        Create Sections</a
+                      >
+                      <a class="nav-link" href="{% url 'registrar:create_sections' %}"
+                        ><div class="sb-nav-link-icon">
+                          <i class="fas fa-archive"></i>
+                        </div>
+                        Assign Faculty</a
+                      >
+                     
+                        </nav>
+                      </div>
+                      <a
+                class="nav-link collapsed"
+                href="index.html"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseLayouts"
+                aria-expanded="false"
+                aria-controls="collapseLayouts"
+              >
+                      <div class="sb-nav-link-icon">
+                        <i class="fas fa-book-open"></i>
+                      </div>
+                      Grade
+                      <div class="sb-sidenav-collapse-arrow">
+                        <i class="fas fa-angle-down"></i>
+                      </div>
+                    </a>
+                    <div
+                      class="collapse"
+                      id="collapseLayouts"
+                      aria-labelledby="headingOne"
+                      data-bs-parent="#sidenavAccordion"
+                    >
+                      <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{% url 'registrar:allocate_grade' %}">
+                          <div class="sb-nav-link-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                          </div>
+                          Allocate Grades</a
+                        >
+                        <a class="nav-link" href="{% url 'registrar:view-grade-history' %}"
+                          ><div class="sb-nav-link-icon">
+                            <i class="fas fa-archive"></i>
+                          </div>
+                          View Grades</a
+                        >
+                       
+                          </nav>
+                        </div>
+             
+              <a href="{% url 'registrar:hold' %}" class="nav-link">
+                <div class="sb-nav-link-icon">
+                  <i class="fa-solid fa-money-bill"></i>
+                </div>
+                Holds
+              </a>
             </div>
           </div>
 
@@ -392,27 +378,21 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <img
-                src="https://github.com/mdo.png"
-                alt=""
-                width="32"
-                height="32"
-                class="rounded-circle me-2"
-              />
-              <strong>{{faculty_data.faculty_id}}</strong>
+
+              <strong>Registrar</strong>
             </a>
             <ul
               class="dropdown-menu dropdown-menu-light text-small shadow"
               aria-labelledby="dropdownUser1"
             >
               <li>
-                <a class="dropdown-item" href="{% url 'dean:profile' %}"
+                <a class="dropdown-item" href="{% url 'student:profile' %}"
                   >Profile</a
                 >
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
-                <a class="dropdown-item" href="{% url 'dean:logout' %}"
+                <a class="dropdown-item" href="{% url 'student:logout' %}"
                   >Sign out</a
                 >
               </li>

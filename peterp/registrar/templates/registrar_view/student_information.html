@@ -14,7 +14,7 @@
         View Student Records
       </div>
       <div class="card-body">
-        <table class="table table-hover">
+        <table class="table table-hover" id="datatablesSimple">
           <thead>
             <tr>
               <th scope="col">Name</th>
@@ -31,9 +31,7 @@
               data-href="{% url 'registrar:student_profile' student.student_id %}"
             >
               <!--link to the semester records-->
-              <td>
-                {{ student.first_name }} {{ student.last_name }} 
-              </td>
+              <td>{{ student.first_name }} {{ student.last_name }}</td>
               <td>{{ student.student_id }}</td>
               <td>{{ student.major }}</td>
               <td>{{ student.email }}</td>
@@ -41,9 +39,7 @@
 
             {% empty %}
             <tr>
-              <td colspan="9" class="text-muted">
-                No Students
-              </td>
+              <td colspan="9" class="text-muted">No Students</td>
             </tr>
             {% endfor %}
           </tbody>

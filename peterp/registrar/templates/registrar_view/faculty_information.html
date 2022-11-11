@@ -14,7 +14,7 @@
         View Faculty Records
       </div>
       <div class="card-body">
-        <table class="table table-hover">
+        <table class="table table-hover" id="datatablesSimple">
           <thead>
             <tr>
               <th scope="col">Name</th>
@@ -31,9 +31,7 @@
               data-href="{% url 'registrar:faculty_profile' f.faculty_id %}"
             >
               <!--link to the semester records-->
-              <td>
-                {{ f.f_name }} {{ f.l_name }}
-              </td>
+              <td>{{ f.f_name }} {{ f.l_name }}</td>
               <td>{{ f.faculty_id }}</td>
               <td>{{ f.department }}</td>
               <td>{{ f.email }}</td>

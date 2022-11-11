@@ -85,7 +85,7 @@
       <!-- Navbar Brand-->
       <a
         class="navbar-brand text-center mt-1"
-        href="{% url 'faculty:index' %}"
+        href="{% url 'student:index' %}"
         ><h4 class=>AUN</h4>
       </a>
       <!-- Sidebar Toggle-->
@@ -130,13 +130,13 @@
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <a class="dropdown-item" href="{% url 'faculty:profile' %}"
+              <a class="dropdown-item" href="{% url 'student:profile' %}"
                 >Profile</a
               >
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="{% url 'faculty:logout' %}"
+              <a class="dropdown-item" href="{% url 'student:logout' %}"
                 >Logout</a
               >
             </li>
@@ -169,12 +169,12 @@
                 class="text-white"
                 style="text-align: center; margin-top: 20px"
               >
-                {{ faculty_data.f_name }} {{ faculty_data.l_name }}
+                {{ student_data.name }}
               </h5>
-              <p class="text-muted" style="text-align: center">
-                {{ faculty_data.school }}
+              <p class="text-white" style="text-align: center">
+                {{ student_data.major }}
               </p>
-              <a class="nav-link" href="{% url 'faculty:index' %}">
+              <a class="nav-link" href="{% url 'student:index' %}">
                 <div class="sb-nav-link-icon">
                   <i class="fa fa-home"></i>
                 </div>
@@ -183,7 +183,7 @@
 
               <a
                 class="nav-link collapsed"
-                href="{% url 'faculty:index' %}"
+                href="index.html"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseLayouts"
                 aria-expanded="false"
@@ -204,26 +204,25 @@
                 data-bs-parent="#sidenavAccordion"
               >
                 <nav class="sb-sidenav-menu-nested nav">
-
-                  <a class="nav-link" href="{% url 'faculty:semester_schedule' %}"
+                  <a class="nav-link" href="{% url 'student:academics' %}">
+                    <div class="sb-nav-link-icon">
+                      <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    Dashboard</a
+                  >
+                  <a class="nav-link" href="{% url 'student:registration' %}"
                     ><div class="sb-nav-link-icon">
                       <i class="fas fa-archive"></i>
                     </div>
-                    Semester Schedule</a
+                    Registration</a
                   >
-                  <a class="nav-link" href="{% url 'faculty:overrides' %}"
-                  ><div class="sb-nav-link-icon">
-                    <i class="fas fa-archive"></i>
-                  </div>
-                    Overrides</a
-                >
                   <a
                     class="nav-link"
-                    href="{% url 'faculty:course_overview' %}"
+                    href="{% url 'student:academic_records' %}"
                     ><div class="sb-nav-link-icon">
                       <i class="fa fa-history" aria-hidden="true"></i>
                     </div>
-                    Course Overview</a
+                    Academic Records</a
                   >
                   <a
                     class="nav-link collapsed"
@@ -248,13 +247,13 @@
                     data-bs-parent="#sidenavAccordionPages"
                   >
                     <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="{% url 'faculty:courses' %}"
+                      <a class="nav-link" href="{% url 'student:courses' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fa-solid fa-chalkboard"></i>
                         </div>
                         Courses</a
                       >
-                      <a class="nav-link" href="{% url 'faculty:sections' %}"
+                      <a class="nav-link" href="{% url 'student:sections' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fas fa-book"></i>
                         </div>
@@ -262,7 +261,21 @@
                       >
                     </nav>
                   </div>
-                 
+                  <a
+                    class="nav-link"
+                    href="{% url 'student:concise_schedule' %}"
+                    ><div class="sb-nav-link-icon">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </div>
+                    Concise Schedule</a
+                  >
+
+                  <a class="nav-link" href="{% url 'student:cgpa_calculator' %}"
+                    ><div class="sb-nav-link-icon">
+                      <i class="fa fa-calculator" aria-hidden="true"></i>
+                    </div>
+                    CGPA Calculator</a
+                  >
                   <a
                     class="nav-link collapsed"
                     href="#"
@@ -273,7 +286,7 @@
                     ><div class="sb-nav-link-icon">
                       <i class="fa-solid fa-file"></i>
                     </div>
-                    Grades
+                    Forms
                     <div class="sb-sidenav-collapse-arrow">
                       <i class="fas fa-angle-down"></i>
                     </div>
@@ -285,24 +298,29 @@
                     data-bs-parent="#sidenavAccordionPages"
                   >
                     <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="{% url 'faculty:allocate_grades' %}"
+                      <a class="nav-link" href="{% url 'student:override' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fa-solid fa-school"></i>
                         </div>
-                        Allocate Grades</a
+                        Override</a
                       >
-                      <a class="nav-link" href="{% url 'faculty:grade_history' %}"
+                      <a class="nav-link" href="{% url 'student:overload' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
-                        Grade History</a
+                        Overload</a
                       >
                     </nav>
                   </div>
                 </nav>
               </div>
 
-            
+              <a href="{% url 'student:account' %}" class="nav-link">
+                <div class="sb-nav-link-icon">
+                  <i class="fa-solid fa-money-bill"></i>
+                </div>
+                Accounting
+              </a>
             </div>
           </div>
 
@@ -323,27 +341,21 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <img
-                src="https://github.com/mdo.png"
-                alt=""
-                width="32"
-                height="32"
-                class="rounded-circle me-2"
-              />
-              <strong>{{faculty_data.faculty_id}}</strong>
+
+              <strong>{{student_data.student_id}}</strong>
             </a>
             <ul
               class="dropdown-menu dropdown-menu-light text-small shadow"
               aria-labelledby="dropdownUser1"
             >
               <li>
-                <a class="dropdown-item" href="{% url 'faculty:profile' %}"
+                <a class="dropdown-item" href="{% url 'student:profile' %}"
                   >Profile</a
                 >
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
-                <a class="dropdown-item" href="{% url 'faculty:logout' %}"
+                <a class="dropdown-item" href="{% url 'student:logout' %}"
                   >Sign out</a
                 >
               </li>
