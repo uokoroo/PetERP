@@ -76,7 +76,7 @@ def grade_history(request):
 
 def allocate_grades(request):
     if not request.session.get('token'):
-        return redirect('home:home:login')
+        return redirect('home:login')
     token = request.session.get('token')
     if request.method == 'POST':
         # incomplete
@@ -160,7 +160,7 @@ def courses(request):
 
 def overrides(request):
     if not request.session.get('token'):
-        return redirect('home:home:login')
+        return redirect('home:login')
     token = request.session.get('token')
     if request.method == 'POST':
         # incomplete
@@ -282,7 +282,7 @@ def redirect_by_code(request, incoming_request, source_page):
 
 def overloads(request):
     if not request.session.get('token'):
-        return redirect('home:home:login')
+        return redirect('home:login')
     token = request.session.get('token')
     if request.method == 'POST':
         # incomplete
