@@ -24,19 +24,19 @@
             </tr>
           </thead>
           <tbody>
-            {% for course in semester_schedule.sections %}
+            {% for f in faculty %}
 
             <tr
               class="clickable-row"
-              data-href="{% url 'registrar:faculty_profile' student:student_id %}"
+              data-href="{% url 'registrar:faculty_profile' f.faculty_id %}"
             >
               <!--link to the semester records-->
               <td>
-                {{ semester_schedule.semester }} {{ semester_schedule.year }}
+                {{ f.f_name }} {{ f.l_name }}
               </td>
-              <td>{{ course.course.course_code }}</td>
-              <td>{{ course.course.title }}</td>
-              <td>{{ course.course.lab }}</td>
+              <td>{{ f.faculty_id }}</td>
+              <td>{{ f.department }}</td>
+              <td>{{ f.email }}</td>
             </tr>
 
             {% empty %}
