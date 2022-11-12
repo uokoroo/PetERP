@@ -204,13 +204,13 @@
                 data-bs-parent="#sidenavAccordion"
               >
                 <nav class="sb-sidenav-menu-nested nav">
-                  <a class="nav-link" href="{% url 'registrar:student_info' %}">
+                  <a class="nav-link" href="{% url 'registrar:student_information' %}">
                     <div class="sb-nav-link-icon">
                       <i class="fas fa-tachometer-alt"></i>
                     </div>
                     Student Information</a
                   >
-                  <a class="nav-link" href="{% url 'registrar:faculty_info' %}"
+                  <a class="nav-link" href="{% url 'registrar:faculty_information' %}"
                     ><div class="sb-nav-link-icon">
                       <i class="fas fa-archive"></i>
                     </div>
@@ -304,7 +304,7 @@
                         </div>
                         Create Sections</a
                       >
-                      <a class="nav-link" href="{% url 'dean:index' %}"
+                      <a class="nav-link" href="{% url 'registrar:create_sections' %}"
                         ><div class="sb-nav-link-icon">
                           <i class="fas fa-archive"></i>
                         </div>
@@ -315,7 +315,7 @@
                       </div>
                       <a
                 class="nav-link collapsed"
-                href="index.html"
+                href="{% url 'registrar:index' %}"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseLayouts"
                 aria-expanded="false"
@@ -336,13 +336,13 @@
                       data-bs-parent="#sidenavAccordion"
                     >
                       <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'dean:allocate_grade' %}">
+                        <a class="nav-link" href="{% url 'registrar:allocate_grade' %}">
                           <div class="sb-nav-link-icon">
                             <i class="fas fa-tachometer-alt"></i>
                           </div>
                           Allocate Grades</a
                         >
-                        <a class="nav-link" href="{% url 'dean:view-grade-history' %}"
+                        <a class="nav-link" href="{% url 'registrar:view-grade-history' %}"
                           ><div class="sb-nav-link-icon">
                             <i class="fas fa-archive"></i>
                           </div>
@@ -386,13 +386,13 @@
               aria-labelledby="dropdownUser1"
             >
               <li>
-                <a class="dropdown-item" href="{% url 'dean:profile' %}"
+                <a class="dropdown-item" href="{% url 'student:profile' %}"
                   >Profile</a
                 >
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
-                <a class="dropdown-item" href="{% url 'dean:logout' %}"
+                <a class="dropdown-item" href="{% url 'student:logout' %}"
                   >Sign out</a
                 >
               </li>
