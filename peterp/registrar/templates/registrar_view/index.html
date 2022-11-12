@@ -5,7 +5,7 @@
   <div class="container-fluid px-4">
     <h1 class="mt-4">Home</h1>
     <ol class="breadcrumb mb-4">
-      <li class="breadcrumb-item active">Student</li>
+      <li class="breadcrumb-item active">Registrar</li>
     </ol>
 
     <div class="row">
@@ -13,58 +13,55 @@
         <div class="card mb-4">
           <div class="card-header">
             <i class="fa fa-id-card me-1"></i>
-            Student Information
+            Student Major Information
           </div>
           <div class="card-body">
-            <div class="row g-0">
-              <div
-                class="col-md-4 gradient-custom text-center text-white"
-                style="
-                  border-top-left-radius: 0.5rem;
-                  border-bottom-left-radius: 0.5rem;
-                "
-              >
-                <img
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                  alt="Avatar"
-                  class="img-fluid my-3"
-                  style="width: 80px"
-                />
-                <h5>{{ student_data.name }}</h5>
+            <canvas id="myBarChart"></canvas>
+          </div>
+        </div>
+      </div>
 
-                <p>{{student_data.student_id}}</p>
+      <div class="col-xl-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fa fa-calendar me-1" aria-hidden="true"></i>
+            Override and Overload Insights
+          </div>
+          <div class="card-body">
+            <canvas id="myAreaChart"></canvas>
+          </div>
+        </div>
+      </div>
 
-                <a href="{% url 'student:profile' %}"
-                  ><i class="mb-4 fas fa-expand fw-bold text-white"></i
-                ></a>
+      <div class="col-xl-6">
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-bell me-1"></i>
+            Overview
+          </div>
+          <div class="card-body p-4">
+            <h6>Total Course Offerings</h6>
+            <hr class="mt-0 mb-4" />
+            <div class="row pt-1">
+              <div class="col-6 mb-3">
+                <h6>Total Sections for {{semester}}</h6>
+                <p class="text-muted">{{ student_data.major }}</p>
               </div>
-              <div class="col-md-8">
-                <div class="card-body p-4">
-                  <h6>Degree Information</h6>
-                  <hr class="mt-0 mb-4" />
-                  <div class="row pt-1">
-                    <div class="col-6 mb-3">
-                      <h6>Major</h6>
-                      <p class="text-muted">{{ student_data.major }}</p>
-                    </div>
-                    <div class="col-6 mb-3">
-                      <h6>Status</h6>
-                      <p class="text-muted">Year {{ student_data.year }}</p>
-                    </div>
-                  </div>
-                  <h6>Personal Information</h6>
-                  <hr class="mt-0 mb-4" />
-                  <div class="row pt-1">
-                    <div class="col-6 mb-3">
-                      <h6>Email</h6>
-                      <p class="text-muted">{{ student_data.email }}</p>
-                    </div>
-                    <div class="col-6 mb-3">
-                      <h6>Phone</h6>
-                      <p class="text-muted">{{ student_data.phone_number }}</p>
-                    </div>
-                  </div>
-                </div>
+              <div class="col-6 mb-3">
+                <h6>Total Number of Students</h6>
+                <p class="text-muted">Year {{ student_data.year }}</p>
+              </div>
+            </div>
+            <h6>Total Number of Faculty</h6>
+            <hr class="mt-0 mb-4" />
+            <div class="row pt-1">
+              <div class="col-6 mb-3">
+                <h6>Email</h6>
+                <p class="text-muted">{{ student_data.email }}</p>
+              </div>
+              <div class="col-6 mb-3">
+                <h6>Phone</h6>
+                <p class="text-muted">{{ student_data.phone_number }}</p>
               </div>
             </div>
           </div>
@@ -94,68 +91,8 @@
           </div>
         </div>
       </div>
-      <div class="col-xl-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fa fa-calendar me-1" aria-hidden="true"></i>
-            Concise Schedule
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Course</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Location</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for course in concise_schedule %}
-                <tr>
-                  <th scope="row">{{course.course_code}}</th>
-                  <td>{{course.time}}</td>
-                  <td>{{course.location}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-xl-6">
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-bell me-1"></i>
-            Academic Events
-          </div>
-          <div class="card-body">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Event</th>
-                  <th scope="col">Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Add and Drop Opens</th>
-                  <td>10/03/2022</td>
-                </tr>
-                <tr>
-                  <th scope="row">Add and Drop Closes</th>
-                  <td>24/03/22</td>
-                </tr>
-                <tr>
-                  <th scope="row">Late Registration Begins</th>
-                  <td>28/03/2022</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </main>
+
 {% endblock %}
