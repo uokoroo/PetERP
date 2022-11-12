@@ -148,8 +148,6 @@ def profile(request):
 
 
 def sections(request):
-    if not request.session.get('dean_data') or not request.session.get('semester_schedule'):
-        return redirect(reverse('home:login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
     token = request.session['token']
@@ -161,16 +159,13 @@ def sections(request):
     else:
         sections = r.json()
 
-    dean_data = request.session.get('dean_data')
-    return render(request, 'dean_view/sections.html', {
-        'faculty_data': dean_data,
+    return render(request, 'registrar_view/sections.html', {
         'sections': sections,
     })
 
 
 def courses(request):
-    if not request.session.get('dean_data') or not request.session.get('semester_schedule'):
-        return redirect(reverse('home:login'))
+
     if not request.session['token']:
         return redirect(reverse('home:login'))
     token = request.session['token']
@@ -181,11 +176,8 @@ def courses(request):
         return redirect(reverse('home:login'))
     else:
         courses = r.json()
-
-    dean_data = request.session.get('dean_data')
-    return render(request, 'dean_view/courses.html', {
+    return render(request, 'registrar_view/courses.html', {
         'courses': courses,
-        'faculty_data': dean_data,
     })
 
 
@@ -355,3 +347,105 @@ def overload_action(request, new_state, overload_id):
         },
         json={"state": new_state})
     return redirect_by_code(request, patch_overloads, 'dean:overloads')
+
+def new_session(request):
+    return render(request,'registrar_view/create_session.html')
+
+
+def edit_session(request):
+    return render(request,'registrar_view/edit_session.html')
+
+
+def new_course(request):
+    return render(request,'registrar_view/create_course.html')
+
+def new_section(request):
+    pass
+
+
+def hold(request):
+    if not request.session.get('token'):
+        return redirect('home:login')
+    token = request.session.get('token')
+    if request.method == 'POST':
+        # incomplete
+        payload = request.POST
+        r = requests.post(URL+"/individual_holds", json=payload,
+                          headers={'Authorization': 'Bearer ' + token})
+        # 403 forbidden means the user is not allowed to access this page
+        if 0 <= r.status_code - 400 < 100:
+            messages.add_message(
+                request, messages.WARNING, r.json()['message'])
+            return redirect(reverse('home:login'))
+        else:
+            messages.add_message(request, messages.SUCCESS,
+                                 'Succesfully created hold')
+            return redirect(reverse('registration'))
+    holds = requests.get(URL+"/individual_holds",
+                             headers={'Authorization': 'Bearer ' + token})
+    if 0 <= holds.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING,
+                             holds.json()['message'])
+        return HttpResponseRedirect(reverse('home:login'))
+    return render(request, "registrar_view/hold.html", {
+        'holds': holds.json(),
+    })
+
+def hold_members(request,hold_id):
+    pass
+
+def delete_hold(request,hold_id):
+    token = request.session.get('token')
+    if not token:
+        return redirect('home:login')
+    delete_req = requests.delete(URL+f"/individual_holds?hold_id?hold_id=eq.{hold_id}",
+    headers={
+        'Authorization':'Bearer ' + token,
+        'Prefer':'return=representation'
+    })
+    return redirect_by_code(request,delete_req,'registrar:hold')
+
+
+
+def new_hold(request):
+    return render(request,'registrar_view/create_hold.html')
+
+def assign_faculty(request):
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    r = requests.get(URL+"/sections?select=section_id,section_number,location,capacity,session(semester,year),courses(course_code,credit_hours,title),section_times(class_dates_abbrev(abbrev),class_times(str_rep)),faculty_assignment(faculty(f_name,l_name,m_name))",
+                     headers={'Authorization': 'Bearer ' + token})
+    if 0 <= r.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, r.json()['message'])
+        return redirect(reverse('home:login'))
+    else:
+        sections = r.json()
+
+
+
+    faculty = requests.get(URL+"/faculty",
+                     headers={'Authorization': 'Bearer ' + token})
+    if 0 <= faculty.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, faculty.json()['message'])
+        return redirect(reverse('home:login'))
+    return render(request,'registrar_view/assign-faculty.html', {
+        'sections': sections,
+        'faculty':faculty.json()
+    })
+
+
+def assign(request,section_id,faculty_id):
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    r = requests.patch(
+        URL+f"/faculty_assignment?sid=eq.{section_id}",
+        json={"fac_id":faculty_id},
+        headers={'Authorization': 'Bearer ' + token}
+    )
+    if 0 <= r.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, r.json()['message'])
+        return redirect(reverse('home:login'))
+    else:
+        return redirect(reverse('registrar:assign_faculty'))

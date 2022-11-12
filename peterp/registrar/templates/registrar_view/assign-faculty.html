@@ -11,7 +11,7 @@
     <div class="card mb-4">
       <div class="card-header">
         <i class="fa fa-calendar me-1"></i>
-        Assign Faculty to Courses
+        Assign Faculty to Sections
       </div>
       <div class="card-body"> 
         <table id="datatablesSimple" class="table table">
@@ -30,29 +30,38 @@
             </tr>
           </thead>
           <tbody>
-            {% for g in grades %}
+            {% for section in sections %}
+            
 
             <tr class="text-center">
-              <td>{{g.sections.session.semester}} {{g.sections.session.year}}</td>
-              <td>{{g.student.first_name}} {{ g.student.last_name }}</td>
-              <td>{{g.student_id}}</td>
-              <td>{{g.sections.course.course_code}}</td>
-              <td>{{g.sections.section_number}}</td>
-              <td>{{g.sections.section_id}}</td>
-              <td>{{g.grade}}</td>
+              <td>{{section.session.semester}} {{section.session.year}}</td>
+              <td>{{section.courses.course_code}}</td>
+              <td>{{ section.courses.title }}</td>
+              <td>
+              {{section.section_times.class_dates_abbrev.abbrev}}
+              {{section.section_times.class_times.str_rep }}
+            </td>
+            <td>{{section.location}}</td>
+            <td>{{section.section_number}}</td>
+            <td>{{section.section_id}}</td>
+            {% for fac in section.faculty_assignment%}
+            <td>{{fac.faculty.f_name}} {{fac.faculty.l_name}}</td>
+            {% empty %}
+            <td>None</td>
+            {% endfor %}
               <td>
                 <div class="modal-container container text-center">
                   <span class="btn btn-primary" type="button" data-bs-toggle="modal"
-                    data-bs-target="#gradeModal-{{ course.section_id }}">
+                    data-bs-target="#gradeModal-{{ section.section_id }}">
                     <span class="">Change Faculty</span>
                   </span>
                   <!-- Modal -->
-                  <div class="modal fade" id="gradeModal-{{ course.section_id }}" tabindex="-1"
+                  <div class="modal fade" id="gradeModal-{{ section.section_id }}" tabindex="-1"
                     aria-labelledby="gradeModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="gradeModalLabel">Faculty for {{g.sections.course.course_code}}</h5>
+                            <h5 class="modal-title" id="gradeModalLabel">Faculty for Section {{section.section_id}}: {{ section.courses.course_code }}</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -67,11 +76,11 @@
                             </thead>
                   
                             <tbody>
-                              {% for faculty in faculty %}
+                              {% for f in faculty %}
                               <tr>
-                                <td>{{transaction.transaction_type}}</td>
-                                <td>{{ transaction.description }}</td>
-                                <td><a href="{% url 'student:add_section' section.section_id %}"><button class="btn btn-primary">Assign</button></a></td>
+                                <td>{{f.f_name}} {% if f.m_name%} {{f.m_name}}{%else%} {%endif%} {{f.f_name}}</td>
+                                <td>{{ f.department }}</td>
+                                <td><a href="{% url 'registrar:assign' section.section_id f.faculty_id %}"><button class="btn btn-primary">Assign</button></a></td>
                               </tr>
                               {%empty%}
                               <tr>
