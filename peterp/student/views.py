@@ -159,11 +159,17 @@ def registration(request):
         messages.add_message(request, messages.WARNING, registration.json()['message'])
         return HttpResponseRedirect(reverse('home:login'))
     student_data = request.session.get('student_data')
-
+    on_hold = requests.post(
+        URL+"/rpc/user_hold_check",
+        headers={'Authorization':'Bearer ' + token, },
+        json={"restricted_object":'registration',"operation":"insert"}
+        )
+    on_hold = on_hold.json()
     return render(request,"student_view/registration.html", {
         'registration':registration.json(),
         'sections': sections.json(),
-        "student_data":student_data
+        "student_data":student_data,
+        'on_hold':on_hold
         })
 
 
@@ -281,7 +287,6 @@ def new_override(request):
     token = request.session['token']
     if request.method == 'POST':
         payload = convert(request.POST)
-        print(payload)
         r = requests.post(URL+"/overrides", json=payload,headers={'Authorization':'Bearer ' + token})
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
@@ -302,7 +307,6 @@ def new_override(request):
         return redirect(reverse('home:login'))
 
     session = session.get('session_id')
-    print('session:',session)
     if not session:
         messages.add_message(request,messages.WARNING,'No semester is open for registration')
         return redirect(reverse('student:index'))

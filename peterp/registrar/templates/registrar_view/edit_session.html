@@ -16,38 +16,47 @@
       <div class="card mb-4">
         <div class="tex mt-4 mb-4">
           <div class="container mb-5">
-            <form>
+            <form action="{% url 'registrar:edit-session' %}" method="post">
+              {% csrf_token %}
               <div class="form-group">
-                <label for="formGroupExampleInput">Status</label>
+                <label for="session">Session</label>
 
-                <select class="form-select" name="status" id="status">
-                  <option value="closed">Closed</option>
-                  <option value="active">Active</option>
-                  
+                <select class="form-select" name="session_id" id="session">
+                  {% for session in sessions %}
+                  <option value="{{session.session_id}}">{{session.semester}} {{session.year}}</option>
+                  {% endfor %}
                 </select>
               </div>
+              <div class="form-group">
+                <label for="status">Status</label>
+
+                <select class="form-select" name="status" id="status">
+                  <option value="active">Active</option>
+                  <option value="closed">Closed</option>
+                  <option value="disabled">Disabled</option>
+
+                </select>
               </div>
               <div class="form-group">
                 <label for="formGroupExampleInput2">State</label>
-                <select class="form-select" name="states" id="state">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  
+                <select class="form-select" name="state_id" id="state">
+                  {% for state in states %}
+                  <option value="{{state.state_id}}">{{ state.state_name }}</option>
+                  {% endfor %}
+
                 </select>
               </div>
-            
-              <button type="submit" class="btn btn-primary">Save</button>
-              <a href="hold.html"
-                >
+              <div class="form-group text-center mt-4"><button type="submit" class="btn btn-primary">Save</button></div>
+
             </form>
           </div>
-
-          
-
-          <!-- Modal -->
         </div>
+
+
+        <!-- Modal -->
       </div>
     </div>
-  
+  </div>
+
 </main>
 {% endblock %}

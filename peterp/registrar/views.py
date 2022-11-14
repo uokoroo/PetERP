@@ -6,6 +6,8 @@ import json
 from django.contrib import messages
 from django.urls import reverse
 
+
+
 from django.http import HttpResponseRedirect
 # Create your views here.
 URL = 'http://aun-erp-api.herokuapp.com'
@@ -353,15 +355,46 @@ def new_session(request):
 
 
 def edit_session(request):
-    return render(request,'registrar_view/edit_session.html')
+    if not request.session.get('token'):
+        return redirect('home:login')
+    token = request.session.get('token')
+    if request.method == 'POST':
+        # incomplete
+        payload = convert(request.POST)
+        print(payload)
+        session_id = payload.pop('session_id')
+        r = requests.patch(URL+f"/session?session_id=eq.{session_id}", json=payload,
+                          headers={'Authorization': 'Bearer ' + token})
+        # 403 forbidden means the user is not allowed to access this page
+        if 0 <= r.status_code - 400 < 100:
+            messages.add_message(
+                request, messages.WARNING, r.json()['message'])
+            return redirect(reverse('home:login'))
+        else:
+            messages.add_message(request, messages.SUCCESS,
+                                 'Succesfully updated session')
+            return redirect(reverse('registrar:edit-session'))
+    sessions = requests.get(URL+"/session",
+                             headers={'Authorization': 'Bearer ' + token})
+    states = requests.get(URL+"/session_states",
+                             headers={'Authorization': 'Bearer ' + token})
+    if 0 <= sessions.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING,
+                             sessions.json().get('message'))
+        return HttpResponseRedirect(reverse('home:login'))
+
+    return render(request, "registrar_view/edit_session.html", {
+        'sessions': sessions.json(),
+        'states': states.json()
+    })
 
 
 def new_course(request):
     return render(request,'registrar_view/create_course.html')
 
 def new_section(request):
-    pass
-
+    return render(request,'registrar_view/create_section.html')
+    
 
 def hold(request):
     if not request.session.get('token'):
@@ -449,3 +482,16 @@ def assign(request,section_id,faculty_id):
         return redirect(reverse('home:login'))
     else:
         return redirect(reverse('registrar:assign_faculty'))
+
+
+def convert(post_data):
+    """
+    This function converts the request.POST data gotten into application/json form
+    which can be attached to an api request
+    """
+    json = dict(post_data)
+    json.pop("csrfmiddlewaretoken")
+    new = {}
+    for key in json:
+        new[key] = json[key][0]
+    return new
