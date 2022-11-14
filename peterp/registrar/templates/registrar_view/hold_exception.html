@@ -32,16 +32,7 @@
 
                 <input class="form-control" type="text" name="id_no"></input>
               </div>
-              <div class="form-group">
-                <label for="formGroupExampleInput2">State</label>
-                <select class="form-select" name="state_id" id="state">
-                  {% for state in states %}
-                  <option value="{{state.state_id}}">
-                    {{ state.state_name }}
-                  </option>
-                  {% endfor %}
-                </select>
-              </div>
+              
               <div class="form-group text-center mt-4">
                 <button type="submit" class="btn btn-primary">Save</button>
               </div>
