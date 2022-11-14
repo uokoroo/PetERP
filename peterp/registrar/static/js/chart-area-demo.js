@@ -34,7 +34,7 @@ var myLineChart = new Chart(ctx, {
   type: "line",
   data: {
     labels: [
-      "Jh",
+      "Jan",
       "Feb",
       "Mar",
       "Apr",
