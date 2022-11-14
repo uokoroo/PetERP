@@ -205,7 +205,7 @@ def section_records(request, section_id):
     token = request.session['token']
     section_data = requests.get(
         URL +
-        f"/sections?select=*,session(semester,year),course:courses(title,course_code),student_enrollment!inner(student:students(first_name,middle_name,last_name,student_id,email))&section_id=eq.{section_id}",
+        f"/sections?select=*,session(semester,year),course:courses(title,course_code),student_enrollment!inner(student:students(*))&section_id=eq.{section_id}",
         headers={
             'Authorization': 'Bearer ' + token,
             'Accept': 'application/vnd.pgrst.object+json'
@@ -215,8 +215,11 @@ def section_records(request, section_id):
                              section_data.json()['message'])
         return redirect(reverse('home:login'))
     else:
+        print(section_data.text)
+        print(section_data.status_code)
         section_data = section_data.json()
     dean_data = request.session.get('dean_data')
+
     return render(request, 'dean_view/semester_records.html', {
         'section_data': section_data,
         'faculty_data': dean_data

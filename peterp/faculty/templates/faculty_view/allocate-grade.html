@@ -1,6 +1,14 @@
-{% extends 'faculty_view/layout.html' %} {% load static %} {% block title %}
+{% extends 'faculty_view/layout.html' %} 
+{% load static %} 
+
+{% block title %}
 <title>Course Overview - PetERP</title>
-{% endblock %} {% block body %}
+{% endblock %} 
+
+{% block body %}
+{% if on_hold %}
+<div class="alert text-center m-3 alert-danger">GRADING CLOSED</div>
+{% else %}
 <main>
   <div class="container-fluid px-4">
     <h1 class="mt-4">Allocate Grades</h1>
@@ -103,5 +111,5 @@
     </div>
   </div>
 </main>
-
+{% endif %}
 {% endblock %}

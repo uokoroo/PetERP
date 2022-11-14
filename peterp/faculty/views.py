@@ -98,9 +98,16 @@ def allocate_grades(request):
                              grades.json()['message'])
         return HttpResponseRedirect(reverse('home:login'))
     faculty_data = request.session.get('faculty_data')
+    on_hold = requests.post(
+        URL+"/rpc/user_hold_check",
+        headers={'Authorization':'Bearer ' + token, },
+        json={"restricted_object":'student_enrollment',"operation":"update"}
+        )
+    on_hold = on_hold.json()
     return render(request, "faculty_view/allocate-grade.html", {
         'grades': grades.json(),
-        "faculty_data": faculty_data
+        "faculty_data": faculty_data,
+        "on_hold":on_hold
     })
 
 

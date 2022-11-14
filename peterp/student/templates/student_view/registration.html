@@ -7,12 +7,15 @@
 
 
 {% block body %}
+{% if on_hold %}
+<div class="alert text-center m-3 alert-danger">REGISTRATION CLOSED</div>
+{% else %}
 
 <main style="background-color: rgba(0, 0, 0, 0.03)">
   <div class="container-fluid px-4">
     {% if messages %}
     {% for message in messages %}
-    <div{% if message.tags %} class="alert text-center m-3 alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
+    <div {% if message.tags %} class="alert text-center m-3 alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
       {% endfor %}
     {% endif %}
     <h1 class="mt-4">Registration</h1>
@@ -172,5 +175,5 @@
 
 
 </main>
-
+{% endif %}
 {% endblock %}
