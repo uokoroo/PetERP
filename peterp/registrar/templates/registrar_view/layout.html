@@ -304,12 +304,7 @@
                         </div>
                         Create Sections</a
                       >
-                      <a class="nav-link" href="{% url 'registrar:assign_faculty' %}"
-                        ><div class="sb-nav-link-icon">
-                          <i class="fas fa-archive"></i>
-                        </div>
-                        Assign Faculty</a
-                      >
+                      
                      
                         </nav>
                       </div>
@@ -335,13 +330,7 @@
                       aria-labelledby="headingOne"
                       data-bs-parent="#sidenavAccordion"
                     >
-                      <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{% url 'registrar:allocate_grades' %}">
-                          <div class="sb-nav-link-icon">
-                            <i class="fas fa-tachometer-alt"></i>
-                          </div>
-                          Allocate Grades</a
-                        >
+                      
                         <a class="nav-link" href="{% url 'registrar:grade_history' %}"
                           ><div class="sb-nav-link-icon">
                             <i class="fas fa-archive"></i>
@@ -349,17 +338,18 @@
                           View Grades</a
                         >
                        
-                          </nav>
+                          
                         </div>
-             
+             </div>
               <a href="{% url 'registrar:hold' %}" class="nav-link">
                 <div class="sb-nav-link-icon">
                   <i class="fa-solid fa-money-bill"></i>
                 </div>
                 Holds
               </a>
+
             </div>
-          </div>
+            
 
           <div
             class="dropdown sb-sidenav-footer"
