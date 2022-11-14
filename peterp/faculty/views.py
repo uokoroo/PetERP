@@ -26,6 +26,7 @@ def index(request):
                 'Authorization': 'Bearer ' + token,
                 'Accept': 'application/vnd.pgrst.object+json'
             })
+        print(faculty_data.json())
         # if the status_code is 401 it means the token is expired. Redirect the user to logout and create an error message
         fac_id = faculty_data.json()['faculty_id']
         semester_schedule = requests.get(

@@ -206,7 +206,7 @@ def academic_records(request):
     ACADEMIC RECORDS HAS TO BE FIXED TO BE A DROPDOWN 
     """
     # if there's no student_data or profile then the user is not logged in, redirect to login
-    if not request.session.get('student_data') or not request.session.get('concise_schedule'):
+    if not request.session.get('student_data'):
         return redirect(reverse('home:login'))
     if not request.session['token']:
         return redirect(reverse('home:login'))
