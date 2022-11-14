@@ -1,0 +1,57 @@
+{% extends 'registrar_view/layout.html' %} {% load static %} {% block title %}
+<title>Hold Exceptions - PetERP</title>
+{% endblock %} {% block body %}
+<main style="background-color: rgba(0, 0, 0, 0.03)">
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Hold Exceptions</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Holds</li>
+    </ol>
+
+    <div class-="row px-4 text-center">
+      <div class="card-header">
+        <i class="fa-solid fa-school me-1"></i>
+        Hold Exceptions
+      </div>
+      <div class="card mb-4">
+        <div class="tex mt-4 mb-4">
+          <div class="container mb-5">
+            <form action="{% url 'registrar:hold-exception' %}" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="session">Hold Type</label>
+
+                <select class="form-select" name="session_id" id="session">
+                  {% for hold in holds %}
+                  <option>{{holds.hold_name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="status">ID Numbers</label>
+
+                <input class="form-control" type="text" name="id_no"></input>
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput2">State</label>
+                <select class="form-select" name="state_id" id="state">
+                  {% for state in states %}
+                  <option value="{{state.state_id}}">
+                    {{ state.state_name }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="form-group text-center mt-4">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Modal -->
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
