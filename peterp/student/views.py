@@ -165,6 +165,7 @@ def registration(request):
         json={"restricted_object":'registration',"operation":"insert"}
         )
     on_hold = on_hold.json()
+    print(on_hold)
     return render(request,"student_view/registration.html", {
         'registration':registration.json(),
         'sections': sections.json(),

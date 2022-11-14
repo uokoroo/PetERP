@@ -19,4 +19,6 @@ urlpatterns = [
     path("grade_history/",views.grade_history,name='grade_history'),
     path("override_action/<int:override_id>/<str:new_state>",views.override_action,name='override_action'),
     path("overload_action/<int:overload_id>/<str:new_state>",views.overload_action,name='overload_action'),
+    path("assign_faculty",views.assign_faculty,name='assign_faculty'),
+    path("assign/<int:section_id>/<str:faculty_id>",views.assign,name='assign'),
 ]

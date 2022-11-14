@@ -327,3 +327,43 @@ def overload_action(request, new_state, overload_id):
         },
         json={"state": new_state})
     return redirect_by_code(request, patch_overloads, 'dean:overloads')
+
+def assign_faculty(request):
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    r = requests.get(URL+"/sections?select=section_id,section_number,location,capacity,session(semester,year),courses(course_code,credit_hours,title),section_times(class_dates_abbrev(abbrev),class_times(str_rep)),faculty_assignment(faculty(f_name,l_name,m_name))",
+                     headers={'Authorization': 'Bearer ' + token})
+    if 0 <= r.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, r.json()['message'])
+        return redirect(reverse('home:login'))
+    else:
+        sections = r.json()
+
+
+
+    faculty = requests.get(URL+"/faculty",
+                     headers={'Authorization': 'Bearer ' + token})
+    if 0 <= faculty.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, faculty.json()['message'])
+        return redirect(reverse('home:login'))
+    return render(request,'registrar_view/assign-faculty.html', {
+        'sections': sections,
+        'faculty':faculty.json()
+    })
+
+
+def assign(request,section_id,faculty_id):
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    r = requests.patch(
+        URL+f"/faculty_assignment?sid=eq.{section_id}",
+        json={"fac_id":faculty_id},
+        headers={'Authorization': 'Bearer ' + token}
+    )
+    if 0 <= r.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, r.json()['message'])
+        return redirect(reverse('home:login'))
+    else:
+        return redirect(reverse('registrar:assign_faculty'))
