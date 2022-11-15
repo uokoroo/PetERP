@@ -5,8 +5,11 @@ import requests
 import json
 from django.contrib import messages
 from django.urls import reverse
+from django.core.mail import send_mail
 
 from django.http import HttpResponseRedirect
+
+from dean import views
 # Create your views here.
 URL = 'http://aun-erp-api.herokuapp.com'
 
@@ -219,6 +222,7 @@ def academic_records(request):
     else:
         academic_records = r.json()
         academic_records = order_records_by_session(academic_records)
+    print(academic_records)
     student_data = request.session.get('student_data')
     request.session['academic_records'] = academic_records
     return render(request,'student_view/academic-record.html',{
@@ -282,6 +286,7 @@ def override(request):
         })
 
 
+
 def new_override(request):
     if not request.session['token']:
         return redirect(reverse('home:login'))
@@ -322,6 +327,37 @@ def new_override(request):
         "student_data":student_data,
         "session_id":session
         })
+
+class override_request(views):
+    def get(self,request):
+        if not request.session['token']:
+            return redirect(reverse('home:login'))
+        token = request.session['token']
+        override = requests.get(URL+"/overrides?select=*",headers={'Authorization':'Bearer ' + token})
+        if 0 <= override.status_code - 400 < 100:
+            messages.add_message(request, messages.WARNING, override.json()['message'])
+            return redirect(reverse('home:login'))
+        student_data = request.session.get('student_data')
+        return render(request,"student_view/override.html", {
+            'overrides':override.json(),
+            "student_data":student_data,
+            })
+
+    def post(self,request):
+        if not request.session['token']:
+            return redirect(reverse('home:login'))
+        token = request.session['token']
+        payload = convert(request.POST)
+        r = requests.post(URL+"/overrides", json=payload,headers={'Authorization':'Bearer ' + token})
+    send_mail(
+            'Test Override',
+            'This is a test override',
+            'zahillee@gmail.com',
+            ['udochukwu.okoro@aun.edu.ng'],
+           
+            fail_silently=False
+        )
+
 
 def overload(request):
     if not request.session['token']:

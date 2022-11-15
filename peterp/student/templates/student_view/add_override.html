@@ -81,9 +81,21 @@
 
 
             <div class="text-center">
-              <button type="submit" class="btn btn-success "><i class="fa fa-floppy-disk"
+              <button type="submit" class="btn btn-success " onclick="override_request()"><i class="fa fa-floppy-disk"
                   aria-hidden="true"></i></button>
-
+                  <script>
+                    function override_request() {
+                        $.ajax({
+                            type: 'POST',
+                            url: '{% url "student:override" %}',
+                            data: { },
+                            success: function () {
+                                toastr.info('Override Requested Successully');
+            
+                                }
+                            });
+                        }
+            </script>
             </div>
 
 
