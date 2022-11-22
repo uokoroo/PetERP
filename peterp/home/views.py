@@ -29,16 +29,19 @@ def index(request):
 def login_user(request):
     if request.method == 'POST':
         payload = convert(request.POST)
-        r = requests.post(URL+"/rpc/login", json=payload)
-        # 403 forbidden means the user is not allowed to access this page
-        if r.status_code == 403:
-            messages.add_message(request, messages.WARNING, r.json().get('message'))
-            return redirect(reverse('home:index'))
+        try:
+            r = requests.post(URL+"/rpc/login", json=payload)
+            # 403 forbidden means the user is not allowed to access this page
+            if r.status_code == 403:
+                messages.add_message(request, messages.WARNING, r.json().get('message'))
+                return redirect(reverse('home:index'))
 
-        else:
-            request.session['token'] = r.json().get('token')
-            request.session['id'] = payload.get('id')
-            return redirect(reverse('home:index'))
+            else:
+                request.session['token'] = r.json().get('token')
+                request.session['id'] = payload.get('id')
+                return redirect(reverse('home:index'))
+        except:
+            return render(request,"notfound404.html")
     return render(request,"login.html")
 
 

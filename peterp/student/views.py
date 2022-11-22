@@ -9,7 +9,6 @@ from django.core.mail import send_mail
 
 from django.http import HttpResponseRedirect
 
-from dean import views
 # Create your views here.
 URL = 'http://aun-erp-api.herokuapp.com'
 
@@ -168,7 +167,6 @@ def registration(request):
         json={"restricted_object":'registration',"operation":"insert"}
         )
     on_hold = on_hold.json()
-    print(on_hold)
     return render(request,"student_view/registration.html", {
         'registration':registration.json(),
         'sections': sections.json(),
@@ -328,35 +326,6 @@ def new_override(request):
         "session_id":session
         })
 
-class override_request(views):
-    def get(self,request):
-        if not request.session['token']:
-            return redirect(reverse('home:login'))
-        token = request.session['token']
-        override = requests.get(URL+"/overrides?select=*",headers={'Authorization':'Bearer ' + token})
-        if 0 <= override.status_code - 400 < 100:
-            messages.add_message(request, messages.WARNING, override.json()['message'])
-            return redirect(reverse('home:login'))
-        student_data = request.session.get('student_data')
-        return render(request,"student_view/override.html", {
-            'overrides':override.json(),
-            "student_data":student_data,
-            })
-
-    def post(self,request):
-        if not request.session['token']:
-            return redirect(reverse('home:login'))
-        token = request.session['token']
-        payload = convert(request.POST)
-        r = requests.post(URL+"/overrides", json=payload,headers={'Authorization':'Bearer ' + token})
-    send_mail(
-            'Test Override',
-            'This is a test override',
-            'zahillee@gmail.com',
-            ['udochukwu.okoro@aun.edu.ng'],
-           
-            fail_silently=False
-        )
 
 
 def overload(request):
@@ -386,7 +355,6 @@ def overload(request):
         messages.add_message(request,messages.WARNING,'No semester is open for registration')
         return render(request,reverse('student:index'))
     if 0 <= overload.status_code - 400 < 100:
-        print(overload.json())
         messages.add_message(request, messages.WARNING, overload.json()['message'])
         return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')

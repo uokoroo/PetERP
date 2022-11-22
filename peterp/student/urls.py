@@ -22,5 +22,4 @@ urlpatterns = [
     path("new_override/", views.new_override,name='new_override'),
     path("overload/", views.overload,name='overload'),
     path("account/", views.account,name='account'),
-    path('override_request', views.override_request.as_view(), name='override_request'),
 ]

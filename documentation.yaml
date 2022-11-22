@@ -1,0 +1,3591 @@
+swagger: '2.0'
+info:
+  description: standard public schema
+  title: PostgREST ERP API
+  version: 10.0.0
+host: 0.0.0.0:18931
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+  - application/vnd.pgrst.object+json
+  - text/csv
+produces:
+  - application/json
+  - application/vnd.pgrst.object+json
+  - text/csv
+paths:
+  /:
+    get:
+      tags:
+        - Introspection
+      summary: OpenAPI description (this document)
+      produces:
+        - application/openapi+json
+        - application/json
+      responses:
+        '200':
+          description: OK
+  /all_student_data:
+    get:
+      description:
+        'Returns an extended array of students including gpa information'
+      tags:
+        - all_student_data
+      parameters:
+        - $ref: '#/parameters/rowFilter.all_student_data.student_id'
+        - $ref: '#/parameters/rowFilter.all_student_data.status'
+        - $ref: '#/parameters/rowFilter.all_student_data.date_of_birth'
+        - $ref: '#/parameters/rowFilter.all_student_data.date_of_admission'
+        - $ref: '#/parameters/rowFilter.all_student_data.level'
+        - $ref: '#/parameters/rowFilter.all_student_data.major'
+        - $ref: '#/parameters/rowFilter.all_student_data.minor'
+        - $ref: '#/parameters/rowFilter.all_student_data.concentration'
+        - $ref: '#/parameters/rowFilter.all_student_data.school_name'
+        - $ref: '#/parameters/rowFilter.all_student_data.term_of_admission'
+        - $ref: '#/parameters/rowFilter.all_student_data.name'
+        - $ref: '#/parameters/rowFilter.all_student_data.first_name'
+        - $ref: '#/parameters/rowFilter.all_student_data.middle_name'
+        - $ref: '#/parameters/rowFilter.all_student_data.last_name'
+        - $ref: '#/parameters/rowFilter.all_student_data.address'
+        - $ref: '#/parameters/rowFilter.all_student_data.email'
+        - $ref: '#/parameters/rowFilter.all_student_data.phone_number'
+        - $ref: '#/parameters/rowFilter.all_student_data.gender'
+        - $ref: '#/parameters/rowFilter.all_student_data.degree'
+        - $ref: '#/parameters/rowFilter.all_student_data.earned_hours'
+        - $ref: '#/parameters/rowFilter.all_student_data.attempted_hours'
+        - $ref: '#/parameters/rowFilter.all_student_data.year'
+        - $ref: '#/parameters/rowFilter.all_student_data.quality_points'
+        - $ref: '#/parameters/rowFilter.all_student_data.session_id'
+        - $ref: '#/parameters/rowFilter.all_student_data.school_id'
+        - $ref: '#/parameters/rowFilter.all_student_data.program_id'
+        - $ref: '#/parameters/rowFilter.all_student_data.cgpa'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/all_student_data'
+            type: array
+        '206':
+          description: Partial Content
+  /programs:
+    get:
+      tags:
+        - programs
+      parameters:
+        - $ref: '#/parameters/rowFilter.programs.program_id'
+        - $ref: '#/parameters/rowFilter.programs.program_name'
+        - $ref: '#/parameters/rowFilter.programs.program_chair_id'
+        - $ref: '#/parameters/rowFilter.programs.level'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/programs'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - programs
+      parameters:
+        - $ref: '#/parameters/body.programs'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - programs
+      parameters:
+        - $ref: '#/parameters/rowFilter.programs.program_id'
+        - $ref: '#/parameters/rowFilter.programs.program_name'
+        - $ref: '#/parameters/rowFilter.programs.program_chair_id'
+        - $ref: '#/parameters/rowFilter.programs.level'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - programs
+      parameters:
+        - $ref: '#/parameters/rowFilter.programs.program_id'
+        - $ref: '#/parameters/rowFilter.programs.program_name'
+        - $ref: '#/parameters/rowFilter.programs.program_chair_id'
+        - $ref: '#/parameters/rowFilter.programs.level'
+        - $ref: '#/parameters/body.programs'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /class_dates_abbrev:
+    get:
+      tags:
+        - class_dates_abbrev
+      parameters:
+        - $ref: '#/parameters/rowFilter.class_dates_abbrev.class_abbrev_id'
+        - $ref: '#/parameters/rowFilter.class_dates_abbrev.abbrev'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/class_dates_abbrev'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - class_dates_abbrev
+      parameters:
+        - $ref: '#/parameters/body.class_dates_abbrev'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - class_dates_abbrev
+      parameters:
+        - $ref: '#/parameters/rowFilter.class_dates_abbrev.class_abbrev_id'
+        - $ref: '#/parameters/rowFilter.class_dates_abbrev.abbrev'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - class_dates_abbrev
+      parameters:
+        - $ref: '#/parameters/rowFilter.class_dates_abbrev.class_abbrev_id'
+        - $ref: '#/parameters/rowFilter.class_dates_abbrev.abbrev'
+        - $ref: '#/parameters/body.class_dates_abbrev'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /faculty:
+    get:
+      tags:
+        - faculty
+      parameters:
+        - $ref: '#/parameters/rowFilter.faculty.faculty_id'
+        - $ref: '#/parameters/rowFilter.faculty.date_of_birth'
+        - $ref: '#/parameters/rowFilter.faculty.date_of_emp'
+        - $ref: '#/parameters/rowFilter.faculty.school'
+        - $ref: '#/parameters/rowFilter.faculty.department'
+        - $ref: '#/parameters/rowFilter.faculty.email'
+        - $ref: '#/parameters/rowFilter.faculty.address'
+        - $ref: '#/parameters/rowFilter.faculty.phone_no'
+        - $ref: '#/parameters/rowFilter.faculty.f_name'
+        - $ref: '#/parameters/rowFilter.faculty.m_name'
+        - $ref: '#/parameters/rowFilter.faculty.l_name'
+        - $ref: '#/parameters/rowFilter.faculty.status'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/faculty'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - faculty
+      parameters:
+        - $ref: '#/parameters/body.faculty'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - faculty
+      parameters:
+        - $ref: '#/parameters/rowFilter.faculty.faculty_id'
+        - $ref: '#/parameters/rowFilter.faculty.date_of_birth'
+        - $ref: '#/parameters/rowFilter.faculty.date_of_emp'
+        - $ref: '#/parameters/rowFilter.faculty.school'
+        - $ref: '#/parameters/rowFilter.faculty.department'
+        - $ref: '#/parameters/rowFilter.faculty.email'
+        - $ref: '#/parameters/rowFilter.faculty.address'
+        - $ref: '#/parameters/rowFilter.faculty.phone_no'
+        - $ref: '#/parameters/rowFilter.faculty.f_name'
+        - $ref: '#/parameters/rowFilter.faculty.m_name'
+        - $ref: '#/parameters/rowFilter.faculty.l_name'
+        - $ref: '#/parameters/rowFilter.faculty.status'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - faculty
+      parameters:
+        - $ref: '#/parameters/rowFilter.faculty.faculty_id'
+        - $ref: '#/parameters/rowFilter.faculty.date_of_birth'
+        - $ref: '#/parameters/rowFilter.faculty.date_of_emp'
+        - $ref: '#/parameters/rowFilter.faculty.school'
+        - $ref: '#/parameters/rowFilter.faculty.department'
+        - $ref: '#/parameters/rowFilter.faculty.email'
+        - $ref: '#/parameters/rowFilter.faculty.address'
+        - $ref: '#/parameters/rowFilter.faculty.phone_no'
+        - $ref: '#/parameters/rowFilter.faculty.f_name'
+        - $ref: '#/parameters/rowFilter.faculty.m_name'
+        - $ref: '#/parameters/rowFilter.faculty.l_name'
+        - $ref: '#/parameters/rowFilter.faculty.status'
+        - $ref: '#/parameters/body.faculty'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /section_times:
+    get:
+      tags:
+        - section_times
+      parameters:
+        - $ref: '#/parameters/rowFilter.section_times.section_time_id'
+        - $ref: '#/parameters/rowFilter.section_times.class_dates_abbrev'
+        - $ref: '#/parameters/rowFilter.section_times.class_time_id'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/section_times'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - section_times
+      parameters:
+        - $ref: '#/parameters/body.section_times'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - section_times
+      parameters:
+        - $ref: '#/parameters/rowFilter.section_times.section_time_id'
+        - $ref: '#/parameters/rowFilter.section_times.class_dates_abbrev'
+        - $ref: '#/parameters/rowFilter.section_times.class_time_id'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - section_times
+      parameters:
+        - $ref: '#/parameters/rowFilter.section_times.section_time_id'
+        - $ref: '#/parameters/rowFilter.section_times.class_dates_abbrev'
+        - $ref: '#/parameters/rowFilter.section_times.class_time_id'
+        - $ref: '#/parameters/body.section_times'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /students:
+    get:
+      tags:
+        - students
+      parameters:
+        - $ref: '#/parameters/rowFilter.students.student_id'
+        - $ref: '#/parameters/rowFilter.students.status'
+        - $ref: '#/parameters/rowFilter.students.date_of_birth'
+        - $ref: '#/parameters/rowFilter.students.date_of_admission'
+        - $ref: '#/parameters/rowFilter.students.level'
+        - $ref: '#/parameters/rowFilter.students.major'
+        - $ref: '#/parameters/rowFilter.students.minor'
+        - $ref: '#/parameters/rowFilter.students.concentration'
+        - $ref: '#/parameters/rowFilter.students.school'
+        - $ref: '#/parameters/rowFilter.students.address'
+        - $ref: '#/parameters/rowFilter.students.password'
+        - $ref: '#/parameters/rowFilter.students.email'
+        - $ref: '#/parameters/rowFilter.students.phone_number'
+        - $ref: '#/parameters/rowFilter.students.first_name'
+        - $ref: '#/parameters/rowFilter.students.middle_name'
+        - $ref: '#/parameters/rowFilter.students.last_name'
+        - $ref: '#/parameters/rowFilter.students.term_of_admission'
+        - $ref: '#/parameters/rowFilter.students.program_id'
+        - $ref: '#/parameters/rowFilter.students.gender'
+        - $ref: '#/parameters/rowFilter.students.state_of_origin'
+        - $ref: '#/parameters/rowFilter.students.lga'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/students'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - students
+      parameters:
+        - $ref: '#/parameters/body.students'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - students
+      parameters:
+        - $ref: '#/parameters/rowFilter.students.student_id'
+        - $ref: '#/parameters/rowFilter.students.status'
+        - $ref: '#/parameters/rowFilter.students.date_of_birth'
+        - $ref: '#/parameters/rowFilter.students.date_of_admission'
+        - $ref: '#/parameters/rowFilter.students.level'
+        - $ref: '#/parameters/rowFilter.students.major'
+        - $ref: '#/parameters/rowFilter.students.minor'
+        - $ref: '#/parameters/rowFilter.students.concentration'
+        - $ref: '#/parameters/rowFilter.students.school'
+        - $ref: '#/parameters/rowFilter.students.address'
+        - $ref: '#/parameters/rowFilter.students.password'
+        - $ref: '#/parameters/rowFilter.students.email'
+        - $ref: '#/parameters/rowFilter.students.phone_number'
+        - $ref: '#/parameters/rowFilter.students.first_name'
+        - $ref: '#/parameters/rowFilter.students.middle_name'
+        - $ref: '#/parameters/rowFilter.students.last_name'
+        - $ref: '#/parameters/rowFilter.students.term_of_admission'
+        - $ref: '#/parameters/rowFilter.students.program_id'
+        - $ref: '#/parameters/rowFilter.students.gender'
+        - $ref: '#/parameters/rowFilter.students.state_of_origin'
+        - $ref: '#/parameters/rowFilter.students.lga'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - students
+      parameters:
+        - $ref: '#/parameters/rowFilter.students.student_id'
+        - $ref: '#/parameters/rowFilter.students.status'
+        - $ref: '#/parameters/rowFilter.students.date_of_birth'
+        - $ref: '#/parameters/rowFilter.students.date_of_admission'
+        - $ref: '#/parameters/rowFilter.students.level'
+        - $ref: '#/parameters/rowFilter.students.major'
+        - $ref: '#/parameters/rowFilter.students.minor'
+        - $ref: '#/parameters/rowFilter.students.concentration'
+        - $ref: '#/parameters/rowFilter.students.school'
+        - $ref: '#/parameters/rowFilter.students.address'
+        - $ref: '#/parameters/rowFilter.students.password'
+        - $ref: '#/parameters/rowFilter.students.email'
+        - $ref: '#/parameters/rowFilter.students.phone_number'
+        - $ref: '#/parameters/rowFilter.students.first_name'
+        - $ref: '#/parameters/rowFilter.students.middle_name'
+        - $ref: '#/parameters/rowFilter.students.last_name'
+        - $ref: '#/parameters/rowFilter.students.term_of_admission'
+        - $ref: '#/parameters/rowFilter.students.program_id'
+        - $ref: '#/parameters/rowFilter.students.gender'
+        - $ref: '#/parameters/rowFilter.students.state_of_origin'
+        - $ref: '#/parameters/rowFilter.students.lga'
+        - $ref: '#/parameters/body.students'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /individual_holds:
+    get:
+      tags:
+        - individual_holds
+      parameters:
+        - $ref: '#/parameters/rowFilter.individual_holds.hold_id'
+        - $ref: '#/parameters/rowFilter.individual_holds.hold_name'
+        - $ref: '#/parameters/rowFilter.individual_holds.restricted_operation'
+        - $ref: '#/parameters/rowFilter.individual_holds.restricted_table_or_view'
+        - $ref: '#/parameters/rowFilter.individual_holds.active'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/individual_holds'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - individual_holds
+      parameters:
+        - $ref: '#/parameters/body.individual_holds'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - individual_holds
+      parameters:
+        - $ref: '#/parameters/rowFilter.individual_holds.hold_id'
+        - $ref: '#/parameters/rowFilter.individual_holds.hold_name'
+        - $ref: '#/parameters/rowFilter.individual_holds.restricted_operation'
+        - $ref: '#/parameters/rowFilter.individual_holds.restricted_table_or_view'
+        - $ref: '#/parameters/rowFilter.individual_holds.active'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - individual_holds
+      parameters:
+        - $ref: '#/parameters/rowFilter.individual_holds.hold_id'
+        - $ref: '#/parameters/rowFilter.individual_holds.hold_name'
+        - $ref: '#/parameters/rowFilter.individual_holds.restricted_operation'
+        - $ref: '#/parameters/rowFilter.individual_holds.restricted_table_or_view'
+        - $ref: '#/parameters/rowFilter.individual_holds.active'
+        - $ref: '#/parameters/body.individual_holds'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /class_times:
+    get:
+      tags:
+        - class_times
+      parameters:
+        - $ref: '#/parameters/rowFilter.class_times.class_time_id'
+        - $ref: '#/parameters/rowFilter.class_times.str_rep'
+        - $ref: '#/parameters/rowFilter.class_times.start_hour'
+        - $ref: '#/parameters/rowFilter.class_times.start_minute'
+        - $ref: '#/parameters/rowFilter.class_times.end_hour'
+        - $ref: '#/parameters/rowFilter.class_times.end_minute'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/class_times'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - class_times
+      parameters:
+        - $ref: '#/parameters/body.class_times'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - class_times
+      parameters:
+        - $ref: '#/parameters/rowFilter.class_times.class_time_id'
+        - $ref: '#/parameters/rowFilter.class_times.str_rep'
+        - $ref: '#/parameters/rowFilter.class_times.start_hour'
+        - $ref: '#/parameters/rowFilter.class_times.start_minute'
+        - $ref: '#/parameters/rowFilter.class_times.end_hour'
+        - $ref: '#/parameters/rowFilter.class_times.end_minute'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - class_times
+      parameters:
+        - $ref: '#/parameters/rowFilter.class_times.class_time_id'
+        - $ref: '#/parameters/rowFilter.class_times.str_rep'
+        - $ref: '#/parameters/rowFilter.class_times.start_hour'
+        - $ref: '#/parameters/rowFilter.class_times.start_minute'
+        - $ref: '#/parameters/rowFilter.class_times.end_hour'
+        - $ref: '#/parameters/rowFilter.class_times.end_minute'
+        - $ref: '#/parameters/body.class_times'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /overloads:
+    get:
+      tags:
+        - overloads
+      parameters:
+        - $ref: '#/parameters/rowFilter.overloads.overload_id'
+        - $ref: '#/parameters/rowFilter.overloads.student_id'
+        - $ref: '#/parameters/rowFilter.overloads.session_id'
+        - $ref: '#/parameters/rowFilter.overloads.state'
+        - $ref: '#/parameters/rowFilter.overloads.additional_courses'
+        - $ref: '#/parameters/rowFilter.overloads.notes'
+        - $ref: '#/parameters/rowFilter.overloads.date'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/overloads'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - overloads
+      parameters:
+        - $ref: '#/parameters/body.overloads'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - overloads
+      parameters:
+        - $ref: '#/parameters/rowFilter.overloads.overload_id'
+        - $ref: '#/parameters/rowFilter.overloads.student_id'
+        - $ref: '#/parameters/rowFilter.overloads.session_id'
+        - $ref: '#/parameters/rowFilter.overloads.state'
+        - $ref: '#/parameters/rowFilter.overloads.additional_courses'
+        - $ref: '#/parameters/rowFilter.overloads.notes'
+        - $ref: '#/parameters/rowFilter.overloads.date'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - overloads
+      parameters:
+        - $ref: '#/parameters/rowFilter.overloads.overload_id'
+        - $ref: '#/parameters/rowFilter.overloads.student_id'
+        - $ref: '#/parameters/rowFilter.overloads.session_id'
+        - $ref: '#/parameters/rowFilter.overloads.state'
+        - $ref: '#/parameters/rowFilter.overloads.additional_courses'
+        - $ref: '#/parameters/rowFilter.overloads.notes'
+        - $ref: '#/parameters/rowFilter.overloads.date'
+        - $ref: '#/parameters/body.overloads'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /individual_hold_members:
+    get:
+      tags:
+        - individual_hold_members
+      parameters:
+        - $ref: '#/parameters/rowFilter.individual_hold_members.hold_id'
+        - $ref: '#/parameters/rowFilter.individual_hold_members.member_id'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/individual_hold_members'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - individual_hold_members
+      parameters:
+        - $ref: '#/parameters/body.individual_hold_members'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - individual_hold_members
+      parameters:
+        - $ref: '#/parameters/rowFilter.individual_hold_members.hold_id'
+        - $ref: '#/parameters/rowFilter.individual_hold_members.member_id'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - individual_hold_members
+      parameters:
+        - $ref: '#/parameters/rowFilter.individual_hold_members.hold_id'
+        - $ref: '#/parameters/rowFilter.individual_hold_members.member_id'
+        - $ref: '#/parameters/body.individual_hold_members'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /class_dates:
+    get:
+      tags:
+        - class_dates
+      parameters:
+        - $ref: '#/parameters/rowFilter.class_dates.class_dates_id'
+        - $ref: '#/parameters/rowFilter.class_dates.class_abbrev_id'
+        - $ref: '#/parameters/rowFilter.class_dates.day_id'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/class_dates'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - class_dates
+      parameters:
+        - $ref: '#/parameters/body.class_dates'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - class_dates
+      parameters:
+        - $ref: '#/parameters/rowFilter.class_dates.class_dates_id'
+        - $ref: '#/parameters/rowFilter.class_dates.class_abbrev_id'
+        - $ref: '#/parameters/rowFilter.class_dates.day_id'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - class_dates
+      parameters:
+        - $ref: '#/parameters/rowFilter.class_dates.class_dates_id'
+        - $ref: '#/parameters/rowFilter.class_dates.class_abbrev_id'
+        - $ref: '#/parameters/rowFilter.class_dates.day_id'
+        - $ref: '#/parameters/body.class_dates'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /hold_exceptions:
+    get:
+      tags:
+        - hold_exceptions
+      parameters:
+        - $ref: '#/parameters/rowFilter.hold_exceptions.table_id'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.user_id'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.duration'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.hold_id'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.date_created'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/hold_exceptions'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - hold_exceptions
+      parameters:
+        - $ref: '#/parameters/body.hold_exceptions'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - hold_exceptions
+      parameters:
+        - $ref: '#/parameters/rowFilter.hold_exceptions.table_id'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.user_id'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.duration'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.hold_id'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.date_created'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - hold_exceptions
+      parameters:
+        - $ref: '#/parameters/rowFilter.hold_exceptions.table_id'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.user_id'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.duration'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.hold_id'
+        - $ref: '#/parameters/rowFilter.hold_exceptions.date_created'
+        - $ref: '#/parameters/body.hold_exceptions'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /extended_student_view:
+    get:
+      tags:
+        - extended_student_view
+      parameters:
+        - $ref: '#/parameters/rowFilter.extended_student_view.student_id'
+        - $ref: '#/parameters/rowFilter.extended_student_view.earned_hours'
+        - $ref: '#/parameters/rowFilter.extended_student_view.attempted_hours'
+        - $ref: '#/parameters/rowFilter.extended_student_view.year'
+        - $ref: '#/parameters/rowFilter.extended_student_view.quality_points'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/extended_student_view'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - extended_student_view
+      parameters:
+        - $ref: '#/parameters/body.extended_student_view'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - extended_student_view
+      parameters:
+        - $ref: '#/parameters/rowFilter.extended_student_view.student_id'
+        - $ref: '#/parameters/rowFilter.extended_student_view.earned_hours'
+        - $ref: '#/parameters/rowFilter.extended_student_view.attempted_hours'
+        - $ref: '#/parameters/rowFilter.extended_student_view.year'
+        - $ref: '#/parameters/rowFilter.extended_student_view.quality_points'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - extended_student_view
+      parameters:
+        - $ref: '#/parameters/rowFilter.extended_student_view.student_id'
+        - $ref: '#/parameters/rowFilter.extended_student_view.earned_hours'
+        - $ref: '#/parameters/rowFilter.extended_student_view.attempted_hours'
+        - $ref: '#/parameters/rowFilter.extended_student_view.year'
+        - $ref: '#/parameters/rowFilter.extended_student_view.quality_points'
+        - $ref: '#/parameters/body.extended_student_view'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /session:
+    get:
+      tags:
+        - session
+      parameters:
+        - $ref: '#/parameters/rowFilter.session.session_id'
+        - $ref: '#/parameters/rowFilter.session.semester'
+        - $ref: '#/parameters/rowFilter.session.year'
+        - $ref: '#/parameters/rowFilter.session.status'
+        - $ref: '#/parameters/rowFilter.session.state_id'
+        - $ref: '#/parameters/rowFilter.session.active'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/session'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - session
+      parameters:
+        - $ref: '#/parameters/body.session'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - session
+      parameters:
+        - $ref: '#/parameters/rowFilter.session.session_id'
+        - $ref: '#/parameters/rowFilter.session.semester'
+        - $ref: '#/parameters/rowFilter.session.year'
+        - $ref: '#/parameters/rowFilter.session.status'
+        - $ref: '#/parameters/rowFilter.session.state_id'
+        - $ref: '#/parameters/rowFilter.session.active'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - session
+      parameters:
+        - $ref: '#/parameters/rowFilter.session.session_id'
+        - $ref: '#/parameters/rowFilter.session.semester'
+        - $ref: '#/parameters/rowFilter.session.year'
+        - $ref: '#/parameters/rowFilter.session.status'
+        - $ref: '#/parameters/rowFilter.session.state_id'
+        - $ref: '#/parameters/rowFilter.session.active'
+        - $ref: '#/parameters/body.session'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /role_holds:
+    get:
+      tags:
+        - role_holds
+      parameters:
+        - $ref: '#/parameters/rowFilter.role_holds.hold_id'
+        - $ref: '#/parameters/rowFilter.role_holds.hold_name'
+        - $ref: '#/parameters/rowFilter.role_holds.role'
+        - $ref: '#/parameters/rowFilter.role_holds.restricted_operation'
+        - $ref: '#/parameters/rowFilter.role_holds.restricted_table_or_view'
+        - $ref: '#/parameters/rowFilter.role_holds.active'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/role_holds'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - role_holds
+      parameters:
+        - $ref: '#/parameters/body.role_holds'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - role_holds
+      parameters:
+        - $ref: '#/parameters/rowFilter.role_holds.hold_id'
+        - $ref: '#/parameters/rowFilter.role_holds.hold_name'
+        - $ref: '#/parameters/rowFilter.role_holds.role'
+        - $ref: '#/parameters/rowFilter.role_holds.restricted_operation'
+        - $ref: '#/parameters/rowFilter.role_holds.restricted_table_or_view'
+        - $ref: '#/parameters/rowFilter.role_holds.active'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - role_holds
+      parameters:
+        - $ref: '#/parameters/rowFilter.role_holds.hold_id'
+        - $ref: '#/parameters/rowFilter.role_holds.hold_name'
+        - $ref: '#/parameters/rowFilter.role_holds.role'
+        - $ref: '#/parameters/rowFilter.role_holds.restricted_operation'
+        - $ref: '#/parameters/rowFilter.role_holds.restricted_table_or_view'
+        - $ref: '#/parameters/rowFilter.role_holds.active'
+        - $ref: '#/parameters/body.role_holds'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /student_enrollment:
+    get:
+      tags:
+        - student_enrollment
+      parameters:
+        - $ref: '#/parameters/rowFilter.student_enrollment.section_id'
+        - $ref: '#/parameters/rowFilter.student_enrollment.student_id'
+        - $ref: '#/parameters/rowFilter.student_enrollment.grade'
+        - $ref: '#/parameters/rowFilter.student_enrollment.student_enrollment_id'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/student_enrollment'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - student_enrollment
+      parameters:
+        - $ref: '#/parameters/body.student_enrollment'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - student_enrollment
+      parameters:
+        - $ref: '#/parameters/rowFilter.student_enrollment.section_id'
+        - $ref: '#/parameters/rowFilter.student_enrollment.student_id'
+        - $ref: '#/parameters/rowFilter.student_enrollment.grade'
+        - $ref: '#/parameters/rowFilter.student_enrollment.student_enrollment_id'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - student_enrollment
+      parameters:
+        - $ref: '#/parameters/rowFilter.student_enrollment.section_id'
+        - $ref: '#/parameters/rowFilter.student_enrollment.student_id'
+        - $ref: '#/parameters/rowFilter.student_enrollment.grade'
+        - $ref: '#/parameters/rowFilter.student_enrollment.student_enrollment_id'
+        - $ref: '#/parameters/body.student_enrollment'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /overrides:
+    get:
+      tags:
+        - overrides
+      parameters:
+        - $ref: '#/parameters/rowFilter.overrides.override_id'
+        - $ref: '#/parameters/rowFilter.overrides.section_id'
+        - $ref: '#/parameters/rowFilter.overrides.student_id'
+        - $ref: '#/parameters/rowFilter.overrides.override_type'
+        - $ref: '#/parameters/rowFilter.overrides.state'
+        - $ref: '#/parameters/rowFilter.overrides.date'
+        - $ref: '#/parameters/rowFilter.overrides.session_id'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/overrides'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - overrides
+      parameters:
+        - $ref: '#/parameters/body.overrides'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - overrides
+      parameters:
+        - $ref: '#/parameters/rowFilter.overrides.override_id'
+        - $ref: '#/parameters/rowFilter.overrides.section_id'
+        - $ref: '#/parameters/rowFilter.overrides.student_id'
+        - $ref: '#/parameters/rowFilter.overrides.override_type'
+        - $ref: '#/parameters/rowFilter.overrides.state'
+        - $ref: '#/parameters/rowFilter.overrides.date'
+        - $ref: '#/parameters/rowFilter.overrides.session_id'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - overrides
+      parameters:
+        - $ref: '#/parameters/rowFilter.overrides.override_id'
+        - $ref: '#/parameters/rowFilter.overrides.section_id'
+        - $ref: '#/parameters/rowFilter.overrides.student_id'
+        - $ref: '#/parameters/rowFilter.overrides.override_type'
+        - $ref: '#/parameters/rowFilter.overrides.state'
+        - $ref: '#/parameters/rowFilter.overrides.date'
+        - $ref: '#/parameters/rowFilter.overrides.session_id'
+        - $ref: '#/parameters/body.overrides'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /session_state_holds:
+    get:
+      tags:
+        - session_state_holds
+      parameters:
+        - $ref: '#/parameters/rowFilter.session_state_holds.session_state_id'
+        - $ref: '#/parameters/rowFilter.session_state_holds.hold_id'
+        - $ref: '#/parameters/rowFilter.session_state_holds.hold_status'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/session_state_holds'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - session_state_holds
+      parameters:
+        - $ref: '#/parameters/body.session_state_holds'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - session_state_holds
+      parameters:
+        - $ref: '#/parameters/rowFilter.session_state_holds.session_state_id'
+        - $ref: '#/parameters/rowFilter.session_state_holds.hold_id'
+        - $ref: '#/parameters/rowFilter.session_state_holds.hold_status'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - session_state_holds
+      parameters:
+        - $ref: '#/parameters/rowFilter.session_state_holds.session_state_id'
+        - $ref: '#/parameters/rowFilter.session_state_holds.hold_id'
+        - $ref: '#/parameters/rowFilter.session_state_holds.hold_status'
+        - $ref: '#/parameters/body.session_state_holds'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /session_states:
+    get:
+      tags:
+        - session_states
+      parameters:
+        - $ref: '#/parameters/rowFilter.session_states.state_id'
+        - $ref: '#/parameters/rowFilter.session_states.state_name'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/session_states'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - session_states
+      parameters:
+        - $ref: '#/parameters/body.session_states'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - session_states
+      parameters:
+        - $ref: '#/parameters/rowFilter.session_states.state_id'
+        - $ref: '#/parameters/rowFilter.session_states.state_name'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - session_states
+      parameters:
+        - $ref: '#/parameters/rowFilter.session_states.state_id'
+        - $ref: '#/parameters/rowFilter.session_states.state_name'
+        - $ref: '#/parameters/body.session_states'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /courses:
+    get:
+      tags:
+        - courses
+      parameters:
+        - $ref: '#/parameters/rowFilter.courses.course_id'
+        - $ref: '#/parameters/rowFilter.courses.title'
+        - $ref: '#/parameters/rowFilter.courses.category'
+        - $ref: '#/parameters/rowFilter.courses.level'
+        - $ref: '#/parameters/rowFilter.courses.lab'
+        - $ref: '#/parameters/rowFilter.courses.course_code'
+        - $ref: '#/parameters/rowFilter.courses.credit_hours'
+        - $ref: '#/parameters/rowFilter.courses.min_student_year'
+        - $ref: '#/parameters/rowFilter.courses.school_id'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/courses'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - courses
+      parameters:
+        - $ref: '#/parameters/body.courses'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - courses
+      parameters:
+        - $ref: '#/parameters/rowFilter.courses.course_id'
+        - $ref: '#/parameters/rowFilter.courses.title'
+        - $ref: '#/parameters/rowFilter.courses.category'
+        - $ref: '#/parameters/rowFilter.courses.level'
+        - $ref: '#/parameters/rowFilter.courses.lab'
+        - $ref: '#/parameters/rowFilter.courses.course_code'
+        - $ref: '#/parameters/rowFilter.courses.credit_hours'
+        - $ref: '#/parameters/rowFilter.courses.min_student_year'
+        - $ref: '#/parameters/rowFilter.courses.school_id'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - courses
+      parameters:
+        - $ref: '#/parameters/rowFilter.courses.course_id'
+        - $ref: '#/parameters/rowFilter.courses.title'
+        - $ref: '#/parameters/rowFilter.courses.category'
+        - $ref: '#/parameters/rowFilter.courses.level'
+        - $ref: '#/parameters/rowFilter.courses.lab'
+        - $ref: '#/parameters/rowFilter.courses.course_code'
+        - $ref: '#/parameters/rowFilter.courses.credit_hours'
+        - $ref: '#/parameters/rowFilter.courses.min_student_year'
+        - $ref: '#/parameters/rowFilter.courses.school_id'
+        - $ref: '#/parameters/body.courses'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /sections:
+    get:
+      tags:
+        - sections
+      parameters:
+        - $ref: '#/parameters/rowFilter.sections.section_id'
+        - $ref: '#/parameters/rowFilter.sections.course_id'
+        - $ref: '#/parameters/rowFilter.sections.session_id'
+        - $ref: '#/parameters/rowFilter.sections.location'
+        - $ref: '#/parameters/rowFilter.sections.capacity'
+        - $ref: '#/parameters/rowFilter.sections.section_time_id'
+        - $ref: '#/parameters/rowFilter.sections.section_number'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/sections'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - sections
+      parameters:
+        - $ref: '#/parameters/body.sections'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - sections
+      parameters:
+        - $ref: '#/parameters/rowFilter.sections.section_id'
+        - $ref: '#/parameters/rowFilter.sections.course_id'
+        - $ref: '#/parameters/rowFilter.sections.session_id'
+        - $ref: '#/parameters/rowFilter.sections.location'
+        - $ref: '#/parameters/rowFilter.sections.capacity'
+        - $ref: '#/parameters/rowFilter.sections.section_time_id'
+        - $ref: '#/parameters/rowFilter.sections.section_number'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - sections
+      parameters:
+        - $ref: '#/parameters/rowFilter.sections.section_id'
+        - $ref: '#/parameters/rowFilter.sections.course_id'
+        - $ref: '#/parameters/rowFilter.sections.session_id'
+        - $ref: '#/parameters/rowFilter.sections.location'
+        - $ref: '#/parameters/rowFilter.sections.capacity'
+        - $ref: '#/parameters/rowFilter.sections.section_time_id'
+        - $ref: '#/parameters/rowFilter.sections.section_number'
+        - $ref: '#/parameters/body.sections'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /faculty_assignment:
+    get:
+      tags:
+        - faculty_assignment
+      parameters:
+        - $ref: '#/parameters/rowFilter.faculty_assignment.fac_id'
+        - $ref: '#/parameters/rowFilter.faculty_assignment.sid'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/range'
+        - $ref: '#/parameters/rangeUnit'
+        - $ref: '#/parameters/offset'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/preferCount'
+      responses:
+        '200':
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/faculty_assignment'
+            type: array
+        '206':
+          description: Partial Content
+    post:
+      tags:
+        - faculty_assignment
+      parameters:
+        - $ref: '#/parameters/body.faculty_assignment'
+        - $ref: '#/parameters/select'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '201':
+          description: Created
+    delete:
+      tags:
+        - faculty_assignment
+      parameters:
+        - $ref: '#/parameters/rowFilter.faculty_assignment.fac_id'
+        - $ref: '#/parameters/rowFilter.faculty_assignment.sid'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+    patch:
+      tags:
+        - faculty_assignment
+      parameters:
+        - $ref: '#/parameters/rowFilter.faculty_assignment.fac_id'
+        - $ref: '#/parameters/rowFilter.faculty_assignment.sid'
+        - $ref: '#/parameters/body.faculty_assignment'
+        - $ref: '#/parameters/preferReturn'
+      responses:
+        '204':
+          description: No Content
+  /rpc/get_attempted_hours:
+    post:
+      tags:
+        - (rpc) get_attempted_hours
+      produces:
+        - application/json
+        - application/vnd.pgrst.object+json
+      parameters:
+        - in: body
+          name: args
+          required: true
+          schema:
+            properties:
+              input_student_id:
+                format: character varying
+                type: string
+            required:
+              - input_student_id
+            type: object
+        - $ref: '#/parameters/preferParams'
+      responses:
+        '200':
+          description: OK
+  /rpc/get_student_year:
+    post:
+      tags:
+        - (rpc) get_student_year
+      produces:
+        - application/json
+        - application/vnd.pgrst.object+json
+      parameters:
+        - in: body
+          name: args
+          required: true
+          schema:
+            properties:
+              input_student_id:
+                format: character varying
+                type: string
+            required:
+              - input_student_id
+            type: object
+        - $ref: '#/parameters/preferParams'
+      responses:
+        '200':
+          description: OK
+  /rpc/get_earned_hours:
+    post:
+      tags:
+        - (rpc) get_earned_hours
+      produces:
+        - application/json
+        - application/vnd.pgrst.object+json
+      parameters:
+        - in: body
+          name: args
+          required: true
+          schema:
+            properties:
+              input_student_id:
+                format: character varying
+                type: string
+            required:
+              - input_student_id
+            type: object
+        - $ref: '#/parameters/preferParams'
+      responses:
+        '200':
+          description: OK
+  /rpc/is_time_conflicting:
+    post:
+      tags:
+        - (rpc) is_time_conflicting
+      produces:
+        - application/json
+        - application/vnd.pgrst.object+json
+      parameters:
+        - in: body
+          name: args
+          required: true
+          schema:
+            properties:
+              t1:
+                format: integer
+                type: integer
+              t2:
+                format: integer
+                type: integer
+            required:
+              - t1
+              - t2
+            type: object
+        - $ref: '#/parameters/preferParams'
+      responses:
+        '200':
+          description: OK
+  /rpc/on_hold:
+    post:
+      tags:
+        - (rpc) on_hold
+      produces:
+        - application/json
+        - application/vnd.pgrst.object+json
+      parameters:
+        - in: body
+          name: args
+          required: true
+          schema:
+            properties:
+              id:
+                format: character varying
+                type: string
+              operation:
+                format: character varying
+                type: string
+              restricted_table:
+                format: character varying
+                type: string
+            required:
+              - id
+              - restricted_table
+              - operation
+            type: object
+        - $ref: '#/parameters/preferParams'
+      responses:
+        '200':
+          description: OK
+  /rpc/is_class_full:
+    post:
+      tags:
+        - (rpc) is_class_full
+      produces:
+        - application/json
+        - application/vnd.pgrst.object+json
+      parameters:
+        - in: body
+          name: args
+          required: true
+          schema:
+            properties:
+              section_id:
+                format: integer
+                type: integer
+            required:
+              - section_id
+            type: object
+        - $ref: '#/parameters/preferParams'
+      responses:
+        '200':
+          description: OK
+  /rpc/get_role:
+    post:
+      tags:
+        - (rpc) get_role
+      produces:
+        - application/json
+        - application/vnd.pgrst.object+json
+      parameters:
+        - in: body
+          name: args
+          required: true
+          schema:
+            type: object
+        - $ref: '#/parameters/preferParams'
+      responses:
+        '200':
+          description: OK
+  /rpc/get_total_quality_points:
+    post:
+      tags:
+        - (rpc) get_total_quality_points
+      produces:
+        - application/json
+        - application/vnd.pgrst.object+json
+      parameters:
+        - in: body
+          name: args
+          required: true
+          schema:
+            properties:
+              student_id:
+                format: text
+                type: string
+            required:
+              - student_id
+            type: object
+        - $ref: '#/parameters/preferParams'
+      responses:
+        '200':
+          description: OK
+  /rpc/get_cgpa:
+    post:
+      tags:
+        - (rpc) get_cgpa
+      produces:
+        - application/json
+        - application/vnd.pgrst.object+json
+      parameters:
+        - in: body
+          name: args
+          required: true
+          schema:
+            properties:
+              student_id:
+                format: text
+                type: string
+            required:
+              - student_id
+            type: object
+        - $ref: '#/parameters/preferParams'
+      responses:
+        '200':
+          description: OK
+definitions:
+  all_student_data:
+    properties:
+      student_id:
+        format: character varying
+        maxLength: 50
+        type: string
+      status:
+        format: character varying
+        maxLength: 50
+        type: string
+      date_of_birth:
+        format: date
+        type: string
+      date_of_admission:
+        format: date
+        type: string
+      level:
+        format: character varying
+        maxLength: 15
+        type: string
+      major:
+        format: character varying
+        maxLength: 100
+        type: string
+      minor:
+        format: character varying
+        maxLength: 100
+        type: string
+      concentration:
+        format: character varying
+        maxLength: 100
+        type: string
+      school_name:
+        format: character varying
+        type: string
+      term_of_admission:
+        format: text
+        type: string
+      name:
+        format: text
+        type: string
+      first_name:
+        format: character varying
+        maxLength: 50
+        type: string
+      middle_name:
+        format: character varying
+        maxLength: 50
+        type: string
+      last_name:
+        format: character varying
+        maxLength: 50
+        type: string
+      address:
+        format: character varying
+        maxLength: 500
+        type: string
+      email:
+        format: character varying
+        maxLength: 100
+        type: string
+      phone_number:
+        format: character varying
+        maxLength: 11
+        type: string
+      gender:
+        format: character varying
+        maxLength: 8
+        type: string
+      degree:
+        format: character varying
+        type: string
+      earned_hours:
+        format: integer
+        type: integer
+      attempted_hours:
+        format: integer
+        type: integer
+      year:
+        format: integer
+        type: integer
+      quality_points:
+        format: double precision
+        type: number
+      session_id:
+        format: integer
+        type: integer
+      school_id:
+        format: integer
+        type: integer
+      program_id:
+        format: integer
+        type: integer
+      cgpa:
+        format: double precision
+        type: number
+    type: object
+  programs:
+    required:
+      - program_id
+      - program_name
+    properties:
+      program_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      program_name:
+        format: character varying
+        type: string
+      program_chair_id:
+        format: integer
+        type: integer
+      level:
+        format: character varying
+        type: string
+    type: object
+  class_dates_abbrev:
+    required:
+      - class_abbrev_id
+    properties:
+      class_abbrev_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      abbrev:
+        format: character varying
+        maxLength: 4
+        type: string
+    type: object
+  faculty:
+    required:
+      - faculty_id
+      - school
+      - department
+      - email
+      - f_name
+      - l_name
+      - status
+    properties:
+      faculty_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: character varying
+        maxLength: 25
+        type: string
+      date_of_birth:
+        format: date
+        type: string
+      date_of_emp:
+        format: date
+        type: string
+      school:
+        format: character varying
+        maxLength: 100
+        type: string
+      department:
+        format: character varying
+        maxLength: 100
+        type: string
+      email:
+        format: character varying
+        maxLength: 150
+        type: string
+      address:
+        format: character varying
+        maxLength: 500
+        type: string
+      phone_no:
+        format: character varying
+        maxLength: 11
+        type: string
+      f_name:
+        format: character varying
+        maxLength: 20
+        type: string
+      m_name:
+        format: character varying
+        maxLength: 20
+        type: string
+      l_name:
+        format: character varying
+        maxLength: 20
+        type: string
+      status:
+        format: character varying
+        maxLength: 16
+        type: string
+    type: object
+  section_times:
+    required:
+      - section_time_id
+      - class_dates_abbrev
+      - class_time_id
+    properties:
+      section_time_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      class_dates_abbrev:
+        description: |-
+          Note:
+          This is a Foreign Key to `class_dates_abbrev.class_abbrev_id`.<fk table='class_dates_abbrev' column='class_abbrev_id'/>
+        format: integer
+        type: integer
+      class_time_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `class_times.class_time_id`.<fk table='class_times' column='class_time_id'/>
+        format: integer
+        type: integer
+    type: object
+  students:
+    required:
+      - student_id
+      - status
+      - date_of_birth
+      - date_of_admission
+      - level
+      - major
+      - school
+      - address
+      - password
+      - email
+      - first_name
+      - last_name
+      - gender
+      - state_of_origin
+      - lga
+    properties:
+      student_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: character varying
+        maxLength: 50
+        type: string
+      status:
+        format: character varying
+        maxLength: 50
+        type: string
+      date_of_birth:
+        format: date
+        type: string
+      date_of_admission:
+        format: date
+        type: string
+      level:
+        format: character varying
+        maxLength: 15
+        type: string
+      major:
+        format: character varying
+        maxLength: 100
+        type: string
+      minor:
+        format: character varying
+        maxLength: 100
+        type: string
+      concentration:
+        format: character varying
+        maxLength: 100
+        type: string
+      school:
+        description: |-
+          Note:
+          This is a Foreign Key to `all_student_data.school_id`.<fk table='all_student_data' column='school_id'/>
+        format: integer
+        type: integer
+      address:
+        format: character varying
+        maxLength: 500
+        type: string
+      password:
+        format: character varying
+        maxLength: 50
+        type: string
+      email:
+        format: character varying
+        maxLength: 100
+        type: string
+      phone_number:
+        format: character varying
+        maxLength: 11
+        type: string
+      first_name:
+        format: character varying
+        maxLength: 50
+        type: string
+      middle_name:
+        format: character varying
+        maxLength: 50
+        type: string
+      last_name:
+        format: character varying
+        maxLength: 50
+        type: string
+      term_of_admission:
+        description: |-
+          Note:
+          This is a Foreign Key to `all_sections.session_id`.<fk table='all_sections' column='session_id'/>
+        format: integer
+        type: integer
+      program_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `all_student_data.program_id`.<fk table='all_student_data' column='program_id'/>
+        format: integer
+        type: integer
+      gender:
+        default: Male
+        format: character varying
+        maxLength: 8
+        type: string
+      state_of_origin:
+        default: Adamawa
+        format: character varying
+        maxLength: 16
+        type: string
+      lga:
+        default: Yola
+        format: character varying
+        maxLength: 16
+        type: string
+    type: object
+  individual_holds:
+    required:
+      - hold_id
+      - hold_name
+      - restricted_operation
+    properties:
+      hold_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      hold_name:
+        format: character varying
+        maxLength: 16
+        type: string
+      restricted_operation:
+        format: character varying
+        maxLength: 16
+        type: string
+      restricted_table_or_view:
+        format: character varying
+        maxLength: 16
+        type: string
+      active:
+        format: boolean
+        type: boolean
+    type: object
+  class_times:
+    required:
+      - class_time_id
+      - start_hour
+      - start_minute
+      - end_hour
+      - end_minute
+    properties:
+      class_time_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      str_rep:
+        default: (((((((start_hour)::text || ':'::text) || (start_minute)::text) || ' - '::text) || (end_hour)::text) || ':'::text) || (end_minute)::text)
+        format: text
+        type: string
+      start_hour:
+        format: integer
+        type: integer
+      start_minute:
+        format: integer
+        type: integer
+      end_hour:
+        format: integer
+        type: integer
+      end_minute:
+        format: integer
+        type: integer
+    type: object
+  overloads:
+    required:
+      - overload_id
+      - student_id
+      - session_id
+      - state
+      - additional_courses
+    properties:
+      overload_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      student_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `all_student_data.student_id`.<fk table='all_student_data' column='student_id'/>
+        format: character varying
+        type: string
+      session_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `all_sections.session_id`.<fk table='all_sections' column='session_id'/>
+        format: integer
+        type: integer
+      state:
+        default: Posted
+        format: character varying
+        maxLength: 8
+        type: string
+      additional_courses:
+        default: 1
+        format: integer
+        type: integer
+      notes:
+        format: character varying
+        type: string
+      date:
+        default: now()
+        format: date
+        type: string
+    type: object
+  individual_hold_members:
+    required:
+      - hold_id
+      - member_id
+    properties:
+      hold_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+          This is a Foreign Key to `individual_holds.hold_id`.<fk table='individual_holds' column='hold_id'/>
+        format: integer
+        type: integer
+      member_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: text
+        type: string
+    type: object
+  class_dates:
+    required:
+      - class_dates_id
+    properties:
+      class_dates_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      class_abbrev_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `class_dates_abbrev.class_abbrev_id`.<fk table='class_dates_abbrev' column='class_abbrev_id'/>
+        format: integer
+        type: integer
+      day_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `days.day_id`.<fk table='days' column='day_id'/>
+        format: integer
+        type: integer
+    type: object
+  hold_exceptions:
+    required:
+      - table_id
+      - user_id
+      - duration
+      - hold_id
+    properties:
+      table_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      user_id:
+        format: text
+        type: string
+      duration:
+        default: 24
+        format: integer
+        type: integer
+      hold_id:
+        format: integer
+        type: integer
+      date_created:
+        default: now()
+        format: date
+        type: string
+    type: object
+  extended_student_view:
+    properties:
+      student_id:
+        format: character varying
+        maxLength: 50
+        type: string
+      earned_hours:
+        format: integer
+        type: integer
+      attempted_hours:
+        format: integer
+        type: integer
+      year:
+        format: integer
+        type: integer
+      quality_points:
+        format: double precision
+        type: number
+    type: object
+  session:
+    required:
+      - session_id
+      - semester
+      - year
+      - status
+      - state_id
+      - active
+    properties:
+      session_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      semester:
+        format: character varying
+        maxLength: 16
+        type: string
+      year:
+        format: integer
+        type: integer
+      status:
+        default: disabled
+        format: character varying
+        maxLength: 16
+        type: string
+      state_id:
+        default: 1
+        description: |-
+          Note:
+          This is a Foreign Key to `session_states.state_id`.<fk table='session_states' column='state_id'/>
+        format: integer
+        type: integer
+      active:
+        default: false
+        format: boolean
+        type: boolean
+    type: object
+  role_holds:
+    required:
+      - hold_id
+      - hold_name
+      - role
+      - restricted_operation
+    properties:
+      hold_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      hold_name:
+        format: character varying
+        maxLength: 32
+        type: string
+      role:
+        format: name
+        type: string
+      restricted_operation:
+        format: character varying
+        maxLength: 16
+        type: string
+      restricted_table_or_view:
+        format: character varying
+        maxLength: 32
+        type: string
+      active:
+        format: boolean
+        type: boolean
+    type: object
+  student_enrollment:
+    required:
+      - section_id
+      - student_id
+      - student_enrollment_id
+    properties:
+      section_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+          This is a Foreign Key to `all_sections.section_id`.<fk table='all_sections' column='section_id'/>
+        format: integer
+        type: integer
+      student_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+          This is a Foreign Key to `all_student_data.student_id`.<fk table='all_student_data' column='student_id'/>
+        format: character varying
+        maxLength: 50
+        type: string
+      grade:
+        format: character varying
+        maxLength: 2
+        type: string
+      student_enrollment_id:
+        format: integer
+        type: integer
+    type: object
+  overrides:
+    required:
+      - override_id
+      - date
+      - session_id
+    properties:
+      override_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      section_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `all_sections.section_id`.<fk table='all_sections' column='section_id'/>
+        format: integer
+        type: integer
+      student_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `all_student_data.student_id`.<fk table='all_student_data' column='student_id'/>
+        format: character varying
+        type: string
+      override_type:
+        format: character varying
+        type: string
+      state:
+        default: Posted
+        format: character varying
+        maxLength: 16
+        type: string
+      date:
+        default: now()
+        format: date
+        type: string
+      session_id:
+        format: integer
+        type: integer
+    type: object
+  session_state_holds:
+    required:
+      - session_state_id
+      - hold_id
+      - hold_status
+    properties:
+      session_state_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+          This is a Foreign Key to `session_states.state_id`.<fk table='session_states' column='state_id'/>
+        format: integer
+        type: integer
+      hold_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+          This is a Foreign Key to `role_holds.hold_id`.<fk table='role_holds' column='hold_id'/>
+        format: integer
+        type: integer
+      hold_status:
+        format: boolean
+        type: boolean
+    type: object
+  session_states:
+    required:
+      - state_id
+      - state_name
+    properties:
+      state_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      state_name:
+        format: character varying
+        maxLength: 32
+        type: string
+    type: object
+  courses:
+    required:
+      - course_id
+      - title
+      - category
+      - lab
+      - credit_hours
+      - min_student_year
+      - school_id
+    properties:
+      course_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      title:
+        format: character varying
+        maxLength: 250
+        type: string
+      category:
+        format: character varying
+        maxLength: 150
+        type: string
+      level:
+        format: character varying
+        type: string
+      lab:
+        format: boolean
+        type: boolean
+      course_code:
+        format: character varying
+        maxLength: 7
+        type: string
+      credit_hours:
+        format: integer
+        type: integer
+      min_student_year:
+        default: 1
+        format: integer
+        type: integer
+      school_id:
+        default: 1
+        format: integer
+        type: integer
+    type: object
+  sections:
+    required:
+      - section_id
+      - course_id
+      - section_time_id
+      - section_number
+    properties:
+      section_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+        format: integer
+        type: integer
+      course_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `courses.course_id`.<fk table='courses' column='course_id'/>
+        format: integer
+        type: integer
+      session_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `all_sections.session_id`.<fk table='all_sections' column='session_id'/>
+        format: integer
+        type: integer
+      location:
+        format: character varying
+        maxLength: 32
+        type: string
+      capacity:
+        format: integer
+        type: integer
+      section_time_id:
+        description: |-
+          Note:
+          This is a Foreign Key to `section_times.section_time_id`.<fk table='section_times' column='section_time_id'/>
+        format: integer
+        type: integer
+      section_number:
+        default: 1
+        format: integer
+        type: integer
+    type: object
+  faculty_assignment:
+    required:
+      - fac_id
+      - sid
+    properties:
+      fac_id:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+          This is a Foreign Key to `faculty.faculty_id`.<fk table='faculty' column='faculty_id'/>
+        format: character varying
+        maxLength: 50
+        type: string
+      sid:
+        description: |-
+          Note:
+          This is a Primary Key.<pk/>
+          This is a Foreign Key to `all_sections.section_id`.<fk table='all_sections' column='section_id'/>
+        format: integer
+        type: integer
+    type: object
+parameters:
+  preferParams:
+    name: Prefer
+    description: Preference
+    required: false
+    enum:
+      - params=single-object
+    in: header
+    type: string
+  preferReturn:
+    name: Prefer
+    description: Preference
+    required: false
+    enum:
+      - return=representation
+      - return=minimal
+      - return=none
+    in: header
+    type: string
+  preferCount:
+    name: Prefer
+    description: Preference
+    required: false
+    enum:
+      - count=none
+    in: header
+    type: string
+  select:
+    name: select
+    description: Filtering Columns
+    required: false
+    in: query
+    type: string
+  on_conflict:
+    name: on_conflict
+    description: On Conflict
+    required: false
+    in: query
+    type: string
+  order:
+    name: order
+    description: Ordering
+    required: false
+    in: query
+    type: string
+  range:
+    name: Range
+    description: Limiting and Pagination
+    required: false
+    in: header
+    type: string
+  rangeUnit:
+    name: Range-Unit
+    description: Limiting and Pagination
+    required: false
+    default: items
+    in: header
+    type: string
+  offset:
+    name: offset
+    description: Limiting and Pagination
+    required: false
+    in: query
+    type: string
+  limit:
+    name: limit
+    description: Limiting and Pagination
+    required: false
+    in: query
+    type: string
+  body.all_student_data:
+    name: all_student_data
+    description: all_student_data
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/all_student_data'
+  rowFilter.all_student_data.student_id:
+    name: student_id
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.status:
+    name: status
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.date_of_birth:
+    name: date_of_birth
+    required: false
+    format: date
+    in: query
+    type: string
+  rowFilter.all_student_data.date_of_admission:
+    name: date_of_admission
+    required: false
+    format: date
+    in: query
+    type: string
+  rowFilter.all_student_data.level:
+    name: level
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.major:
+    name: major
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.minor:
+    name: minor
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.concentration:
+    name: concentration
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.school_name:
+    name: school_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.term_of_admission:
+    name: term_of_admission
+    required: false
+    format: text
+    in: query
+    type: string
+  rowFilter.all_student_data.name:
+    name: name
+    required: false
+    format: text
+    in: query
+    type: string
+  rowFilter.all_student_data.first_name:
+    name: first_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.middle_name:
+    name: middle_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.last_name:
+    name: last_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.address:
+    name: address
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.email:
+    name: email
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.phone_number:
+    name: phone_number
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.gender:
+    name: gender
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.degree:
+    name: degree
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.all_student_data.earned_hours:
+    name: earned_hours
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.all_student_data.attempted_hours:
+    name: attempted_hours
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.all_student_data.year:
+    name: year
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.all_student_data.quality_points:
+    name: quality_points
+    required: false
+    format: double precision
+    in: query
+    type: string
+  rowFilter.all_student_data.session_id:
+    name: session_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.all_student_data.school_id:
+    name: school_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.all_student_data.program_id:
+    name: program_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.all_student_data.cgpa:
+    name: cgpa
+    required: false
+    format: double precision
+    in: query
+    type: string
+  body.programs:
+    name: programs
+    description: programs
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/programs'
+  rowFilter.programs.program_id:
+    name: program_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.programs.program_name:
+    name: program_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.programs.program_chair_id:
+    name: program_chair_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.programs.level:
+    name: level
+    required: false
+    format: character varying
+    in: query
+    type: string
+  body.class_dates_abbrev:
+    name: class_dates_abbrev
+    description: class_dates_abbrev
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/class_dates_abbrev'
+  rowFilter.class_dates_abbrev.class_abbrev_id:
+    name: class_abbrev_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.class_dates_abbrev.abbrev:
+    name: abbrev
+    required: false
+    format: character varying
+    in: query
+    type: string
+  body.faculty:
+    name: faculty
+    description: faculty
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/faculty'
+  rowFilter.faculty.faculty_id:
+    name: faculty_id
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty.date_of_birth:
+    name: date_of_birth
+    required: false
+    format: date
+    in: query
+    type: string
+  rowFilter.faculty.date_of_emp:
+    name: date_of_emp
+    required: false
+    format: date
+    in: query
+    type: string
+  rowFilter.faculty.school:
+    name: school
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty.department:
+    name: department
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty.email:
+    name: email
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty.address:
+    name: address
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty.phone_no:
+    name: phone_no
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty.f_name:
+    name: f_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty.m_name:
+    name: m_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty.l_name:
+    name: l_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty.status:
+    name: status
+    required: false
+    format: character varying
+    in: query
+    type: string
+  body.section_times:
+    name: section_times
+    description: section_times
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/section_times'
+  rowFilter.section_times.section_time_id:
+    name: section_time_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.section_times.class_dates_abbrev:
+    name: class_dates_abbrev
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.section_times.class_time_id:
+    name: class_time_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  body.students:
+    name: students
+    description: students
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/students'
+  rowFilter.students.student_id:
+    name: student_id
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.status:
+    name: status
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.date_of_birth:
+    name: date_of_birth
+    required: false
+    format: date
+    in: query
+    type: string
+  rowFilter.students.date_of_admission:
+    name: date_of_admission
+    required: false
+    format: date
+    in: query
+    type: string
+  rowFilter.students.level:
+    name: level
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.major:
+    name: major
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.minor:
+    name: minor
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.concentration:
+    name: concentration
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.school:
+    name: school
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.students.address:
+    name: address
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.password:
+    name: password
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.email:
+    name: email
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.phone_number:
+    name: phone_number
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.first_name:
+    name: first_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.middle_name:
+    name: middle_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.last_name:
+    name: last_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.term_of_admission:
+    name: term_of_admission
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.students.program_id:
+    name: program_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.students.gender:
+    name: gender
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.state_of_origin:
+    name: state_of_origin
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.students.lga:
+    name: lga
+    required: false
+    format: character varying
+    in: query
+    type: string
+  body.individual_holds:
+    name: individual_holds
+    description: individual_holds
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/individual_holds'
+  rowFilter.individual_holds.hold_id:
+    name: hold_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.individual_holds.hold_name:
+    name: hold_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.individual_holds.restricted_operation:
+    name: restricted_operation
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.individual_holds.restricted_table_or_view:
+    name: restricted_table_or_view
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.individual_holds.active:
+    name: active
+    required: false
+    format: boolean
+    in: query
+    type: string
+  body.class_times:
+    name: class_times
+    description: class_times
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/class_times'
+  rowFilter.class_times.class_time_id:
+    name: class_time_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.class_times.str_rep:
+    name: str_rep
+    required: false
+    format: text
+    in: query
+    type: string
+  rowFilter.class_times.start_hour:
+    name: start_hour
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.class_times.start_minute:
+    name: start_minute
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.class_times.end_hour:
+    name: end_hour
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.class_times.end_minute:
+    name: end_minute
+    required: false
+    format: integer
+    in: query
+    type: string
+  body.overloads:
+    name: overloads
+    description: overloads
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/overloads'
+  rowFilter.overloads.overload_id:
+    name: overload_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.overloads.student_id:
+    name: student_id
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.overloads.session_id:
+    name: session_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.overloads.state:
+    name: state
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.overloads.additional_courses:
+    name: additional_courses
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.overloads.notes:
+    name: notes
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.overloads.date:
+    name: date
+    required: false
+    format: date
+    in: query
+    type: string
+  body.individual_hold_members:
+    name: individual_hold_members
+    description: individual_hold_members
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/individual_hold_members'
+  rowFilter.individual_hold_members.hold_id:
+    name: hold_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.individual_hold_members.member_id:
+    name: member_id
+    required: false
+    format: text
+    in: query
+    type: string
+  body.class_dates:
+    name: class_dates
+    description: class_dates
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/class_dates'
+  rowFilter.class_dates.class_dates_id:
+    name: class_dates_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.class_dates.class_abbrev_id:
+    name: class_abbrev_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.class_dates.day_id:
+    name: day_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  body.hold_exceptions:
+    name: hold_exceptions
+    description: hold_exceptions
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/hold_exceptions'
+  rowFilter.hold_exceptions.table_id:
+    name: table_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.hold_exceptions.user_id:
+    name: user_id
+    required: false
+    format: text
+    in: query
+    type: string
+  rowFilter.hold_exceptions.duration:
+    name: duration
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.hold_exceptions.hold_id:
+    name: hold_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.hold_exceptions.date_created:
+    name: date_created
+    required: false
+    format: date
+    in: query
+    type: string
+  body.extended_student_view:
+    name: extended_student_view
+    description: extended_student_view
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/extended_student_view'
+  rowFilter.extended_student_view.student_id:
+    name: student_id
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.extended_student_view.earned_hours:
+    name: earned_hours
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.extended_student_view.attempted_hours:
+    name: attempted_hours
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.extended_student_view.year:
+    name: year
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.extended_student_view.quality_points:
+    name: quality_points
+    required: false
+    format: double precision
+    in: query
+    type: string
+  body.session:
+    name: session
+    description: session
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/session'
+  rowFilter.session.session_id:
+    name: session_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.session.semester:
+    name: semester
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.session.year:
+    name: year
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.session.status:
+    name: status
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.session.state_id:
+    name: state_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.session.active:
+    name: active
+    required: false
+    format: boolean
+    in: query
+    type: string
+  body.role_holds:
+    name: role_holds
+    description: role_holds
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/role_holds'
+  rowFilter.role_holds.hold_id:
+    name: hold_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.role_holds.hold_name:
+    name: hold_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.role_holds.role:
+    name: role
+    required: false
+    format: name
+    in: query
+    type: string
+  rowFilter.role_holds.restricted_operation:
+    name: restricted_operation
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.role_holds.restricted_table_or_view:
+    name: restricted_table_or_view
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.role_holds.active:
+    name: active
+    required: false
+    format: boolean
+    in: query
+    type: string
+  body.student_enrollment:
+    name: student_enrollment
+    description: student_enrollment
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/student_enrollment'
+  rowFilter.student_enrollment.section_id:
+    name: section_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.student_enrollment.student_id:
+    name: student_id
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.student_enrollment.grade:
+    name: grade
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.student_enrollment.student_enrollment_id:
+    name: student_enrollment_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  body.overrides:
+    name: overrides
+    description: overrides
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/overrides'
+  rowFilter.overrides.override_id:
+    name: override_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.overrides.section_id:
+    name: section_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.overrides.student_id:
+    name: student_id
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.overrides.override_type:
+    name: override_type
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.overrides.state:
+    name: state
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.overrides.date:
+    name: date
+    required: false
+    format: date
+    in: query
+    type: string
+  rowFilter.overrides.session_id:
+    name: session_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  body.session_state_holds:
+    name: session_state_holds
+    description: session_state_holds
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/session_state_holds'
+  rowFilter.session_state_holds.session_state_id:
+    name: session_state_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.session_state_holds.hold_id:
+    name: hold_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.session_state_holds.hold_status:
+    name: hold_status
+    required: false
+    format: boolean
+    in: query
+    type: string
+  body.session_states:
+    name: session_states
+    description: session_states
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/session_states'
+  rowFilter.session_states.state_id:
+    name: state_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.session_states.state_name:
+    name: state_name
+    required: false
+    format: character varying
+    in: query
+    type: string
+  body.courses:
+    name: courses
+    description: courses
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/courses'
+  rowFilter.courses.course_id:
+    name: course_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.courses.title:
+    name: title
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.courses.category:
+    name: category
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.courses.level:
+    name: level
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.courses.lab:
+    name: lab
+    required: false
+    format: boolean
+    in: query
+    type: string
+  rowFilter.courses.course_code:
+    name: course_code
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.courses.credit_hours:
+    name: credit_hours
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.courses.min_student_year:
+    name: min_student_year
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.courses.school_id:
+    name: school_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  body.sections:
+    name: sections
+    description: sections
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/sections'
+  rowFilter.sections.section_id:
+    name: section_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.sections.course_id:
+    name: course_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.sections.session_id:
+    name: session_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.sections.location:
+    name: location
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.sections.capacity:
+    name: capacity
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.sections.section_time_id:
+    name: section_time_id
+    required: false
+    format: integer
+    in: query
+    type: string
+  rowFilter.sections.section_number:
+    name: section_number
+    required: false
+    format: integer
+    in: query
+    type: string
+  body.faculty_assignment:
+    name: faculty_assignment
+    description: faculty_assignment
+    required: false
+    in: body
+    schema:
+      $ref: '#/definitions/faculty_assignment'
+  rowFilter.faculty_assignment.fac_id:
+    name: fac_id
+    required: false
+    format: character varying
+    in: query
+    type: string
+  rowFilter.faculty_assignment.sid:
+    name: sid
+    required: false
+    format: integer
+    in: query
+    type: string
+externalDocs:
+  description: PostgREST Documentation
+  url: https://postgrest.org/en/v10.0/api.html
