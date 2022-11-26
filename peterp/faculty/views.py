@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.urls import reverse
 
 from django.http import HttpResponseRedirect
+from student.models import StudentMessage
 # Create your views here.
 URL = 'http://aun-erp-api.herokuapp.com'
 
@@ -236,6 +237,20 @@ def override_action(request, new_state, override_id):
             'Authorization': 'Bearer ' + token
         },
         json={"state": new_state})
+    override_details = requests.get(
+        URL + f"/overrides?select=section_id,student_id,section:sections(course:courses(course_code))&override_id=eq{override_id}",
+        headers={
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/vnd.pgrst.object+json'
+
+        }   
+    )
+    override_details = override_details.json() if override_details.status_code == 200 else None
+    if override_details:
+        message = StudentMessage(
+            text=f"Override request for {override_details.get('section').get('course').get('course_code')} {new_state}",
+            student_id=override_details.get('student_id'))
+        message.save()
     return redirect_by_code(request, patch_overrides, 'faculty:overrides')
 
 
