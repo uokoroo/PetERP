@@ -19,7 +19,7 @@
     <link href="{% static 'css/cgpaCalc.css' %}" rel="stylesheet" />
     <link
       rel="shortcut icon"
-      href="{% static 'img/peterp-faviconq.png' %}"
+      href="{% static 'img/peterp-favicon.png' %}"
       type="image/png"
     />
     <script
@@ -152,28 +152,27 @@
         >
           <div class="sb-sidenav-menu">
             <div class="nav">
-              <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                alt="Avatar"
-                class=""
-                style="
-                  padding-top: 15px;
-                  margin-top: 0px;
-                  width: 80px;
-                  margin-left: auto;
-                  margin-right: auto;
-                  display: block;
-                "
-              />
-              <h5
-                class="text-white"
-                style="text-align: center; margin-top: 20px"
-              >
-                {{ student_data.name }}
-              </h5>
-              <p class="text-white" style="text-align: center">
-                {{ student_data.major }}
-              </p>
+              
+                <img
+                  src="{% static 'img/aun-logo.png' %}"
+                  alt="Avatar"
+                  class=""
+                  style="
+                    padding-top: 15px;
+                    margin-top: 0px;
+                    width: 100px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    display: block;
+                  "
+                />
+                <h5
+                  class="text-white"
+                  style="text-align: center; margin-top: 20px"
+                >
+                  Registrar
+                </h5>
+             
               <a class="nav-link" href="{% url 'registrar:index' %}">
                 <div class="sb-nav-link-icon">
                   <i class="fa fa-home"></i>
@@ -185,12 +184,12 @@
                 class="nav-link collapsed"
                 href="index.html"
                 data-bs-toggle="collapse"
-                data-bs-target="#collapseLayouts"
+                data-bs-target="#collapseLayoutsInfo"
                 aria-expanded="false"
-                aria-controls="collapseLayouts"
+                aria-controls="collapseLayoutsInfo"
               >
                 <div class="sb-nav-link-icon">
-                  <i class="fas fa-book-open"></i>
+                  <i class="fa-solid fa-circle-info"></i>
                 </div>
                 Information
                 <div class="sb-sidenav-collapse-arrow">
@@ -199,7 +198,7 @@
               </a>
               <div
                 class="collapse"
-                id="collapseLayouts"
+                id="collapseLayoutsInfo"
                 aria-labelledby="headingOne"
                 data-bs-parent="#sidenavAccordion"
               >
@@ -212,7 +211,7 @@
                   >
                   <a class="nav-link" href="{% url 'registrar:faculty_info' %}"
                     ><div class="sb-nav-link-icon">
-                      <i class="fas fa-archive"></i>
+                      <i class="fa-solid fa-chalkboard-user"></i>
                     </div>
                     Faculty Information</a
                   >
@@ -223,12 +222,12 @@
                 class="nav-link collapsed"
                 href="index.html"
                 data-bs-toggle="collapse"
-                data-bs-target="#collapseLayouts"
+                data-bs-target="#collapseLayoutsSession"
                 aria-expanded="false"
-                aria-controls="collapseLayouts"
+                aria-controls="collapseLayoutsSession"
               >
                   <div class="sb-nav-link-icon">
-                    <i class="fas fa-book-open"></i>
+                    <i class="fa-sharp fa-solid fa-school"></i>
                   </div>
                   Session
                   <div class="sb-sidenav-collapse-arrow">
@@ -237,14 +236,14 @@
                 </a>
                 <div
                   class="collapse"
-                  id="collapseLayouts"
+                  id="collapseLayoutsSession"
                   aria-labelledby="headingOne"
                   data-bs-parent="#sidenavAccordion"
                 >
                   <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="{% url 'registrar:create-session' %}">
                       <div class="sb-nav-link-icon">
-                        <i class="fas fa-tachometer-alt"></i>
+                        <i class="fa-solid fa-plus"></i>
                       </div>
                       Create Session</a
                     >
@@ -261,9 +260,9 @@
                 class="nav-link collapsed"
                 href="index.html"
                 data-bs-toggle="collapse"
-                data-bs-target="#collapseLayouts"
+                data-bs-target="#collapseLayoutsCourses"
                 aria-expanded="false"
-                aria-controls="collapseLayouts"
+                aria-controls="collapseLayoutsCourses"
               >
                     <div class="sb-nav-link-icon">
                       <i class="fas fa-book-open"></i>
@@ -275,32 +274,32 @@
                   </a>
                   <div
                     class="collapse"
-                    id="collapseLayouts"
+                    id="collapseLayoutsCourses"
                     aria-labelledby="headingOne"
                     data-bs-parent="#sidenavAccordion"
                   >
                     <nav class="sb-sidenav-menu-nested nav">
                       <a class="nav-link" href="{% url 'registrar:courses' %}">
                         <div class="sb-nav-link-icon">
-                          <i class="fas fa-tachometer-alt"></i>
+                          <i class="fa-solid fa-chalkboard"></i>
                         </div>
                         Courses</a
                       >
                       <a class="nav-link" href="{% url 'registrar:sections' %}"
                         ><div class="sb-nav-link-icon">
-                          <i class="fas fa-archive"></i>
+                          <i class="fas fa-book"></i>
                         </div>
                         Sections</a
                       >
                       <a class="nav-link" href="{% url 'registrar:create_course' %}">
                         <div class="sb-nav-link-icon">
-                          <i class="fas fa-tachometer-alt"></i>
+                          <i class="fa-solid fa-plus"></i>
                         </div>
                         Create Courses</a
                       >
                       <a class="nav-link" href="{% url 'registrar:create_section' %}"
                         ><div class="sb-nav-link-icon">
-                          <i class="fas fa-archive"></i>
+                          <i class="fa-solid fa-plus"></i>
                         </div>
                         Create Sections</a
                       >
@@ -309,15 +308,15 @@
                         </nav>
                       </div>
                       <a
-                class="nav-link collapsed"
-                href="{% url 'registrar:index' %}"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseLayouts"
-                aria-expanded="false"
-                aria-controls="collapseLayouts"
-              >
+                      class="nav-link collapsed"
+                      href="{% url 'registrar:index' %}"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseLayoutsGrade"
+                      aria-expanded="false"
+                      aria-controls="collapseLayoutsGrade"
+                      >
                       <div class="sb-nav-link-icon">
-                        <i class="fas fa-book-open"></i>
+                        <i class="fa-sharp fa-solid fa-folder-open"></i>
                       </div>
                       Grade
                       <div class="sb-sidenav-collapse-arrow">
@@ -326,14 +325,14 @@
                     </a>
                     <div
                       class="collapse"
-                      id="collapseLayouts"
+                      id="collapseLayoutsGrade"
                       aria-labelledby="headingOne"
                       data-bs-parent="#sidenavAccordion"
                     >
                       
                         <a class="nav-link" href="{% url 'registrar:grade_history' %}"
                           ><div class="sb-nav-link-icon">
-                            <i class="fas fa-archive"></i>
+                            <i class="fa fa-history" aria-hidden="true"></i>
                           </div>
                           View Grades</a
                         >
@@ -344,9 +343,15 @@
               
               <a class="nav-link" href="{% url 'registrar:hold' %}">
                 <div class="sb-nav-link-icon">
-                  <i class="fa fa-home"></i>
+                  <i class="fa-solid fa-pause"></i>
                 </div>
                   Holds
+              </a>
+              <a class="nav-link" href="{% url 'registrar:assign-faculty' %}">
+                <div class="sb-nav-link-icon">
+                  <i class="fa-solid fa-pause"></i>
+                </div>
+                  Assign Faculty
               </a>
 
             </div>
@@ -377,7 +382,7 @@
               class="dropdown-menu dropdown-menu-light text-small shadow"
               aria-labelledby="dropdownUser1"
             >
-              <li><hr class="dropdown-divider" /></li>
+              
               <li>
                 <a class="dropdown-item" href="{% url 'registrar:logout' %}"
                   >Sign out</a
@@ -417,8 +422,10 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
       crossorigin="anonymous"
     ></script>
-    <script src="{% static 'js/chart-area-demo.js' %}"></script>
-    <script src="{% static 'js/chart-bar-demo.js' %}"></script>
+    <script src="{% static 'js/lineChart.js' %}"></script>
+    
+    <script src="{% static 'js/barChart.js' %}"></script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
       crossorigin="anonymous"
