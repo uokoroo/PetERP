@@ -478,6 +478,7 @@ def assign(request,section_id,faculty_id):
         headers={'Authorization': 'Bearer ' + token}
     )
     if 0 <= r.status_code - 400 < 100:
+        print(r.reason)
         messages.add_message(request, messages.WARNING, r.json()['message'])
         return redirect(reverse('home:login'))
     else:

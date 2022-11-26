@@ -9,6 +9,10 @@ from django.core.mail import send_mail
 
 from django.http import HttpResponseRedirect
 
+from .models import StudentMessage
+from faculty.models import FacultyMessage
+
+
 # Create your views here.
 URL = 'http://aun-erp-api.herokuapp.com'
 
@@ -40,7 +44,6 @@ def index(request):
         # make api requests and get important data that will be cached
         student_data = requests.get(URL+"/student_data",headers={'Authorization':'Bearer ' + token})
         concise_schedule = requests.get(URL+"/concise_schedule",headers={'Authorization':'Bearer ' + token})
-
         # if the status_code is 401 it means the token is expired. Redirect the user to logout and create an error message
         if student_data.status_code == 401 or concise_schedule.status_code == 401:
             messages.add_message(request,messages.WARNING,"Session expired, please login again")
@@ -49,11 +52,16 @@ def index(request):
         # this probably will not hold in production but suffices for now
         else:
             # cache the important data about the current use to avoid making repeated api calls
+            print(f"Notifs { StudentMessage.objects.filter(student_id={student_data.json()[0].get('student_id')})}")
+            print(f"All { StudentMessage.objects.all()}")
+            print(f"Student ID {student_data.json()[0].get('student_id')}")
+            notifs = StudentMessage.objects.all()
             request.session['student_data'] = student_data.json()[0]
             request.session['concise_schedule'] = concise_schedule.json()
         return render(request,"student_view/index.html",{
             'student_data':student_data.json()[0],
             'concise_schedule' : concise_schedule.json(),
+            'messages':notifs
             })
 
 
