@@ -94,6 +94,9 @@
     </div>
   </div>
 </main>
-{{ major_data | json_script:"major_data" }} {{ overrides |
-json_script:"override_data" }} {{ overloads | json_script:"overloads" }} {{
-sessions | json_script:"sessions" }} {% endblock %}
+{{ major_data | json_script:"major_data" }}
+ {{ overrides |json_script:"override_data" }} 
+ {{ overloads | json_script:"overloads" }} 
+ {{sessions | json_script:"sessions" }} 
+ 
+ {% endblock %}

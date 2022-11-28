@@ -74,6 +74,7 @@ def index(request):
     sessions = requests.get(URL+"/session?select=semester,year", headers={
                     'Authorization': 'Bearer ' + token,
                     })
+
     students = requests.get(URL+"/students?select=student_id", headers={
                     'Authorization': 'Bearer ' + token,
                     }).json()
@@ -88,6 +89,9 @@ def index(request):
                     }).json()
     sessions = sessions.json()
     request.session['role'] = role.json()
+    current_session =  requests.get(URL+"/session?status=eq.active", headers={
+                    'Authorization': 'Bearer ' + token,
+                    }).json()
     return render(request, "registrar_view/index.html", {
         'major_data':major_data,
         'overrides':override_data,
