@@ -44,12 +44,12 @@
             <hr class="mt-0 mb-4" />
             <div class="row pt-1">
               <div class="col-6 mb-3">
-                <h6>Total Sections for {{semester}}</h6>
-                <p class="text-muted">{{ student_data.major }}</p>
+                <h6>Total Sections</h6>
+                <p class="text-muted">{{ sectionLength }}</p>
               </div>
               <div class="col-6 mb-3">
                 <h6>Total Number of Students</h6>
-                <p class="text-muted">Year {{ student_data.year }}</p>
+                <p class="text-muted">{{ studentLength }}</p>
               </div>
             </div>
             <h6></h6>
@@ -57,11 +57,11 @@
             <div class="row pt-1">
               <div class="col-6 mb-3">
                 <h6>Total Number of Faculty</h6>
-                <p class="text-muted">{{ student_data.email }}</p>
+                <p class="text-muted">{{ facultyLength }}</p>
               </div>
               <div class="col-6 mb-3">
                 <h6>Total Courses Offering</h6>
-                <p class="text-muted">{{ student_data.phone_number }}</p>
+                <p class="text-muted">{{ courseLength }}</p>
               </div>
             </div>
           </div>
@@ -94,5 +94,8 @@
     </div>
   </div>
 </main>
-
+{{ major_data | json_script:"major_data" }}
+{{ overrides | json_script:"override_data" }}
+{{ overloads | json_script:"overloads" }}
+{{ sessions | json_script:"sessions" }}
 {% endblock %}

@@ -7,6 +7,7 @@ from django.contrib import messages
 from django.urls import reverse
 
 
+from collections import OrderedDict
 
 from django.http import HttpResponseRedirect
 # Create your views here.
@@ -20,12 +21,83 @@ def index(request):
     if not request.session.get('token'):
         return redirect('home:login')
 
-    else:
-        token = request.session.get('token')
-        role = requests.get(URL+"/get_role")
-        request.session['role'] = role.json()
-        return render(request, "registrar_view/index.html", {
-        })
+    token = request.session.get('token')
+
+    def major_info():
+        data = {}
+        majors = requests.get(URL+"/students?select=major", headers={
+                    'Authorization': 'Bearer ' + token
+                    })    
+        majors = majors.json() if majors.status_code == 200 else []
+        for x in majors:
+            if x.get('major') not in data:
+                data[x['major']] = 1
+            else:
+                data[x['major']] += 1
+        return data
+    
+    def override_info():
+    
+        data = {}
+        overrides = requests.get(URL+"/overrides?select=section_id,session_id", headers={
+                    'Authorization': 'Bearer ' + token
+                    })
+        overrides = overrides.json() if overrides.status_code == 200 else []
+        for x in overrides:
+            if x.get('session_id') not in data:
+                data[x['session_id']] = 1
+            else:
+                data[x['session_id']] += 1
+        data  = dict(OrderedDict(sorted(data.items())))
+        return data
+
+    def overload_info():
+        data = {}
+        overloads = requests.get(URL+"/overloads?select=session_id", headers={
+                    'Authorization': 'Bearer ' + token
+                    })
+        overloads = overloads.json() if overloads.status_code == 200 else []
+        for x in overloads:
+            if x.get('session_id') not in data:
+                data[x['session_id']] = 1
+            else:
+                data[x['session_id']] += 1
+        data  = dict(OrderedDict(sorted(data.items())))
+        return data
+    
+    major_data = major_info()
+    override_data = override_info()
+    overload_data = overload_info()
+    role = requests.get(URL+"/get_role", headers={
+                    'Authorization': 'Bearer ' + token
+                    })
+    sessions = requests.get(URL+"/session?select=semester,year", headers={
+                    'Authorization': 'Bearer ' + token,
+                    })
+    students = requests.get(URL+"/students?select=student_id", headers={
+                    'Authorization': 'Bearer ' + token,
+                    }).json()
+    faculty = requests.get(URL+"/faculty?select=faculty_id", headers={
+                    'Authorization': 'Bearer ' + token,
+                    }).json()
+    sections = requests.get(URL+"/sections", headers={
+                    'Authorization': 'Bearer ' + token,
+                    }).json()
+    courses = requests.get(URL+"/courses", headers={
+                    'Authorization': 'Bearer ' + token,
+                    }).json()
+    sessions = sessions.json()
+    request.session['role'] = role.json()
+    return render(request, "registrar_view/index.html", {
+        'major_data':major_data,
+        'overrides':override_data,
+        'overloads':overload_data,
+        'sessions': sessions,
+        'studentLength':len(students),
+        'facultyLength':len(faculty),
+        'sectionLength':len(sections),
+        'courseLength':len(courses),
+    })
 
 
 def student_info(request):
@@ -472,7 +544,21 @@ def assign(request,section_id,faculty_id):
     if not request.session['token']:
         return redirect(reverse('home:login'))
     token = request.session['token']
-    r = requests.patch(
+    get_assigned = requests.get(
+        URL+f"/faculty_assignment?sid=eq.{section_id}",
+        headers={'Authorization': 'Bearer ' + token}
+    )
+    if len(get_assigned.json()) == 0:
+        r = requests.post(
+        URL+f"/faculty_assignment",
+        json={
+            "fac_id":faculty_id,
+            "sid":section_id
+        },
+        headers={'Authorization': 'Bearer ' + token}
+    )
+    else:
+        r = requests.patch(
         URL+f"/faculty_assignment?sid=eq.{section_id}",
         json={"fac_id":faculty_id},
         headers={'Authorization': 'Bearer ' + token}

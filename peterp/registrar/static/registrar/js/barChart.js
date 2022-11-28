@@ -1,19 +1,14 @@
 //bar
+const bar_data = JSON.parse(document.getElementById('major_data').textContent);
 var ctxB = document.getElementById("barChart").getContext("2d");
 var myBarChart = new Chart(ctxB, {
   type: "bar",
   data: {
-    labels: [
-      "Computer Science",
-      "Mathematics",
-      "Physics",
-      "Chemistry",
-      "Biology",
-    ],
+    labels: Object.keys(bar_data),
     datasets: [
       {
         label: "Majors",
-        data: [12, 19, 3, 5, 2, 3],
+        data: Object.values(bar_data),
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
