@@ -218,14 +218,12 @@ def academic_records(request):
         return redirect(reverse('home:login'))
     token = request.session['token']
     r = requests.get(URL+"/enrollments",headers={'Authorization':'Bearer ' + token})
-    print(r.json())
     if 0 <= r.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, r.json()['message'])
         return redirect(reverse('home:login'))
     else:
         academic_records = r.json()
         academic_records = order_records_by_session(academic_records)
-    print(academic_records)
     student_data = request.session.get('student_data')
     request.session['academic_records'] = academic_records
     return render(request,'student_view/academic-record.html',{
@@ -255,7 +253,6 @@ def cgpa_calculator(request):
     if not request.session['token']:
         return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
-    print(student_data)
     return render(request,'student_view/cgpa-calculator.html',{
         'student_data':student_data
     }) 
@@ -268,7 +265,6 @@ def concise_schedule(request):
     if not request.session['token']:
         return redirect(reverse('home:login'))
     concise_schedule = request.session.get('concise_schedule')
-    print(concise_schedule)
     return render(request,'student_view/concise.html',{
         'concise_schedule':concise_schedule,
     })
@@ -300,7 +296,6 @@ def new_override(request):
         r = requests.post(URL+"/overrides", json=payload,headers={'Authorization':'Bearer ' + token})
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
-            print(r.json())
             messages.add_message(request, messages.WARNING, r.json()['message'])
             return redirect(reverse('student:index'))
         else:
@@ -321,7 +316,6 @@ def new_override(request):
         messages.add_message(request,messages.WARNING,'No semester is open for registration')
         return redirect(reverse('student:index'))
     if 0 <= override.status_code - 400 < 100:
-        print(override.json())
         messages.add_message(request, messages.WARNING, override.json()['message'])
         return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
@@ -340,11 +334,9 @@ def overload(request):
     token = request.session['token']
     if request.method == 'POST':
         payload = convert(request.POST)
-        print(payload)
         r = requests.post(URL+"/overloads", json=payload,headers={'Authorization':'Bearer ' + token})
         # 403 forbidden means the user is not allowed to access this page
         if 0 <= r.status_code - 400 < 100:
-            print(r.json())
             messages.add_message(request, messages.WARNING, r.json()['message'])
             return redirect(reverse('student:index'))
         else:
@@ -456,9 +448,6 @@ def academic_data(courses):
     honors = None
     quality_points = 0
     for course in courses:
-        print(course)
-        print("course['grade']",course['grade'])
-        print("course['']",course['credit_hours'])
         attempted_hours += course['credit_hours'] if course['grade'] not in ['WP','I'] else 0
         if course['grade'] not in ['D','F','WP','WF','I']:
             earned_hours += course['credit_hours']

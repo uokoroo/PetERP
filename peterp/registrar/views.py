@@ -89,7 +89,7 @@ def index(request):
                     }).json()
     sessions = sessions.json()
     request.session['role'] = role.json()
-    current_session =  requests.get(URL+"/session?status=eq.active", headers={
+    current_session =  requests.get(URL+"/session?status=eq.active&state_id=lt.3", headers={
                     'Authorization': 'Bearer ' + token,
                     }).json()
     return render(request, "registrar_view/index.html", {
@@ -101,6 +101,7 @@ def index(request):
         'facultyLength':len(faculty),
         'sectionLength':len(sections),
         'courseLength':len(courses),
+        'current_session':f"{current_session[0].get('semester')} {current_session[0].get('year')}" 
     })
 
 
@@ -115,7 +116,6 @@ def student_info(request):
     if 0 <= students.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, students.json()['message'])
         return redirect(reverse('home:login'))
-    print(students.json())
     return render(request,'registrar_view/student_information.html', {
         'students':students.json()
     })
@@ -135,7 +135,6 @@ def student_profile(request,student_id):
     if 0 <= student_data.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, student_data.json()['message'])
         return redirect(reverse('home:login'))
-    print(student_data.json())
     return render(request,'registrar_view/student_profile.html', {
         'student_data':student_data.json()
     })
@@ -437,7 +436,6 @@ def edit_session(request):
     if request.method == 'POST':
         # incomplete
         payload = convert(request.POST)
-        print(payload)
         session_id = payload.pop('session_id')
         r = requests.patch(URL+f"/session?session_id=eq.{session_id}", json=payload,
                           headers={'Authorization': 'Bearer ' + token})
@@ -507,8 +505,6 @@ def hold_members(request,hold_id):
     hold_members = requests.get(URL+f"/individual_hold_members?hold_id=eq.{hold_id}",
                      headers={'Authorization': 'Bearer ' + token})
     hold_name = requests.get(URL+f"/individual_holds?hold_id=eq.{hold_id}", headers={'Authorization': 'Bearer ' + token})
-    print(hold_name.json())
-    print(token)
     hold_name = hold_name.json()[0].get('hold_name')
     if 0 <= hold_members.status_code - 400 < 100:
         messages.add_message(request, messages.WARNING, hold_members.json()['message'])
@@ -641,7 +637,6 @@ def assign(request,section_id,faculty_id):
         headers={'Authorization': 'Bearer ' + token}
     )
     if 0 <= r.status_code - 400 < 100:
-        print(r.reason)
         messages.add_message(request, messages.WARNING, r.json()['message'])
         return redirect(reverse('home:login'))
     else:

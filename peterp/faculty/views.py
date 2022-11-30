@@ -28,7 +28,6 @@ def index(request):
                 'Authorization': 'Bearer ' + token,
                 'Accept': 'application/vnd.pgrst.object+json'
             })
-        print(faculty_data.json())
         # if the status_code is 401 it means the token is expired. Redirect the user to logout and create an error message
         fac_id = faculty_data.json()['faculty_id']
         semester_schedule = requests.get(
@@ -101,7 +100,6 @@ def allocate_grades(request):
                              grades.json()['message'])
         return HttpResponseRedirect(reverse('home:login'))
     faculty_data = request.session.get('faculty_data')
-    print(faculty_data.get('faculty_id'))
     on_hold = requests.post(
         URL+"/rpc/on_hold",
         headers={'Authorization':'Bearer ' + token, },
@@ -109,7 +107,6 @@ def allocate_grades(request):
         )
 
     on_hold = on_hold.json()
-    print(on_hold)
     return render(request, "faculty_view/allocate-grade.html", {
         'grades': grades.json(),
         "faculty_data": faculty_data,
