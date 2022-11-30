@@ -1,0 +1,68 @@
+{% extends 'registrar_view/layout.html' %} {% load static %} {% block title %}
+<title>Concise Schedule - PetERP</title>
+{% endblock %} {% block body %}
+<main>
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">{{hold_name}} Members</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Holds</li>
+    </ol>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa fa-calendar me-1"></i>
+      </div>
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col"> ID</th>
+              <th scope="col" class="text-center"> Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for member in members %} </tbody> <!--the linking would be for students in the course-->
+            <tr>
+              <td> {{forloop.counter}}</td>
+              <td> {{member.member_id}}</td>
+              <td class="text-center">
+                <div class="modal-container container text-center">
+                  <span type="button" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ course.section_id }}">
+                    <span class="fa-solid fa-trash"></span>
+                  </span>
+                  <!-- Modal -->
+                  <div class="modal fade" id="deleteModal-{{ course.section_id }}" tabindex="-1"
+                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to remove this person from {{hold_name}} hold?
+                          </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <a href="{% url 'registrar:remove_member' member.hold_id member.member_id %}"><button type="submit"
+                              class="btn btn-danger">Delete</button></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="9" class="text-muted">
+                No students enrolled yet
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

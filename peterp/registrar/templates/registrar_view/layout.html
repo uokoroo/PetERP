@@ -1,113 +1,96 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    {% block title %} {% endblock%}
-    <link
-      href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
-      rel="stylesheet"
-    />
-    <link href="{% static 'registrar/css/styles.css' %}" rel="stylesheet" />
-    <link href="{% static 'registrar/css/cgpaCalc.css' %}" rel="stylesheet" />
-    <link
-      rel="shortcut icon"
-      href="{% static 'registrar/img/peterp-favicon.png' %}"
-      type="image/png"
-    />
-    <script
-      src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <style>
-    /* Paste this css to your style sheet file or under head tag */
-    /* This only works with JavaScript,
-    if it's not present, don't show loader */
-    .no-js #loader {
-      display: none;
-    }
-    .js #loader {
-      display: block;
-      position: absolute;
-      left: 100px;
-      top: 0;
-    }
-    .se-pre-con {
-      position: fixed;
-      left: 0px;
-      top: 0px;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
-      background: url(https://smallenvelop.com/wp-content/uploads/2014/08/Preloader_11.gif)
-        center no-repeat #fff;
-    }
-    .spinner-grow {
-      width: 3rem;
-      height: 3rem;
-      position: absolute;
-      margin: auto;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
 
-    .sb-sidenav-footer {
-      text-align: center;
-      color: #fff;
-      flex-shrink: 0;
-    }
-  </style>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-  <script>
-    //paste this code under the head tag or in a separate js file.
-    // Wait for window load
-    $(window).load(function () {
-      // Animate loader off screen
-      $(".se-pre-con").fadeOut("slow");
-    });
-  </script>
-  <body class="sb-nav-fixed">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  {% block title %} {% endblock%}
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+  <link href="{% static 'registrar/css/styles.css' %}" rel="stylesheet" />
+  <link href="{% static 'registrar/css/cgpaCalc.css' %}" rel="stylesheet" />
+  <link rel="shortcut icon" href="{% static 'registrar/img/peterp-favicon.png' %}" type="image/png" />
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<style>
+  /* Paste this css to your style sheet file or under head tag */
+  /* This only works with JavaScript,
+    if it's not present, don't show loader */
+  .no-js #loader {
+    display: none;
+  }
+
+  .js #loader {
+    display: block;
+    position: absolute;
+    left: 100px;
+    top: 0;
+  }
+
+  .se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(https://smallenvelop.com/wp-content/uploads/2014/08/Preloader_11.gif) center no-repeat #fff;
+  }
+
+  .spinner-grow {
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .sb-sidenav-footer {
+    text-align: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+<script>
+  //paste this code under the head tag or in a separate js file.
+  // Wait for window load
+  $(window).load(function () {
+    // Animate loader off screen
+    $(".se-pre-con").fadeOut("slow");
+  });
+</script>
+
+<body class="sb-nav-fixed">
+  {% if messages %}
+  {% for message in messages %}
+  <div{% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
+    {% endfor %}
+    {% endif %}
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
       <div class="se-pre-con">
         <div class="spinner-grow blue-text"></div>
       </div>
       <!-- Navbar Brand-->
-      <a
-        class="navbar-brand text-center mt-1"
-        href="{% url 'registrar:index' %}"
-        ><h4 class=>AUN</h4>
+      <a class="navbar-brand text-center mt-1" href="{% url 'registrar:index' %}">
+        <h4 class=>AUN</h4>
       </a>
       <!-- Sidebar Toggle-->
-      <button
-        class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-        id="sidebarToggle"
-        href="#!"
-      >
+      <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
         <i class="fas fa-bars"></i>
       </button>
       <!-- Navbar Search-->
-      <form
-        class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
-      >
+      <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Search for..."
-            aria-label="Search for..."
-            aria-describedby="btnNavbarSearch"
-          />
+          <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+            aria-describedby="btnNavbarSearch" />
           <button class="btn btn-primary" id="btnNavbarSearch" type="button">
             <i class="fas fa-search"></i>
           </button>
@@ -116,29 +99,17 @@
       <!-- Navbar-->
       <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            id="navbarDropdown"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            ><i class="fas fa-user fa-fw"></i
-          ></a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdown"
-          >
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" href="{% url 'student:profile' %}"
-                >Profile</a
-              >
+              <a class="dropdown-item" href="{% url 'student:profile' %}">Profile</a>
             </li>
-            <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="{% url 'student:logout' %}"
-                >Logout</a
-              >
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item" href="{% url 'student:logout' %}">Logout</a>
             </li>
           </ul>
         </li>
@@ -146,33 +117,22 @@
     </nav>
     <div id="layoutSidenav">
       <div id="layoutSidenav_nav">
-        <nav
-          class="sb-sidenav accordion sb-sidenav-dark bg-dark"
-          id="sidenavAccordion"
-        >
+        <nav class="sb-sidenav accordion sb-sidenav-dark bg-dark" id="sidenavAccordion">
           <div class="sb-sidenav-menu">
             <div class="nav">
-              
-                <img
-                  src="{% static 'registrar/img/aun-logo.png' %}"
-                  alt="Avatar"
-                  class=""
-                  style="
+
+              <img src="{% static 'registrar/img/aun-logo.png' %}" alt="Avatar" class="" style="
                     padding-top: 15px;
                     margin-top: 0px;
                     width: 100px;
                     margin-left: auto;
                     margin-right: auto;
                     display: block;
-                  "
-                />
-                <h5
-                  class="text-white"
-                  style="text-align: center; margin-top: 20px"
-                >
-                  Registrar
-                </h5>
-             
+                  " />
+              <h5 class="text-white" style="text-align: center; margin-top: 20px">
+                Registrar
+              </h5>
+
               <a class="nav-link" href="{% url 'registrar:index' %}">
                 <div class="sb-nav-link-icon">
                   <i class="fa fa-home"></i>
@@ -180,14 +140,8 @@
                 Dashboard
               </a>
 
-              <a
-                class="nav-link collapsed"
-                href="index.html"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseLayoutsInfo"
-                aria-expanded="false"
-                aria-controls="collapseLayoutsInfo"
-              >
+              <a class="nav-link collapsed" href="index.html" data-bs-toggle="collapse"
+                data-bs-target="#collapseLayoutsInfo" aria-expanded="false" aria-controls="collapseLayoutsInfo">
                 <div class="sb-nav-link-icon">
                   <i class="fa-solid fa-circle-info"></i>
                 </div>
@@ -196,216 +150,190 @@
                   <i class="fas fa-angle-down"></i>
                 </div>
               </a>
-              <div
-                class="collapse"
-                id="collapseLayoutsInfo"
-                aria-labelledby="headingOne"
-                data-bs-parent="#sidenavAccordion"
-              >
+              <div class="collapse" id="collapseLayoutsInfo" aria-labelledby="headingOne"
+                data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                   <a class="nav-link" href="{% url 'registrar:student_info' %}">
                     <div class="sb-nav-link-icon">
                       <i class="fas fa-tachometer-alt"></i>
                     </div>
-                    Student Information</a
-                  >
-                  <a class="nav-link" href="{% url 'registrar:faculty_info' %}"
-                    ><div class="sb-nav-link-icon">
+                    Student Information
+                  </a>
+                  <a class="nav-link" href="{% url 'registrar:faculty_info' %}">
+                    <div class="sb-nav-link-icon">
                       <i class="fa-solid fa-chalkboard-user"></i>
                     </div>
-                    Faculty Information</a
-                  >
-                 
-                    </nav>
-                  </div>
-                  <a
-                class="nav-link collapsed"
-                href="index.html"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseLayoutsSession"
-                aria-expanded="false"
-                aria-controls="collapseLayoutsSession"
-              >
-                  <div class="sb-nav-link-icon">
-                    <i class="fa-sharp fa-solid fa-school"></i>
-                  </div>
-                  Session
-                  <div class="sb-sidenav-collapse-arrow">
-                    <i class="fas fa-angle-down"></i>
-                  </div>
-                </a>
-                <div
-                  class="collapse"
-                  id="collapseLayoutsSession"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#sidenavAccordion"
-                >
-                  <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="{% url 'registrar:create-session' %}">
-                      <div class="sb-nav-link-icon">
-                        <i class="fa-solid fa-plus"></i>
-                      </div>
-                      Create Session</a
-                    >
-                    <a class="nav-link" href="{% url 'registrar:edit-session' %}"
-                      ><div class="sb-nav-link-icon">
-                        <i class="fas fa-archive"></i>
-                      </div>
-                      Edit Session</a
-                    >
-                   
-                      </nav>
-                    </div>
-                    <a
-                class="nav-link collapsed"
-                href="index.html"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseLayoutsCourses"
-                aria-expanded="false"
-                aria-controls="collapseLayoutsCourses"
-              >
+                    Faculty Information
+                  </a>
+
+                </nav>
+              </div>
+              <a class="nav-link collapsed" href="index.html" data-bs-toggle="collapse"
+                data-bs-target="#collapseLayoutsSession" aria-expanded="false" aria-controls="collapseLayoutsSession">
+                <div class="sb-nav-link-icon">
+                  <i class="fa-sharp fa-solid fa-school"></i>
+                </div>
+                Session
+                <div class="sb-sidenav-collapse-arrow">
+                  <i class="fas fa-angle-down"></i>
+                </div>
+              </a>
+              <div class="collapse" id="collapseLayoutsSession" aria-labelledby="headingOne"
+                data-bs-parent="#sidenavAccordion">
+                <nav class="sb-sidenav-menu-nested nav">
+                  <a class="nav-link" href="{% url 'registrar:create-session' %}">
                     <div class="sb-nav-link-icon">
-                      <i class="fas fa-book-open"></i>
+                      <i class="fa-solid fa-plus"></i>
+                    </div>
+                    Create Session
+                  </a>
+                  <a class="nav-link" href="{% url 'registrar:edit-session' %}">
+                    <div class="sb-nav-link-icon">
+                      <i class="fas fa-archive"></i>
+                    </div>
+                    Edit Session
+                  </a>
+
+                </nav>
+              </div>
+              <a class="nav-link collapsed" href="index.html" data-bs-toggle="collapse"
+                data-bs-target="#collapseLayoutsCourses" aria-expanded="false" aria-controls="collapseLayoutsCourses">
+                <div class="sb-nav-link-icon">
+                  <i class="fas fa-book-open"></i>
+                </div>
+                Courses
+                <div class="sb-sidenav-collapse-arrow">
+                  <i class="fas fa-angle-down"></i>
+                </div>
+              </a>
+              <div class="collapse" id="collapseLayoutsCourses" aria-labelledby="headingOne"
+                data-bs-parent="#sidenavAccordion">
+                <nav class="sb-sidenav-menu-nested nav">
+                  <a class="nav-link" href="{% url 'registrar:courses' %}">
+                    <div class="sb-nav-link-icon">
+                      <i class="fa-solid fa-chalkboard"></i>
                     </div>
                     Courses
-                    <div class="sb-sidenav-collapse-arrow">
-                      <i class="fas fa-angle-down"></i>
-                    </div>
                   </a>
-                  <div
-                    class="collapse"
-                    id="collapseLayoutsCourses"
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordion"
-                  >
-                    <nav class="sb-sidenav-menu-nested nav">
-                      <a class="nav-link" href="{% url 'registrar:courses' %}">
-                        <div class="sb-nav-link-icon">
-                          <i class="fa-solid fa-chalkboard"></i>
-                        </div>
-                        Courses</a
-                      >
-                      <a class="nav-link" href="{% url 'registrar:sections' %}"
-                        ><div class="sb-nav-link-icon">
-                          <i class="fas fa-book"></i>
-                        </div>
-                        Sections</a
-                      >
-                      <a class="nav-link" href="{% url 'registrar:create_course' %}">
-                        <div class="sb-nav-link-icon">
-                          <i class="fa-solid fa-plus"></i>
-                        </div>
-                        Create Courses</a
-                      >
-                      <a class="nav-link" href="{% url 'registrar:create_section' %}"
-                        ><div class="sb-nav-link-icon">
-                          <i class="fa-solid fa-plus"></i>
-                        </div>
-                        Create Sections</a
-                      >
-                      
-                     
-                        </nav>
-                      </div>
-                      <a
-                      class="nav-link collapsed"
-                      href="{% url 'registrar:index' %}"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseLayoutsGrade"
-                      aria-expanded="false"
-                      aria-controls="collapseLayoutsGrade"
-                      >
-                      <div class="sb-nav-link-icon">
-                        <i class="fa-sharp fa-solid fa-folder-open"></i>
-                      </div>
-                      Grade
-                      <div class="sb-sidenav-collapse-arrow">
-                        <i class="fas fa-angle-down"></i>
-                      </div>
-                    </a>
-                    <div
-                      class="collapse"
-                      id="collapseLayoutsGrade"
-                      aria-labelledby="headingOne"
-                      data-bs-parent="#sidenavAccordion"
-                    >
-                      
-                        <a class="nav-link" href="{% url 'registrar:grade_history' %}"
-                          ><div class="sb-nav-link-icon">
-                            <i class="fa fa-history" aria-hidden="true"></i>
-                          </div>
-                          View Grades</a
-                        >
-                       
-                          
-                        </div>
-             
-              
-              <a class="nav-link" href="{% url 'registrar:hold' %}">
+                  <a class="nav-link" href="{% url 'registrar:sections' %}">
+                    <div class="sb-nav-link-icon">
+                      <i class="fas fa-book"></i>
+                    </div>
+                    Sections
+                  </a>
+                  <a class="nav-link" href="{% url 'registrar:create_course' %}">
+                    <div class="sb-nav-link-icon">
+                      <i class="fa-solid fa-plus"></i>
+                    </div>
+                    Create Courses
+                  </a>
+                  <a class="nav-link" href="{% url 'registrar:create_section' %}">
+                    <div class="sb-nav-link-icon">
+                      <i class="fa-solid fa-plus"></i>
+                    </div>
+                    Create Sections
+                  </a>
+
+
+                </nav>
+              </div>
+              <a class="nav-link collapsed" href="{% url 'registrar:index' %}" data-bs-toggle="collapse"
+                data-bs-target="#collapseLayoutsGrade" aria-expanded="false" aria-controls="collapseLayoutsGrade">
                 <div class="sb-nav-link-icon">
-                  <i class="fa-solid fa-pause"></i>
+                  <i class="fa-sharp fa-solid fa-folder-open"></i>
                 </div>
-                  Holds
+                Grade
+                <div class="sb-sidenav-collapse-arrow">
+                  <i class="fas fa-angle-down"></i>
+                </div>
               </a>
+              <div class="collapse" id="collapseLayoutsGrade" aria-labelledby="headingOne"
+                data-bs-parent="#sidenavAccordion">
+
+                <a class="nav-link" href="{% url 'registrar:grade_history' %}">
+                  <div class="sb-nav-link-icon">
+                    <i class="fa fa-history" aria-hidden="true"></i>
+                  </div>
+                  View Grades
+                </a>
+
+
+              </div>
+              <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayoutsHolds"
+                aria-expanded="false" aria-controls="collapseLayoutsHolds">
+                <div class="sb-nav-link-icon">
+                  <i class="fa-sharp fa-solid fa-folder-open"></i>
+                </div>
+                Holds
+                <div class="sb-sidenav-collapse-arrow">
+                  <i class="fas fa-angle-down"></i>
+                </div>
+              </a>
+              <div class="collapse" id="collapseLayoutsHolds" aria-labelledby="headingOne"
+                data-bs-parent="#sidenavAccordion">
+
+                <a class="nav-link" href="{% url 'registrar:hold' %}">
+                  <div class="sb-nav-link-icon">
+                    <i class="fa-solid fa-pause"></i>
+                  </div>
+                  Individual Holds
+                </a>
+                <a class="nav-link" href="{% url 'registrar:hold_exceptions' %}">
+                  <div class="sb-nav-link-icon">
+                    <i class="fa-solid fa-pause"></i>
+                  </div>
+                  Hold exceptions
+                </a>
+
+
+              </div>
+
+
+
               <a class="nav-link" href="{% url 'registrar:assign_faculty' %}">
                 <div class="sb-nav-link-icon">
                   <i class="fa-solid fa-pause"></i>
                 </div>
-                  Assign Faculty
+                Assign Faculty
               </a>
 
             </div>
-            </div>
-            
+          </div>
 
-          <div
-            class="dropdown sb-sidenav-footer"
-            style="
+
+          <div class="dropdown sb-sidenav-footer" style="
               background-color: #14213d;
               text-align: center;
               color: #fff;
               flex-shrink: 0;
               border-top: 1px solid #a0a0a0;
-            "
-          >
-            <a
-              href="#"
-              class="align-items-center text-white text-decoration-none dropdown-toggle"
-              id="dropdownUser1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            ">
+            <a href="#" class="align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+              data-bs-toggle="dropdown" aria-expanded="false">
 
               <strong>Registrar</strong>
             </a>
-            <ul
-              class="dropdown-menu dropdown-menu-light text-small shadow"
-              aria-labelledby="dropdownUser1"
-            >
-              
+            <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+
               <li>
-                <a class="dropdown-item" href="{% url 'registrar:logout' %}"
-                  >Sign out</a
-                >
+                <a class="dropdown-item" href="{% url 'registrar:logout' %}">Sign out</a>
               </li>
             </ul>
           </div>
         </nav>
       </div>
       <div id="layoutSidenav_content">
+        {% if messages %}
+        {% for message in messages %}
+        <div{% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
+          {% endfor %}
+          {% endif %}
         {% block body %} {% endblock %}
-        <footer
-          class="py-2 bg-light px-auto text-center"
-          style="border-top: 1px solid #a0a0a0"
-        >
+        <footer class="py-2 bg-light px-auto text-center" style="border-top: 1px solid #a0a0a0">
           <div class="container-fluid text-center mx-auto">
             <div class="align-items-center text-center small">
               <img src="{% static 'registrar/img/aun-logo.png' %}" width="80" alt="" />
-              <img
-                src="{% static 'registrar/img/peterp-favicon.png' %}"
-                width="40"
-                alt=""
-              />
+              <img src="{% static 'registrar/img/peterp-favicon.png' %}" width="40" alt="" />
 
               <div class="text-muted">Copyright &copy; PetERP</div>
             </div>
@@ -413,23 +341,16 @@
         </footer>
       </div>
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"></script>
     <script src="{% static 'registrar/js/scripts.js' %}"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="{% static 'registrar/js/lineChart.js' %}"></script>
-    
+
     <script src="{% static 'registrar/js/barChart.js' %}"></script>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="{% static 'registrar/js/datatables-simple-demo.js' %}"></script>
-  </body>
+</body>
+
 </html>

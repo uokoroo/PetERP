@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/calcstyles.css' %}">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
   </head>
+    {{ student_data.cgpa | json_script:"cgpa_val" }}
+    {{ student_data.earned_hours | json_script:"earned_hours_val" }}
   {% verbatim %}
   <body ng-app="cgpaCalculator">
         <div class="container" ng-controller="cgpaCtrl">
@@ -29,13 +31,13 @@
                             <div class="col-lg-6 col-xs-6">
                                 <label for="cgpa">Current CGPA:</label>
                                 {% endverbatim %}
-                                <input id="cgpa" type="number" class="form-control" ng-model="data.cgpa" value="{{ student_data.cgpa }}" >
+                                <input id="cgpa" type="number" class="form-control" ng-model="data.cgpa"  >
                                 {% verbatim %}
                             </div>
                             <div class="col-lg-6 col-xs-6">
                                 <label for="cgpa">Credit Earned</label>
                                 {% endverbatim %}
-                                <input id="creditsCompleted" type="number" class="form-control" ng-model="data.creditsCompleted" value="{{ student_data.earned_hours }}" disabled>
+                                <input id="creditsCompleted" type="number" class="form-control" ng-model="data.creditsCompleted"  >
                                 {% verbatim %}
                             </div>
                         </div>
@@ -181,12 +183,15 @@
             </div>
         </div>
     </body>
-
     {% endverbatim %}
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.1.4/ui-bootstrap.min.js"></script>
     <script src="{% static 'js/app.js' %}"></script>
     <script src="{% static 'js/cgpaCtrl.js' %}"></script>
     <script src="{% static 'js/cgpaFactory.js' %}"></script>
+    <script>
+
+    </script>
 
 </html>

@@ -24,11 +24,15 @@ urlpatterns = [
     path("grade_history/",views.grade_history,name='grade_history'),
     path("override_action/<int:override_id>/<str:new_state>",views.override_action,name='override_action'),
     path("new_session",views.new_session,name='create-session'),
+    path("new_hold_exception",views.new_hold_exception,name='new_hold_exception'),
     path("edit_session",views.edit_session,name='edit-session'),
     path("hold",views.hold,name='hold'),
+    path("hold_exceptions",views.hold_exceptions,name='hold_exceptions'),
     path("delete_hold/<int:hold_id>",views.delete_hold,name='delete_hold'),
     path("new_hold",views.new_hold,name='new_hold'),
     path("hold_members/<int:hold_id>",views.hold_members,name='hold_members'),
     path("assign_faculty",views.assign_faculty,name='assign_faculty'),
     path("assign/<int:section_id>/<str:faculty_id>",views.assign,name='assign'),
+    path("remove_member/<int:hold_id>/<str:member_id>",views.remove_member,name='remove_member'),
+
 ]

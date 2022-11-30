@@ -78,6 +78,11 @@
     });
   </script>
   <body class="sb-nav-fixed">
+    {% if messages %}
+    {% for message in messages %}
+    <div{% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
+      {% endfor %}
+  {% endif %}
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
       <div class="se-pre-con">
         <div class="spinner-grow blue-text"></div>

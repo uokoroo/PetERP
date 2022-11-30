@@ -1,0 +1,65 @@
+{% extends 'registrar_view/layout.html' %} {% load static %} {% block title %}
+<title>New Hold Exception - PetERP</title>
+{% endblock %} {% block body %}
+<main style="background-color: rgba(0, 0, 0, 0.03)">
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">New Hold Exception</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Holds</li>
+    </ol>
+
+
+
+    <div class-="row px-4 text-center">
+      <form action="" method="post" id="holdExceptionsForm">
+        {% csrf_token %}
+
+      <div class="card mb-4">
+
+        <div class="card-body overflow-auto">
+          <div class="container">
+            <div class="row">
+
+              <div class="col form-check">
+                <label for="user_id" class="lead">
+                  User ID
+
+                </label><input type="text" id="user_id" name="user_id" class="form-control" required>
+
+              </div>
+
+              <div class="container col">
+                <label class="lead" for="hold">Section</label>
+                <select class="form-select" id="hold" name="hold_id">
+                  {% for hold in role_holds %}
+                <option value="{{ hold.hold_id }}"> {{ hold.hold_name }} </option>
+                  {% endfor %}
+                </select>
+
+              </div>
+
+            </div>
+
+
+            <div class="text-center m-4">
+              <button type="submit" class="btn btn-success"><i class="fa fa-floppy-disk"
+                  aria-hidden="true"></i></button>
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+
+
+
+
+
+
+
+</main>
+{% endblock %}

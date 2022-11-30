@@ -501,7 +501,37 @@ def hold(request):
     })
 
 def hold_members(request,hold_id):
-    pass
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    hold_members = requests.get(URL+f"/individual_hold_members?hold_id=eq.{hold_id}",
+                     headers={'Authorization': 'Bearer ' + token})
+    hold_name = requests.get(URL+f"/individual_holds?hold_id=eq.{hold_id}", headers={'Authorization': 'Bearer ' + token})
+    print(hold_name.json())
+    print(token)
+    hold_name = hold_name.json()[0].get('hold_name')
+    if 0 <= hold_members.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, hold_members.json()['message'])
+        return redirect(reverse('home:login'))
+
+    return render(request,'registrar_view/individual_hold_members.html', {
+        'members': hold_members.json(),
+        'hold_name':hold_name
+    })
+    
+
+    
+def remove_member(request, hold_id, member_id):
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    delete_member = requests.delete(URL+f"/individual_hold_members?hold_id=eq.{hold_id}&member_id=eq.{member_id}",
+    headers={'Authorization': 'Bearer ' + token}
+    )
+    if 0 <= delete_member.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, hold_members.json()['message'])
+    return redirect(reverse('registrar:hold'))
+
 
 def delete_hold(request,hold_id):
     token = request.session.get('token')
@@ -543,6 +573,49 @@ def assign_faculty(request):
         'faculty':faculty.json()
     })
 
+
+def hold_exceptions(request):
+    if not request.session['token']:
+        return redirect(reverse('home:login'))
+    token = request.session['token']
+    holdExceptions = requests.get(URL+"/hold_exceptions?select=*,role_holds(hold_name)",
+                     headers={'Authorization': 'Bearer ' + token})
+    if 0 <= holdExceptions.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING, holdExceptions.json()['message'])
+        return redirect(reverse('home:login'))
+    return render(request,'registrar_view/hold_exceptions.html',{
+        'hold_exceptions':holdExceptions.json()
+    })
+
+
+def new_hold_exception(request):
+    if not request.session.get('token'):
+        return redirect('home:login')
+    token = request.session.get('token')
+    if request.method == 'POST':
+        # incomplete
+        payload = convert(request.POST)
+        new_exception = requests.post(URL+"/hold_exceptions", json=payload,
+                               headers={'Authorization': 'Bearer ' + token})
+        # 403 forbidden means the user is not allowed to access this page
+        if 0 <= new_exception.status_code - 400 < 100:
+            messages.add_message(request, messages.WARNING,
+                                 new_exception.json()['message'])
+            return redirect(reverse('registrar:new_hold_exception'))
+        else:
+            messages.add_message(request, messages.SUCCESS,
+                                 'Succesfully added exception')
+            return redirect(reverse('registrar:new_hold_exception'))
+    role_holds = requests.get(URL+"/role_holds",
+                             headers={'Authorization': 'Bearer ' + token})
+    if 0 <= role_holds.status_code - 400 < 100:
+        messages.add_message(request, messages.WARNING,
+                             role_holds.json().get('message'))
+        return HttpResponseRedirect(reverse('home:login'))
+
+    return render(request, "registrar_view/new_hold_exception.html", {
+        'role_holds': role_holds.json(),
+    })
 
 def assign(request,section_id,faculty_id):
     if not request.session['token']:

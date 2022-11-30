@@ -101,12 +101,15 @@ def allocate_grades(request):
                              grades.json()['message'])
         return HttpResponseRedirect(reverse('home:login'))
     faculty_data = request.session.get('faculty_data')
+    print(faculty_data.get('faculty_id'))
     on_hold = requests.post(
-        URL+"/rpc/user_hold_check",
+        URL+"/rpc/on_hold",
         headers={'Authorization':'Bearer ' + token, },
-        json={"restricted_object":'student_enrollment',"operation":"update"}
+        json={"restricted_table":'student_enrollment',"operation":"update", "id":faculty_data.get('faculty_id')}
         )
+
     on_hold = on_hold.json()
+    print(on_hold)
     return render(request, "faculty_view/allocate-grade.html", {
         'grades': grades.json(),
         "faculty_data": faculty_data,
@@ -224,8 +227,7 @@ def section_records(request, section_id):
         'faculty_data': faculty_data
 
     })
-    "sections?select=*,session(semester,year),student_enrollment!inner(students(first_name,middle_name,last_name))"
-    return render(request, 'faculty_view/semester_records.html')
+
 
 
 def override_action(request, new_state, override_id):

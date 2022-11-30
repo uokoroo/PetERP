@@ -6,6 +6,10 @@
     // 
 // Scripts
 // 
+const cgpa_val = document.getElementById('cgpa_val');
+const earned_hours = document.getElementById('earned_hours_val');
+
+const cgpa = document.getElementById('cpga');
 
 window.addEventListener('DOMContentLoaded', event => {
 
@@ -23,4 +27,5 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     }
 
+    cgpa.value = cgpa_val;
 });

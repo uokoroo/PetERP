@@ -52,9 +52,6 @@ def index(request):
         # this probably will not hold in production but suffices for now
         else:
             # cache the important data about the current use to avoid making repeated api calls
-            print(f"Notifs { StudentMessage.objects.filter(student_id={student_data.json()[0].get('student_id')})}")
-            print(f"All { StudentMessage.objects.all()}")
-            print(f"Student ID {student_data.json()[0].get('student_id')}")
             notifs = StudentMessage.objects.all()
             request.session['student_data'] = student_data.json()[0]
             request.session['concise_schedule'] = concise_schedule.json()
@@ -258,6 +255,7 @@ def cgpa_calculator(request):
     if not request.session['token']:
         return redirect(reverse('home:login'))
     student_data = request.session.get('student_data')
+    print(student_data)
     return render(request,'student_view/cgpa-calculator.html',{
         'student_data':student_data
     }) 
