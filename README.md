@@ -33,7 +33,7 @@ To configure the database, follow these steps:
 
 3. **Start PostgREST:** After setting up the database, start the PostgREST server by running the following command:
     ```
-    postgrest postgrest.postgrest.conf
+    postgrest postgrest/postgrest.conf
     ```
     This command will start the PostgREST server using the configuration provided in the `postgrest.postgrest.conf` file.
 
@@ -42,10 +42,11 @@ Ensure that you have the necessary permissions and dependencies installed to exe
 For further assistance or troubleshooting, refer to the PostgreSQL and PostgREST documentation or contact the project maintainer.
 
 ## Installation:
-1. Clone the repository from [GitHub Repo URL].
-2. Install dependencies using [package manager].
-3. Configure database connection settings in [config file].
-4. Run the application using [command].
+1. Clone the repository.
+2. Install dependencies using `pip install -r requirements.txt`.
+3. Configure database connection settings in `postgrest/postgrest.conf`.
+4. Migrate the database with `python manage.py migrate`.
+6. Run the application using `python manage.py runserver`.
 
 ## Usage:
 1. Access the API endpoints using HTTP requests (GET, POST, PUT, DELETE).
@@ -55,9 +56,6 @@ For further assistance or troubleshooting, refer to the PostgreSQL and PostgREST
 ## Contributing:
 Contributions to the project are welcome! Please follow the guidelines outlined in [CONTRIBUTING.md] to contribute code, report issues, or suggest improvements.
 
-## License:
-This project is licensed under the [license type]. See [LICENSE.md] for more details.
-
 ## Contact:
-For inquiries or assistance, please contact [Project Maintainer Name] at [contact email].
+For inquiries or assistance, please contact Najeeb Yusuf at yusufnajlawal@gmail.com.
 
