@@ -1,4 +1,4 @@
-#RESTful API Implementation
+## RESTful API Implementation
 
 ## Abstract:
 This project proposes the development of a proof of concept and implementation of a RESTful API for the ERP system. Currently, the ERP system is supported by database objects within a PostgreSQL database. Introducing a RESTful API on top of the existing database offers numerous benefits, including improved interoperability, maintenance, and flexibility. By providing a quick and responsive interface, this API aims to meet the growing needs of the ERP system and serve as the foundation for next-generation applications for students, faculty, and staff.
