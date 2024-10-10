@@ -1,16 +1,16 @@
-# AUN ERP RESTful API Implementation
+#RESTful API Implementation
 
 ## Abstract:
-This project proposes the development of a proof of concept and implementation of a RESTful API for the AUN ERP system. Currently, the ERP system is supported by database objects within a PostgreSQL database. Introducing a RESTful API on top of the existing database offers numerous benefits, including improved interoperability, maintenance, and flexibility. By providing a quick and responsive interface, this API aims to meet the growing needs of the AUN ERP system and serve as the foundation for next-generation applications for students, faculty, and staff.
+This project proposes the development of a proof of concept and implementation of a RESTful API for the ERP system. Currently, the ERP system is supported by database objects within a PostgreSQL database. Introducing a RESTful API on top of the existing database offers numerous benefits, including improved interoperability, maintenance, and flexibility. By providing a quick and responsive interface, this API aims to meet the growing needs of the ERP system and serve as the foundation for next-generation applications for students, faculty, and staff.
 
 ## Key Components:
 - **API:** The RESTful API will serve as the primary interface for interacting with the AUN ERP system.
 - **PostgREST:** Leveraging PostgREST to automatically generate a RESTful API from the PostgreSQL database schema.
 - **PostgreSQL:** Utilizing PostgreSQL as the underlying database management system for storing ERP data.
-- **ERP System:** Integrating the API with the existing AUN ERP system to enhance its functionality and accessibility.
+- **ERP System:** Integrating the API with the existing ERP system to enhance its functionality and accessibility.
 
 ## Purpose:
-The purpose of this project is to enhance the AUN ERP system by implementing a modern and efficient RESTful API. By doing so, we aim to improve interoperability, simplify maintenance tasks, and provide a more flexible interface for users. This API will cater to the evolving needs of students, faculty, and staff at AUN, laying the groundwork for future advancements and innovations in ERP application development.
+The purpose of this project is to enhance the ERP system by implementing a modern and efficient RESTful API. By doing so, we aim to improve interoperability, simplify maintenance tasks, and provide a more flexible interface for users. This API will cater to the evolving needs of students, faculty, and staff at, laying the groundwork for future advancements and innovations in ERP application development.
 
 ## Features:
 - Expose CRUD (Create, Read, Update, Delete) operations for ERP data entities via HTTP endpoints.
