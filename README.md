@@ -17,7 +17,7 @@ The purpose of this project is to enhance the ERP system by implementing a moder
 - Implement authentication and authorization mechanisms to ensure secure access to sensitive data.
 - Support for filtering, sorting, and pagination to enhance usability and performance.
 - Documentation generation for API endpoints to facilitate usage and integration with client applications.
-- Integration with existing AUN ERP modules to streamline workflow processes and data management.
+- Integration with existing ERP modules to streamline workflow processes and data management.
 
 ## Database Configuration:
 
